@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/mattcubitt/score-predictor#readme",
   "dependencies": {
-    "co-body": "^4.0.0",
     "koa": "^1.1.2",
     "koa-bodyparser": "^2.0.1",
     "koa-jwt": "^1.1.2",

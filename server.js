@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var koa = require('koa');
-var parse = require('co-body');
 var jwt = require('koa-jwt');
 var serve = require('koa-static');
 var bodyParser = require('koa-bodyparser');
@@ -34,7 +33,7 @@ app.use(function *(next) {
 
 app.use(function *(next) {
     if (this.url.match(/^\/login/)) {
-        var claims = yield parse(this);
+        var claims = this.request.body;
         var token = jwt.sign(claims, privateKey, {algorithm: 'RS256'});
         this.status = 200;
         this.body = {token: token};
