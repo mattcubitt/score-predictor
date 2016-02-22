@@ -1,0 +1,29 @@
+{
+  "name": "score-predictor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "example.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattcubitt/score-predictor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattcubitt/score-predictor/issues"
+  },
+  "homepage": "https://github.com/mattcubitt/score-predictor#readme",
+  "dependencies": {
+    "co-body": "^4.0.0",
+    "koa": "^1.1.2",
+    "koa-bodyparser": "^2.0.1",
+    "koa-jwt": "^1.1.2",
+    "koa-resource-router": "^0.4.0",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
+    "superagent": "^1.7.2"
+  }
+}
