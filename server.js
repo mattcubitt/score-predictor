@@ -1,98 +1,48 @@
-'use strict';
+import express from 'express'
+import path from 'path'
+import compression from 'compression'
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import { match, RouterContext } from 'react-router'
+import routes from 'src/routes'
 
-var fs = require('fs');
-var koa = require('koa');
-var jwt = require('koa-jwt');
-var serve = require('koa-static');
-var bodyParser = require('koa-bodyparser');
-var router = require('koa-router')({
-    prefix: '/api'
-});
+var app = express()
 
-var app = koa();
+app.use(compression())
 
-app.use(serve('.'));
-app.use(bodyParser());
+// serve our static stuff like index.css
+app.use(express.static(path.join(__dirname, 'dist')))
 
-//var publicKey = fs.readFileSync('demo.rsa.pub');
-//var privateKey = fs.readFileSync('demo.rsa');
-//
-//app.use(function *(next) {
-//    try {
-//        yield next; //Attempt to go through the JWT Validator
-//    } catch(e) {
-//        if (e.status == 401 ) {
-//            // Prepare response to user.
-//            this.status = e.status;
-//            this.body = 'You don\'t have a signed token dude :('
-//        } else {
-//            throw e; // Pass the error to the next handler since it wasn't a JWT error.
-//        }
-//    }
-//});
-//
-//app.use(function *(next) {
-//    if (this.url.match(/^\/login/)) {
-//        var claims = this.request.body;
-//        console.log(claims);
-//        var token = jwt.sign(claims, privateKey, {algorithm: 'RS256'});
-//        this.status = 200;
-//        this.body = {token: token};
-//    } else {
-//        yield next;
-//    }
-//});
-//
-//app.use(jwt({
-//    secret: publicKey,
-//    algorithm: 'RS256'
-//}));
-
-var fixtures = [{
-    homeTeam: {
-        fullName: 'Germany',
-        shortName: 'GER'
-    },
-    awayTeam: {
-        fullName: 'England',
-        shortName: 'ENG'
+// send all requests to index.html so browserHistory works
+app.get('*', (req, res) => {
+  match({ routes, location: req.url }, (err, redirect, props) => {
+    if (err) {
+      res.status(500).send(err.message)
+    } else if (redirect) {
+      res.redirect(redirect.pathname + redirect.search)
+    } else if (props) {
+      // hey we made it!
+      const appHtml = renderToString(<RouterContext {...props}/>)
+      res.send(renderPage(appHtml))
+    } else {
+      res.status(404).send('Not Found')
     }
-}, {
-    homeTeam: {
-        fullName: 'Italy',
-        shortName: 'ITA'
-    },
-    awayTeam: {
-        fullName: 'Spain',
-        shortName: 'SPA'
-    }
-}, {
-    homeTeam: {
-        fullName: 'Germany',
-        shortName: 'GER'
-    },
-    awayTeam: {
-        fullName: 'Spain',
-        shortName: 'SPA'
-    }
-}];
+  })
+})
 
-router.get('/fixtures', function* (next) {
-    this.body = fixtures;
+function renderPage(appHtml) {
+  return `
+    <!doctype html public="storage">
+    <html>
+    <meta charset=utf-8/>
+    <title>My First React Router App</title>
+    <link rel=stylesheet href=/index.css>
+    <div id=app>${appHtml}</div>
+    <script src="/bundle.js"></script>
+   `
+}
 
-    yield next;
-});
-
-router.post('/fixtures', function* (next) {
-    var fixture = this.request.body;
-
-    fixtures.push(fixture);
-
-    this.body = fixture;
-
-    yield next;
-});
-
-app.use(router.routes());
-
-app.listen(3333);
+var PORT = process.env.PORT || 8080
+app.listen(PORT, function() {
+  console.log('Production Express server running at localhost:' + PORT)
+})

@@ -75,4 +75,4 @@ var FixtureList = React.createClass({
     }
 });
 
-module.exports = FixtureList;
+export default FixtureList;
