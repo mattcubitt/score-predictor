@@ -1,23 +1,35 @@
-var webpack = require('webpack')
+var webpack = require('webpack');
 
 module.exports = {
-    entry: './index.js',
-
+    entry: [
+        // Add the client which connects to our middleware
+        // You can use full urls like 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr'
+        // useful if you run your app from another point like django
+        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+        // And then the actual application
+        './app/client/client.js'
+    ],
     output: {
-        path: 'dist',
-        filename: 'bundle.js',
-        publicPath: '/'
+        path: __dirname,
+        publicPath: '/',
+        filename: 'bundle.js'
     },
-
-    plugins: process.env.NODE_ENV === 'production' ? [
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin()
-    ] : [],
-
+    devtool: '#source-map',
+    plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ],
     module: {
         loaders: [
-            {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react'}
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                    presets: ['react', 'es2015']
+                }
+            }
         ]
     }
-}
+};
