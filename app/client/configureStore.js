@@ -6,10 +6,18 @@ import createLogger from 'redux-logger'
 
 var reducers = {
     form: formReducer,
-    auth: function(state = { }, action) {
+    auth: function(state={}, action) {
         switch(action.type) {
             case 'ADD_TOKEN':
-                return Object.assign(state, { token: action.token });
+                return Object.assign({}, { token: action.token });
+            default:
+                return state;
+        }
+    },
+    fixtures: function(state=[], action) {
+        switch(action.type) {
+            case 'LOAD_FIXTURES':
+                return action.fixtures;
             default:
                 return state;
         }
