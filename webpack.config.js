@@ -7,7 +7,7 @@ module.exports = {
         // useful if you run your app from another point like django
         'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
         // And then the actual application
-        './app/client/client.js'
+        './app/client/app.js'
     ],
     output: {
         path: __dirname,
