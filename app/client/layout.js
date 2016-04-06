@@ -9,6 +9,7 @@ export default React.createClass({
                 <nav className="navbar navbar-fixed-top navbar-dark bg-inverse">
                     <a className="navbar-brand" href="#">Score predictor</a>
                     <ul className="nav navbar-nav">
+                        <li className="nav-item"><NavLink to="/login">Login</NavLink></li>
                         <li className="nav-item"><NavLink to="/registration">Registration</NavLink></li>
                         <li className="nav-item"><NavLink to="/fixtures">Fixture List</NavLink></li>
                      </ul>

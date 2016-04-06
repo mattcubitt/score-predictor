@@ -1,17 +1,16 @@
 var Router = require('koa-router');
 var authConfig = require('./authConfig');
 var jwt = require('jsonwebtoken');
-var userService = require('../user/userService');
 
 module.exports = Router({ prefix: '/auth' })
     .post('/login', function *() {
         var params = this.request.body;
-        var user = userService.find(params.email);
+        var user = this.users.find(params.email);
 
         if(user === null) {
             this.status = 404;
             this.body = 'Account not found';
-        } else if(!userService.comparePassword(params.password, user.password)) {
+        } else if(!this.users.comparePassword(params.password, user.password)) {
             this.status = 409;
             this.body = 'Password incorrect';
         } else {
@@ -32,13 +31,13 @@ module.exports = Router({ prefix: '/auth' })
     })
     .post('/register', function *() {
         var params = this.request.body;
-        var user = userService.find(params.email);
+        var user = this.users.find(params.email);
 
         if(user !== null) {
             this.status = 409;
             this.body = 'Email already registered';
         } else {
-            userService.insert(params.email, params.password);
+            this.users.insert(params.name, params.email, params.password);
 
             var now = Math.floor(Date.now() / 1000);
             var oneDayExpiry = 60 * 60 * 24;
@@ -56,7 +55,7 @@ module.exports = Router({ prefix: '/auth' })
         }
     })
     .get('/validate/email/:email', function *() {
-        var user = userService.find(this.params.email);
+        var user = this.users.find(this.params.email);
 
         if(user === null) {
             this.status = 200;

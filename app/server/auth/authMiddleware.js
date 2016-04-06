@@ -1,6 +1,5 @@
 var authConfig = require('./authConfig');
 var jwt = require('jsonwebtoken');
-var userService = require('../user/userService');
 
 module.exports = function*(next){
     try {
@@ -13,7 +12,7 @@ module.exports = function*(next){
 
         var claims = jwt.verify(token, authConfig.privateKey, options);
 
-        this.user = userService.find(claims.email);
+        this.currentUser = this.users.find(claims.email);
 
         yield next;
 

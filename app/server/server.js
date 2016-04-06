@@ -7,10 +7,22 @@ var hotMiddleware = require("koa-webpack-hot-middleware");
 var path = require('path');
 var webpackConfig = require('../../webpack.config');
 var compiler = webpack(webpackConfig);
+
 var authRoute = require('./auth/authRoute');
-var fixtureRoute = require('./fixture/fixtureRoute');
+var fixtureRoute = require('./fixtures/fixtureRoute');
+var predictionRoute = require('./predictions/predictionRoute');
+
+var users = require('../users/userService');
+var predictions = require('../predictions/predictionService');
+var fixtures = require('../fixtures/fixtureService');
 
 var app = koa();
+
+app.use(function* () {
+    this.users = users;
+    this.predictions = predictions;
+    this.fixtures = fixtures;
+});
 
 app.use(bodyParser());
 app.use(devMiddleware(compiler, {
@@ -22,5 +34,6 @@ app.use(hotMiddleware(compiler, {
 app.use(serve(path.resolve(__dirname, '../client')));
 app.use(authRoute);
 app.use(fixtureRoute);
+app.use(predictionRoute);
 
 app.listen(3000);

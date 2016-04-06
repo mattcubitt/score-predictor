@@ -3,14 +3,9 @@ import { reduxForm } from 'redux-form';
 import request from 'axios';
 import { browserHistory } from 'react-router';
 
-// request.interceptors.response.use((response) => {
-//     debugger;
-//
-// });
-
 var onSubmit = (values, dispatch) => {
     return request
-        .post('/auth/register', { email: values.email, password: values.password })
+        .post('/auth/login', { email: values.email, password: values.password })
         .then((response) => {
             dispatch({
                 type: 'ADD_TOKEN',
@@ -26,9 +21,6 @@ var onSubmit = (values, dispatch) => {
 
 var validate = values => {
     var errors = {};
-    if (!values.name) {
-        errors.name = 'Required';
-    }
 
     if (!values.email) {
         errors.email = 'Required';
@@ -36,46 +28,33 @@ var validate = values => {
         errors.email = 'Invalid email address';
     }
 
+    //todo add password
+
     return errors;
 };
 
-const asyncValidate = (values, dispatch) => {
-    return request
-        .get(`/auth/validate/email/${values.email}`)
-        .then(() => {})
-        .catch((response) => {
-            return response.data;
-        });
-};
-
-class SignUpForm extends Component {
+class LoginForm extends Component {
     render() {
-        const {fields: {name, email, password}, handleSubmit, submitting} = this.props;
+        const {fields: {email, password}, handleSubmit, submitting} = this.props;
         return (
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h4>Registration</h4>
-                <div className={'form-group' + (name.touched && name.error ? ' has-danger' : '')}>
-                    <input type="text" className="form-control" placeholder="Name" {...name}/>
-                    {name.touched && name.error && <span className="text-help">{name.error}</span>}
-                </div>
+                <h4>Login</h4>
                 <div className={'form-group' + (email.touched && email.error ? ' has-danger' : '')}>
-                    <input type="email" className="form-control" placeholder="Email" {...email}/>
+                    <input type="text" className="form-control" placeholder="Email" {...email}/>
                     {email.touched && email.error && <span className="text-help">{email.error}</span>}
                 </div>
                 <div className={'form-group' + (password.touched && password.error ? ' has-danger' : '')}>
                     <input type="password" className="form-control" placeholder="Password" {...password}/>
                     {password.touched && password.error && <span className="text-help">{password.error}</span>}
                 </div>
-                <button type="submit" className="btn btn-primary" disabled={submitting}>Register</button>
+                <button type="submit" className="btn btn-primary" disabled={submitting}>Login</button>
             </form>
         )
     }
 }
 
 export default reduxForm({
-    form: 'signUpForm',
-    fields: ['name', 'email', 'password'],
-    asyncValidate,
-    asyncBlurFields: ['email'],
+    form: 'loginForm',
+    fields: ['email', 'password'],
     validate
-})(SignUpForm);
+})(LoginForm);

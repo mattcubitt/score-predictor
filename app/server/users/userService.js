@@ -4,7 +4,12 @@ var bcrypt = require('bcrypt-nodejs');
 
 class UserService {
     constructor() {
-        this.users = [];
+        this.users = [{
+            userId: 1,
+            name: 'matt',
+            email: 'matt.d.cubitt@gmail.com',
+            password: 'password'
+        }];
     }
 
     find(email) {
@@ -16,8 +21,9 @@ class UserService {
         return foundUsers[0];
     }
 
-    insert(email, password) {
+    insert(name, email, password) {
         var user = {
+            name: name,
             email: email,
             password: bcrypt.hashSync(password, null, null)
         };

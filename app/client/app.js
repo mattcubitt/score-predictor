@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import Layout from './layout';
+import Login from './login/loginForm';
 import Registration from './registration/registerForm';
 import Fixtures from './fixtures/fixtures';
 import configureStore from './configureStore'
@@ -31,6 +32,7 @@ render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={Layout}>
+                <Route path="login" component={Login}/>
                 <Route path="registration" component={Registration}/>
                 <Route path="fixtures" component={Fixtures}/>
             </Route>

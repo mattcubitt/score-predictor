@@ -5,7 +5,7 @@ import Fixture from './fixture';
 
 function fetch(token) {
     return dispatch => {
-        return request('/fixture', {
+        return request('/fixtures', {
                 headers: { authorization: token }
             })
             .then(response => {
@@ -13,6 +13,17 @@ function fetch(token) {
                     type: 'LOAD_FIXTURES',
                     fixtures: response.data
                 });
+            })
+            .then(() => {
+                return request('/predictions', {
+                    headers: { authorization: token }
+                })
+                .then(response => {
+                    return dispatch({
+                        type: 'LOAD_PREDICTIONS',
+                        predictions: response.data
+                    });
+                })
             });
     }
 }
@@ -39,6 +50,7 @@ class Fixtures extends Component {
 
         return (
             <div>
+                //find prediction and add here
                 {fixtures.map(fixture =>
                         <Fixture fixture={fixture}/>)}
             </div>
