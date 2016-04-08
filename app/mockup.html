@@ -3,45 +3,132 @@
 <head>
     <meta charset="utf-8">
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <title>Euro 2016 Predictor</title>
+    <title> </title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+    <style type="text/css">
         body {
             background-color: #F4F4F4;
         }
-
-        .predictions ul {
+        .fixtures {
             list-style: none;
+            padding: 0;
+            font-size: 12px;
         }
-
-        .predictions .prediction {
+        .fixtures .fixture {
+            list-style: none;
             background-color: #FFFFFF;
             border-top: 0.1em solid #E5E4E6;
             border-bottom: 0.1em solid #E5E4E6;
-            padding: 0.5em 1em;
+            padding: 0.75em 1em;
             margin-bottom: 0.5em;
             font-size: 12px;
+            height: 5em;
+            overflow: hidden;
+        }
+        .fixtures .fixture .teams-col {
+            height: 100%;
+            width: 40%;
+            float: left;
         }
 
-        .predictions .prediction input {
-            width: 20px;
+        .fixtures .fixture .teams-col .team {
+            height: 100%;
+            width: 40%;
+            float: left;
+        }
+
+        .fixtures .fixture .teams-col .team .flag {
+            height: 60%;
+        }
+
+        .fixtures .fixture .teams-col .team .flag .flag-icon {
+            height: 2em;
+            width: 3em;
+            margin: auto;
+            background-color: #2C2C2C;
+        }
+
+        .fixtures .fixture .teams-col .team .name {
+            height: 40%;
+            text-align: center;
+            line-height: 1.4em;
+        }
+
+        .fixtures .fixture .teams-col .versus {
+            height: 100%;
+            width: 20%;
+            float: left;
+            text-align: center;
+            padding: 1em;
+            line-height: 2em;
+            font-size: 10px;
+        }
+
+        .fixtures .fixture .prediction-col {
+            height: 100%;
+            width: 30%;
+            float: left;
+        }
+        .fixtures .fixture .prediction-col .input {
+            height: 100%;
+            width: 45%;
+            float: left;
+        }
+        .fixtures .fixture .prediction-col .input input {
+            width: 2em;
+            height: 100%;
             border: 0 transparent solid;
             background-color: #E7E8E7;
             padding: 0.1em 0.4em;
+            margin: auto;
+            display: block;
+        }
+        .fixtures .fixture .prediction-col .input input:focus {
+            outline: none;
         }
 
-        .predictions .prediction .calender {
+        .fixtures .fixture .prediction-col .dash {
+            height: 100%;
+            width: 10%;
+            float: left;
             text-align: center;
-            width: 5em;
+            line-height: 3em;
+        }
+
+        .fixtures .fixture .calender-col {
+            height: 100%;
+            width: 15%;
+            float: left;
+        }
+        .fixtures .fixture .calender-col .calender {
+            font-size: 0.7rem;
+            width: 4em;
+            margin: auto;
+            height: 100%;
+            text-align: center;
+            line-height: 1.7em;
             border: 0.2em solid #E7E8E7;
         }
-
-        .predictions .prediction .calender .calender-date {
-
+        .fixtures .fixture .calender-col .calender .time {
+            background-color: #E7E8E7;
+            height: 50%;
+        }
+        .fixtures .fixture .calender-col .calender .date {
+            height: 50%;
         }
 
-        .predictions .prediction .calender .calender-time {
-            background-color: #E7E8E7;
+        .fixtures .fixture .points-col {
+            height: 100%;
+            width: 15%;
+            float: left;
+        }
+
+        .fixtures .fixture .points-col .points {
+            height: 100%;
+            width: 2em;
+            margin: auto;
+            text-align: center;
+            line-height: 3em;
         }
     </style>
 </head>
@@ -53,54 +140,88 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-8">
-                <div class="predictions">
-                    <ul>
-                        <li class="prediction">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <div class="row">
-                                        <div class="col-xs-4 text-xs-center">GER</div>
-                                        <div class="col-xs-2 text-xs-center">vs</div>
-                                        <div class="col-xs-4 text-xs-center">ENG</div>
-                                    </div>
+            <div class="col-xs-12 col-md-8">
+                <ul class="fixtures">
+                    <li class="fixture">
+                        <div class="teams-col">
+                            <div class="team">
+                                <div class="flag">
+                                    <div class="flag-icon"></div>
                                 </div>
-                                <div class="col-xs-6">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <div class="row">
-                                                <div class="col-xs-4">
-                                                    <input type="text" style="width: 20px;">
-                                                </div>
-                                                <div class="col-xs-2 text-xs-center">
-                                                    -
-                                                </div>
-                                                <div class="col-xs-4">
-                                                    <input type="text" style="width: 20px;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="calender">
-                                                <div class="calender-time">
-                                                    12:30
-                                                </div>
-                                                <div class="calender-date">
-                                                    12 JUN
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-3">
-                                    —
-                                </div>
-
+                                <div class="name">GER</div>
                             </div>
-                        </li>
-                        <li class="prediction">2</li>
-                    </ul>
-                </div>
+                            <div class="versus">vs</div>
+                            <div class="team">
+                                <div class="flag">
+                                    <div class="flag-icon"></div>
+                                </div>
+                                <div class="name">ENG</div>
+                            </div>
+                        </div>
+                        <div class="prediction-col">
+                            <div class="input">
+                                <input type="text">
+                            </div>
+                            <div class="dash">
+                                <span>–</span>
+                            </div>
+                            <div class="input">
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="calender-col">
+                            <div class="calender">
+                                <div class="time">12:30</div>
+                                <div class="date">12 JUN</div>
+                            </div>
+                        </div>
+                        <div class="points-col">
+                            <div class="points">
+                                –
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="fixture">
+                        <div class="teams-col">
+                            <div class="team">
+                                <div class="flag">
+                                    <div class="flag-icon"></div>
+                                </div>
+                                <div class="name">GER</div>
+                            </div>
+                            <div class="versus">vs</div>
+                            <div class="team">
+                                <div class="flag">
+                                    <div class="flag-icon"></div>
+                                </div>
+                                <div class="name">ENG</div>
+                            </div>
+                        </div>
+                        <div class="prediction-col">
+                            <div class="input">
+                                <input type="text">
+                            </div>
+                            <div class="dash">
+                                <span>–</span>
+                            </div>
+                            <div class="input">
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="calender-col">
+                            <div class="calender">
+                                <div class="time">12:30</div>
+                                <div class="date">12 JUN</div>
+                            </div>
+                        </div>
+                        <div class="points-col">
+                            <div class="points">
+                                –
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div class="col-xs-4 text-xs-center">
                 table goes here

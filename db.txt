@@ -14,9 +14,17 @@ predictions
 -updatedOn
 
 fixtures
+-roundId
 -homeTeam
 -awayTeam
 -homeScore
 -awayScore
 -kickOffOn
 
+rounds
+-roundId
+-name
+
+wildcards
+-wildcardId
+-name
