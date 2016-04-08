@@ -3,7 +3,6 @@ import thunkMiddleware from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form';
 import createLogger from 'redux-logger'
 
-
 var reducers = {
     form: formReducer,
     auth: function(state={}, action) {

@@ -1,3 +1,5 @@
+import {} from './style.scss'
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,6 +9,7 @@ import Login from './login/loginForm';
 import Registration from './registration/registerForm';
 import Fixtures from './fixtures/fixtures';
 import configureStore from './configureStore'
+
 
 // var reducers = {
 //     form: formReducer,
