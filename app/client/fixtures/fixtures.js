@@ -50,7 +50,6 @@ class Fixtures extends Component {
 
         return (
             <div>
-                //find prediction and add here
                 {fixtures.map(fixture =>
                         <Fixture fixture={fixture}/>)}
             </div>
@@ -59,7 +58,7 @@ class Fixtures extends Component {
 }
 
 Fixtures.propTypes = {
-    token: PropTypes.string.isRequired,
+    //token: PropTypes.string.isRequired,
     fixtures: PropTypes.array.isRequired
 };
 

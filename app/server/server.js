@@ -12,16 +12,18 @@ var authRoute = require('./auth/authRoute');
 var fixtureRoute = require('./fixtures/fixtureRoute');
 var predictionRoute = require('./predictions/predictionRoute');
 
-var users = require('../users/userService');
-var predictions = require('../predictions/predictionService');
-var fixtures = require('../fixtures/fixtureService');
+var users = require('./users/userService');
+var predictions = require('./predictions/predictionService');
+var fixtures = require('./fixtures/fixtureService');
 
 var app = koa();
 
-app.use(function* () {
+app.use(function* (next) {
     this.users = users;
     this.predictions = predictions;
     this.fixtures = fixtures;
+
+    yield next;
 });
 
 app.use(bodyParser());

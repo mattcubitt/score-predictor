@@ -10,9 +10,15 @@ module.exports = function*(next){
             issuer: authConfig.issuer
         };
 
-        var claims = jwt.verify(token, authConfig.privateKey, options);
+        //var claims = jwt.verify(token, authConfig.privateKey, options);
 
-        this.currentUser = this.users.find(claims.email);
+        //this.currentUser = this.users.find(claims.email);
+        this.currentUser = {
+            userId: 1,
+            name: 'matt',
+            email: 'test@email.com',
+            password: 'password'
+        };
 
         yield next;
 

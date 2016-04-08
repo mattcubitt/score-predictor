@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, browserHistory, hashHistory } from 'react-router';
 import Layout from './layout';
 import Login from './login/loginForm';
 import Registration from './registration/registerForm';
@@ -30,7 +30,7 @@ const store = configureStore();
 
 render(
     <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={hashHistory}>
             <Route path="/" component={Layout}>
                 <Route path="login" component={Login}/>
                 <Route path="registration" component={Registration}/>
