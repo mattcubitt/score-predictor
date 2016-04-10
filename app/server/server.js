@@ -1,6 +1,7 @@
 var koa = require('koa');
 var bodyParser = require('koa-bodyparser');
 var serve = require('koa-static');
+var logger = require('koa-logger');
 var webpack = require('webpack');
 var devMiddleware = require("koa-webpack-dev-middleware");
 var hotMiddleware = require("koa-webpack-hot-middleware");
@@ -12,16 +13,18 @@ var authRoute = require('./auth/authRoute');
 var fixtureRoute = require('./fixtures/fixtureRoute');
 var predictionRoute = require('./predictions/predictionRoute');
 
-var users = require('./users/userService');
-var predictions = require('./predictions/predictionService');
-var fixtures = require('./fixtures/fixtureService');
+var userService = require('./users/userService');
+var predictionService = require('./predictions/predictionService');
+var fixtureService = require('./fixtures/fixtureService');
 
 var app = koa();
 
+app.use(logger());
+
 app.use(function* (next) {
-    this.users = users;
-    this.predictions = predictions;
-    this.fixtures = fixtures;
+    this.userService = userService;
+    this.predictionService = predictionService;
+    this.fixtureService = fixtureService;
 
     yield next;
 });

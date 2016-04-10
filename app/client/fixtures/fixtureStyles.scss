@@ -1,0 +1,145 @@
+.fixtures {
+	list-style: none;
+	padding: 0;
+	font-size: 12px;
+
+	.fixture {
+		list-style: none;
+		background-color: #FFFFFF;
+		border-top: 0.1em solid #E5E4E6;
+		border-bottom: 0.1em solid #E5E4E6;
+		padding: 0.75em 1em;
+		margin-bottom: 0.5em;
+		font-size: 12px;
+		heiaght: 5em;
+		overflow: hidden;
+
+		.teams-col {
+			height: 100%;
+			width: 40%;
+			float: left;
+
+			.team {
+				height: 100%;
+				width: 40%;
+				float: left;
+
+				.flag {
+					height: 60%;
+
+					.flag-icon {
+						height: 2em;
+						width: 3em;
+						margin: auto;
+						background-color: coral;
+					}
+				}
+
+				.name {
+					height: 40%;
+					text-align: center;
+					line-height: 1.4em;
+				}
+			}
+
+			.versus {
+				height: 100%;
+				width: 20%;
+				float: left;
+				text-align: center;
+				padding: 1em;
+				line-height: 2em;
+			}
+		}
+
+		.prediction-col {
+			height: 100%;
+			width: 30%;
+			float: left;
+			height: 3.5em;
+
+			.prediction-input {
+				height: 100%;
+				width: 45%;
+				float: left;
+
+				.readonly {
+					width: 1.4em;
+					height: 100%;
+					border: 0 transparent solid;
+					margin: auto;
+					font-size: 1.5em;
+					text-align: center;
+					line-height: 2.5em;
+				}
+
+				input {
+					width: 1.4em;
+					height: 100%;
+					border: 0 transparent solid;
+					background-color: #E7E8E7;
+					margin: auto;
+					display: block;
+					font-size: 1.5em;
+					text-align: center;
+
+					&:focus {
+						outline: none;
+					}
+				}
+			}
+
+			.dash {
+				height: 100%;
+				width: 10%;
+				float: left;
+				text-align: center;
+				line-height: 2.4em;
+				font-size: 1.5em;
+			}
+		}
+
+		.calender-col {
+			height: 100%;
+			width: 15%;
+			float: left;
+
+			.calender {
+				font-size: 0.7rem;
+				width: 4em;
+				margin: auto;
+				height: 100%;
+				text-align: center;
+				line-height: 1.7em;
+				border: 0.2em solid #E7E8E7;
+
+				.time {
+					background-color: #E7E8E7;
+					height: 50%;
+				}
+
+				.date {
+					height: 50%;
+				}
+			}
+		}
+
+		.points-col {
+			height: 100%;
+			width: 15%;
+			float: left;
+
+			.points {
+				font-size: 1.5em;
+				text-align: center;
+				line-height: 2.4em;
+			}
+		}
+	}
+}
+
+.saving-status {
+	@extend .text-muted, .text-xs-right;
+	font-size: 0.9em;
+	margin-bottom: 0.5em;
+}

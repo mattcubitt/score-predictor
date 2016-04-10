@@ -13,10 +13,52 @@ var reducers = {
                 return state;
         }
     },
-    fixtures: function(state=[], action) {
+    // fixtures: function(state=[], action) {
+    //     switch(action.type) {
+    //         case 'LOAD_FIXTURES':
+    //             return action.fixtures;
+    //         default:
+    //             return state;
+    //     }
+    // },
+    predictions: function(state=[], action) {
         switch(action.type) {
-            case 'LOAD_FIXTURES':
-                return action.fixtures;
+            case 'LOAD_PREDICTIONS':
+                return action.predictions;
+            // case 'CREATE_PREDICTION':
+            //     var newScore = action.score === '' ? undefined : parseInt(action.score);
+            //
+            //     var prediction = {};
+            //     prediction.fixtureId = action.fixtureId;
+            //     prediction[action.property] = newScore;
+            //
+            //     return [
+            //         prediction,
+            //         ...state
+            //     ];
+            case 'UPDATE_PREDICTION':
+                return state.map(prediction => {
+                    if(prediction._id === action.id) {
+                        var newScore = action.score === '' ? undefined : parseInt(action.score);
+
+                        var newPrediction = {};
+                        newPrediction[action.property] = newScore;
+
+                        return Object.assign({}, prediction, newPrediction);
+                    }
+
+                    return prediction;
+                });
+            default:
+                return state;
+        }
+    },
+    autoSaving: function(state=false, action) {
+        switch(action.type) {
+            case 'STARTED_AUTOSAVE':
+                return true;
+            case 'FINISHED_AUTOSAVE':
+                return false;
             default:
                 return state;
         }

@@ -2,28 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import request from 'axios';
 import { connect } from 'react-redux';
 import Fixture from './fixture';
+import _ from 'lodash'
 
 function fetch(token) {
     return dispatch => {
-        return request('/fixtures', {
+        return request('/predictions', {
                 headers: { authorization: token }
             })
             .then(response => {
                 return dispatch({
-                    type: 'LOAD_FIXTURES',
-                    fixtures: response.data
+                    type: 'LOAD_PREDICTIONS',
+                    predictions: response.data
                 });
-            })
-            .then(() => {
-                return request('/predictions', {
-                    headers: { authorization: token }
-                })
-                .then(response => {
-                    return dispatch({
-                        type: 'LOAD_PREDICTIONS',
-                        predictions: response.data
-                    });
-                })
             });
     }
 }
@@ -32,11 +22,46 @@ class Fixtures extends Component {
     constructor(props) {
         super(props);
 
+        this.autoSaveDebounce = _.debounce(this.onAutoSave, 5000);
     }
 
     componentDidMount() {
         const { dispatch, token } = this.props;
         return dispatch(fetch(token));
+    }
+
+    onPredictionChange(prediction, score, property) {
+        this.autoSave();
+
+        const { dispatch } = this.props;
+
+        return dispatch({
+            type: 'UPDATE_PREDICTION',
+            id: prediction._id,
+            score,
+            property
+        });
+    }
+
+    autoSave() {
+        this.props.dispatch({
+            type: 'STARTED_AUTOSAVE'
+        });
+
+        this.autoSaveDebounce()
+    }
+
+    onAutoSave(prediction) {
+        const { dispatch, token } = this.props;
+
+        return request('/predictions', {
+            method: 'put',
+            headers: { authorization: token },
+            data: prediction
+        })
+        .then(() => dispatch({
+            type: 'FINISHED_AUTOSAVE'
+        }))
     }
 
     //componentWillReceiveProps(nextProps) {
@@ -46,12 +71,33 @@ class Fixtures extends Component {
     //}
 
     render() {
-        const { fixtures } = this.props;
+        const { predictions, autoSaving } = this.props;
 
         return (
             <div>
-                {fixtures.map(fixture =>
-                        <Fixture fixture={fixture}/>)}
+                <div className="row">
+                    <div className="col-xs-12 text-xs-center">
+                        header goes here
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-xs-12 col-md-8">
+                        <div className="saving-status">{ autoSaving ? 'Saving...' : 'All changes saved'}</div>
+                        <ul className="fixtures">
+                            {
+                                predictions.map(prediction => {
+                                    return <Fixture
+                                        key={prediction._id}
+                                        prediction={prediction}
+                                        onPredictionChange={this.onPredictionChange.bind(this)}/>;
+                                })
+                            }
+                        </ul>
+                    </div>
+                    <div className="col-xs-4 text-xs-center">
+                        table goes here
+                    </div>
+                </div>
             </div>
         )
     }
@@ -59,13 +105,15 @@ class Fixtures extends Component {
 
 Fixtures.propTypes = {
     //token: PropTypes.string.isRequired,
-    fixtures: PropTypes.array.isRequired
+    predictions: PropTypes.array.isRequired,
+    autoSaving: PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state) {
     return {
         token: state.auth.token,
-        fixtures: state.fixtures
+        predictions: state.predictions,
+        autoSaving: state.autoSaving
     }
 }
 
