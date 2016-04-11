@@ -30,7 +30,6 @@ module.exports = Router({ prefix: '/predictions' })
 
             prediction.fixture = fixture;
 
-            var nowUtc = moment().utc().toDate();
             prediction.editable = this.fixtureService.isEditable(prediction.fixtureId);
 
             predictions.push(prediction);
@@ -41,19 +40,22 @@ module.exports = Router({ prefix: '/predictions' })
         this.status = 200;
         yield next;
     })
-    .post('/', function *(next) {
-        var predictions = this.request.body;
+    .put('/', function *(next) {
+        var prediction = this.request.body;
         var userId = this.currentUser.userId;
 
-        // var isEditable = this.fixtureService.isEditable(prediction.fixtureId);//nowUtc < prediction.fixture.startOn;
-        //
-        // if(!isEditable) {
-        //     this.status = 409;
-        // }
+        var isEditable = this.fixtureService.isEditable(prediction.fixtureId);
 
-        this.predictionService.save(userId, predictions);
+        if(!isEditable) {
+            this.status = 409;
+            this.body = 'Fixture has started and is not editable.';
 
-        this.status = 200;
-        yield next;
+            yield next;
+        } else {
+            this.predictionService.update(userId, prediction);
+
+            this.status = 200;
+            yield next;
+        }
     })
     .routes();

@@ -22,12 +22,12 @@ class PredictionService {
         return this.predictions.filter(p => p.userId === userId && p.fixtureId === fixtureId);
     }
 
-    save(userId, predictions) {
+    update(userId, predictions) {
         for(var prediction of predictions) {
             var foundPredictions = this.predictions
                 .filter(p => p._id === prediction._id && p.userId === userId);
 
-            if(foundPredictions.length > 0 && ) {
+            if(foundPredictions.length > 0) {
                 var foundPrediction = foundPredictions[0];
 
                 foundPrediction.homeScore = prediction.homeScore;

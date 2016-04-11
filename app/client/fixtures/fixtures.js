@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import request from 'axios';
 import { connect } from 'react-redux';
 import Fixture from './fixture';
-import _ from 'lodash'
 
 function fetch(token) {
     return dispatch => {
@@ -21,8 +20,6 @@ function fetch(token) {
 class Fixtures extends Component {
     constructor(props) {
         super(props);
-
-        this.autoSaveDebounce = _.debounce(this.onAutoSave, 5000);
     }
 
     componentDidMount() {
@@ -31,8 +28,6 @@ class Fixtures extends Component {
     }
 
     onPredictionChange(prediction, score, property) {
-        this.autoSave();
-
         const { dispatch } = this.props;
 
         return dispatch({
@@ -43,12 +38,10 @@ class Fixtures extends Component {
         });
     }
 
-    autoSave() {
+    onStartedAutoSave() {
         this.props.dispatch({
             type: 'STARTED_AUTOSAVE'
         });
-
-        this.autoSaveDebounce()
     }
 
     onAutoSave(prediction) {
@@ -63,12 +56,6 @@ class Fixtures extends Component {
             type: 'FINISHED_AUTOSAVE'
         }))
     }
-
-    //componentWillReceiveProps(nextProps) {
-    //    debugger;
-    //    const { dispatch, token } = this.props;
-    //    return dispatch(fetch(token));
-    //}
 
     render() {
         const { predictions, autoSaving } = this.props;
@@ -89,7 +76,10 @@ class Fixtures extends Component {
                                     return <Fixture
                                         key={prediction._id}
                                         prediction={prediction}
-                                        onPredictionChange={this.onPredictionChange.bind(this)}/>;
+                                        onPredictionChange={this.onPredictionChange.bind(this)}
+                                        onStartedAutoSave={this.onStartedAutoSave.bind(this)}
+                                        onAutoSave={this.onAutoSave.bind(this)}
+                                    />;
                                 })
                             }
                         </ul>

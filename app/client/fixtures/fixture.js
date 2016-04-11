@@ -1,9 +1,25 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
+import _ from 'lodash'
 
 export default class Fixture extends Component {
+    constructor(props) {
+        super(props);
+
+        this.autoSaveDebounce = _.debounce(props.onAutoSave, 2000);
+    }
+    
+    onChanged(prediction, value, property) {
+        const { onPredictionChange, onStartedAutoSave } = this.props;
+
+        onStartedAutoSave();
+        onPredictionChange(prediction, value, property);
+
+        this.autoSaveDebounce(prediction);
+    }
+
     render() {
-        const { prediction, onPredictionChange } = this.props;
+        const { prediction } = this.props;
 
         return (
             <li className="fixture">
@@ -28,7 +44,7 @@ export default class Fixture extends Component {
                             !prediction.editable ?
                                 <div className="readonly">{prediction.homeScore}</div> :
                                 <input type="text"
-                                       onChange={(event) => onPredictionChange(prediction, event.target.value, 'homeScore')}
+                                       onChange={(event) => this.onChanged(prediction, event.target.value, 'homeScore')}
                                        value={prediction ? prediction.homeScore : ''}/>
                         }
                     </div>
@@ -40,15 +56,15 @@ export default class Fixture extends Component {
                             !prediction.editable ?
                                 <div className="readonly">{prediction.awayScore}</div> :
                                 <input type="text"
-                                       onChange={(event) => onPredictionChange(prediction, event.target.value, 'awayScore')}
+                                       onChange={(event) => this.onChange(prediction, event.target.value, 'awayScore')}
                                        value={prediction ? prediction.awayScore : ''}/>
                         }
                     </div>
                 </div>
                 <div className="calender-col">
                     <div className="calender">
-                        <div className="time">{moment(prediction.fixture.startOn).format('HH:mm')}</div>
-                        <div className="date">{moment(prediction.fixture.startOn).format('DD MMM')}</div>
+                        <div className="time">{moment(prediction.fixture.startsOn).format('HH:mm')}</div>
+                        <div className="date">{moment(prediction.fixture.startsOn).format('DD MMM')}</div>
                     </div>
                 </div>
                 <div className="points-col">
@@ -65,5 +81,7 @@ export default class Fixture extends Component {
 
 Fixture.propTypes = {
     prediction: PropTypes.object.isRequired,
-    onPredictionChange: PropTypes.func.isRequired
+    onPredictionChange: PropTypes.func.isRequired,
+    onStartedAutoSave: PropTypes.func.isRequired,
+    onAutoSave: PropTypes.func.isRequired
 };
