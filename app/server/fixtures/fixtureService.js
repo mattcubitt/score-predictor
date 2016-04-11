@@ -9,7 +9,7 @@ class FixtureService {
             homeScore: 0,
             awayTeam: 'ENG',
             awayScore: 1,
-            startsOn: moment().utc().add(1, 'minute').toDate()
+            startsOn: moment().utc().add(-1, 'minute').toDate()
         }, {
             _id: 2,
             homeTeam: 'ENG',
@@ -27,7 +27,7 @@ class FixtureService {
     isEditable(fixtureId) {
         var foundFixtures = this.fixtures.filter(f => f._id === fixtureId);
 
-        if(foundFixtures > 0) {
+        if(foundFixtures.length > 0) {
             var nowUtc = moment().utc().toDate();
 
             return nowUtc < foundFixtures[0].startsOn

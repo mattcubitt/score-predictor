@@ -1,25 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
-import _ from 'lodash'
 
 export default class Fixture extends Component {
-    constructor(props) {
-        super(props);
-
-        this.autoSaveDebounce = _.debounce(props.onAutoSave, 2000);
-    }
-    
-    onChanged(prediction, value, property) {
-        const { onPredictionChange, onStartedAutoSave } = this.props;
-
-        onStartedAutoSave();
-        onPredictionChange(prediction, value, property);
-
-        this.autoSaveDebounce(prediction);
-    }
-
     render() {
-        const { prediction } = this.props;
+        const { prediction, onPredictionChange } = this.props;
 
         return (
             <li className="fixture">
@@ -44,7 +28,7 @@ export default class Fixture extends Component {
                             !prediction.editable ?
                                 <div className="readonly">{prediction.homeScore}</div> :
                                 <input type="text"
-                                       onChange={(event) => this.onChanged(prediction, event.target.value, 'homeScore')}
+                                       onChange={(event) => onPredictionChange(prediction, event.target.value, 'homeScore')}
                                        value={prediction ? prediction.homeScore : ''}/>
                         }
                     </div>
@@ -56,7 +40,7 @@ export default class Fixture extends Component {
                             !prediction.editable ?
                                 <div className="readonly">{prediction.awayScore}</div> :
                                 <input type="text"
-                                       onChange={(event) => this.onChange(prediction, event.target.value, 'awayScore')}
+                                       onChange={(event) => onPredictionChange(prediction, event.target.value, 'awayScore')}
                                        value={prediction ? prediction.awayScore : ''}/>
                         }
                     </div>
@@ -81,7 +65,5 @@ export default class Fixture extends Component {
 
 Fixture.propTypes = {
     prediction: PropTypes.object.isRequired,
-    onPredictionChange: PropTypes.func.isRequired,
-    onStartedAutoSave: PropTypes.func.isRequired,
-    onAutoSave: PropTypes.func.isRequired
+    onPredictionChange: PropTypes.func.isRequired
 };

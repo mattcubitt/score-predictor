@@ -29,7 +29,6 @@ module.exports = Router({ prefix: '/predictions' })
             }
 
             prediction.fixture = fixture;
-
             prediction.editable = this.fixtureService.isEditable(prediction.fixtureId);
 
             predictions.push(prediction);
@@ -40,22 +39,16 @@ module.exports = Router({ prefix: '/predictions' })
         this.status = 200;
         yield next;
     })
-    .put('/', function *(next) {
-        var prediction = this.request.body;
+    .post('/', function *(next) {
+        var predictions = this.request.body;
         var userId = this.currentUser.userId;
 
-        var isEditable = this.fixtureService.isEditable(prediction.fixtureId);
+        var editablePredictions = predictions
+            .filter(prediction => this.fixtureService.isEditable(prediction.fixtureId));
 
-        if(!isEditable) {
-            this.status = 409;
-            this.body = 'Fixture has started and is not editable.';
+        this.predictionService.update(userId, editablePredictions);
 
-            yield next;
-        } else {
-            this.predictionService.update(userId, prediction);
-
-            this.status = 200;
-            yield next;
-        }
+        this.status = 200;
+        yield next;
     })
     .routes();

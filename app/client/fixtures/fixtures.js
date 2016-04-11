@@ -31,9 +31,9 @@ class Fixtures extends Component {
     }
 
     onPredictionChange(prediction, score, property) {
-        this.autoSave();
-
         const { dispatch } = this.props;
+
+        this.autoSave();
 
         return dispatch({
             type: 'UPDATE_PREDICTION',
@@ -44,24 +44,26 @@ class Fixtures extends Component {
     }
 
     autoSave() {
-        this.props.dispatch({
+        const { dispatch } = this.props;
+
+        dispatch({
             type: 'STARTED_AUTOSAVE'
         });
 
-        this.autoSaveDebounce()
+        this.autoSaveDebounce();
     }
 
-    onAutoSave(prediction) {
-        const { dispatch, token } = this.props;
-
+    onAutoSave() {
+        const { dispatch, token, predictions } = this.props;
+        
         return request('/predictions', {
-            method: 'put',
+            method: 'post',
             headers: { authorization: token },
-            data: prediction
+            data: predictions
         })
-            .then(() => dispatch({
-                type: 'FINISHED_AUTOSAVE'
-            }))
+        .then(() => dispatch({
+            type: 'FINISHED_AUTOSAVE'
+        }));
     }
 
     //componentWillReceiveProps(nextProps) {
