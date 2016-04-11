@@ -66,12 +66,6 @@ class Fixtures extends Component {
         }));
     }
 
-    //componentWillReceiveProps(nextProps) {
-    //    debugger;
-    //    const { dispatch, token } = this.props;
-    //    return dispatch(fetch(token));
-    //}
-
     render() {
         const { predictions, autoSaving } = this.props;
 
@@ -86,6 +80,20 @@ class Fixtures extends Component {
                     <div className="col-xs-12 col-md-8">
                         <div className="saving-status">{ autoSaving ? 'Saving...' : 'All changes saved'}</div>
                         <ul className="fixtures">
+                            <li className="fixture fixture-header">
+                                <div className="teams-col">
+                                    Fixtures
+                                </div>
+                                <div className="prediction-col">
+                                    Predictions
+                                </div>
+                                <div className="calender-col">
+                                    Results
+                                </div>
+                                <div className="points-col">
+                                    Points
+                                </div>
+                            </li>
                             {
                                 predictions.map(prediction => {
                                     return <Fixture

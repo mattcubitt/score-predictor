@@ -32,6 +32,7 @@
 						width: 3em;
 						margin: auto;
 						background-color: coral;
+						//background-image: url("");
 					}
 				}
 
@@ -52,56 +53,56 @@
 			}
 		}
 
+		.prediction-input {
+			height: 100%;
+			width: 45%;
+			float: left;
+
+			.readonly {
+				width: 1.4em;
+				height: 100%;
+				border: 0 transparent solid;
+				margin: auto;
+				font-size: 1.5em;
+				text-align: center;
+				line-height: 2.5em;
+			}
+
+			input {
+				width: 1.4em;
+				height: 100%;
+				border: 0 transparent solid;
+				background-color: #E7E8E7;
+				margin: auto;
+				display: block;
+				font-size: 1.5em;
+				text-align: center;
+
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+
+		.dash {
+			height: 100%;
+			width: 10%;
+			float: left;
+			text-align: center;
+			line-height: 2.4em;
+			font-size: 1.5em;
+		}
+
 		.prediction-col {
 			height: 100%;
-			width: 30%;
+			width: 25%;
 			float: left;
 			height: 3.5em;
-
-			.prediction-input {
-				height: 100%;
-				width: 45%;
-				float: left;
-
-				.readonly {
-					width: 1.4em;
-					height: 100%;
-					border: 0 transparent solid;
-					margin: auto;
-					font-size: 1.5em;
-					text-align: center;
-					line-height: 2.5em;
-				}
-
-				input {
-					width: 1.4em;
-					height: 100%;
-					border: 0 transparent solid;
-					background-color: #E7E8E7;
-					margin: auto;
-					display: block;
-					font-size: 1.5em;
-					text-align: center;
-
-					&:focus {
-						outline: none;
-					}
-				}
-			}
-
-			.dash {
-				height: 100%;
-				width: 10%;
-				float: left;
-				text-align: center;
-				line-height: 2.4em;
-				font-size: 1.5em;
-			}
 		}
 
 		.calender-col {
 			height: 100%;
-			width: 15%;
+			width: 25%;
 			float: left;
 
 			.calender {
@@ -126,7 +127,7 @@
 
 		.points-col {
 			height: 100%;
-			width: 15%;
+			width: 10%;
 			float: left;
 
 			.points {
@@ -135,6 +136,14 @@
 				line-height: 2.4em;
 			}
 		}
+	}
+
+	.fixture-header {
+		background-color: transparent;
+		border: 0px;
+		text-align: center;
+		font-weight: bold;
+		height: 2em;
 	}
 }
 

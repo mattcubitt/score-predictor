@@ -46,10 +46,26 @@ export default class Fixture extends Component {
                     </div>
                 </div>
                 <div className="calender-col">
-                    <div className="calender">
-                        <div className="time">{moment(prediction.fixture.startsOn).format('HH:mm')}</div>
-                        <div className="date">{moment(prediction.fixture.startsOn).format('DD MMM')}</div>
-                    </div>
+                    {
+                        prediction.editable 
+                            ?
+                            <div className="calender">
+                                <div className="time">{moment(prediction.fixture.startsOn).format('HH:mm')}</div>
+                                <div className="date">{moment(prediction.fixture.startsOn).format('DD MMM')}</div>
+                            </div> 
+                            :
+                            <div>
+                                <div className="prediction-input">
+                                    <div className="readonly">{prediction.fixture.homeScore}</div>
+                                </div>
+                                <div className="dash">
+                                    <span>–</span>
+                                </div>
+                                <div className="prediction-input">
+                                    <div className="readonly">{prediction.fixture.awayScore}</div>
+                                </div>
+                            </div>
+                    }
                 </div>
                 <div className="points-col">
                     <div className="points">
