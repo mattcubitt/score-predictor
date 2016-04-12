@@ -14,7 +14,7 @@ export default React.createClass({
                         <li className="nav-item"><NavLink to="/fixtures">Fixture List</NavLink></li>
                      </ul>
                 </nav>
-                <div style={{marginTop: '100px'}}>
+                <div style={{marginTop: '60px'}}>
                     {this.props.children}
                 </div>
             </div>

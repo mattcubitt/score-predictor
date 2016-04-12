@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form';
 import createLogger from 'redux-logger'
+import roundReducer from './roundSelector/roundReducer';
 
 var reducers = {
     form: formReducer,
@@ -62,7 +63,8 @@ var reducers = {
             default:
                 return state;
         }
-    }
+    },
+    rounds: roundReducer
 };
 
 var rootReducer = combineReducers(reducers);

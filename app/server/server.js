@@ -12,10 +12,12 @@ var compiler = webpack(webpackConfig);
 var authRoute = require('./auth/authRoute');
 var fixtureRoute = require('./fixtures/fixtureRoute');
 var predictionRoute = require('./predictions/predictionRoute');
+var roundRoute = require('./rounds/roundRoute');
 
 var userService = require('./users/userService');
 var predictionService = require('./predictions/predictionService');
 var fixtureService = require('./fixtures/fixtureService');
+var roundService = require('./rounds/roundService');
 
 var app = koa();
 
@@ -25,6 +27,7 @@ app.use(function* (next) {
     this.userService = userService;
     this.predictionService = predictionService;
     this.fixtureService = fixtureService;
+    this.roundService = roundService;
 
     yield next;
 });
@@ -40,5 +43,6 @@ app.use(serve(path.resolve(__dirname, '../client')));
 app.use(authRoute);
 app.use(fixtureRoute);
 app.use(predictionRoute);
+app.use(roundRoute);
 
 app.listen(3000);

@@ -3,20 +3,23 @@ import request from 'axios';
 import { connect } from 'react-redux';
 import Fixture from './fixture';
 import _ from 'lodash'
+import RoundSelector from '../roundSelector/roundSelector'
 
-function fetch(token) {
-    return dispatch => {
-        return request('/predictions', {
-            headers: { authorization: token }
-        })
-            .then(response => {
-                return dispatch({
-                    type: 'LOAD_PREDICTIONS',
-                    predictions: response.data
-                });
-            });
-    }
-}
+// function fetch(token) {
+//
+// }
+//
+// loadRounds() {
+//     const { dispatch, token } = this.props;
+//
+//     return request('/rounds', {
+//         headers: { authorization: token }
+//     })
+//         .then(response => dispatch({
+//             type: 'LOAD_ROUNDS',
+//             rounds: response.data
+//         }));
+// }
 
 class Fixtures extends Component {
     constructor(props) {
@@ -27,8 +30,58 @@ class Fixtures extends Component {
 
     componentDidMount() {
         const { dispatch, token } = this.props;
-        return dispatch(fetch(token));
+        return dispatch(this.fetchState(token));
     }
+
+    fetchState(token) {
+        return dispatch => {
+            this.loadPredictions(token, dispatch);
+            this.loadRounds(token, dispatch);
+        };
+    }
+
+    loadPredictions(token, dispatch) {
+        return request('/predictions', {
+            headers: { authorization: token }
+        })
+        .then(response => dispatch({
+            type: 'LOAD_PREDICTIONS',
+            predictions: response.data
+        }));
+    }
+
+    loadRounds(token, dispatch) {
+        return request('/rounds', {
+            headers: { authorization: token }
+        })
+        .then(response => dispatch({
+            type: 'LOAD_ROUNDS',
+            rounds: response.data
+        }));
+    }
+
+    // loadPredictions(token) {
+    //     return dispatch => {
+    //         return request('/predictions', {
+    //             headers: { authorization: token }
+    //         })
+    //         .then(response => dispatch({
+    //             type: 'LOAD_PREDICTIONS',
+    //             predictions: response.data
+    //         }))
+    //         .then(this.loadRounds(token, dispatch));
+    //     };
+    // }
+    //
+    // loadRounds(token, dispatch) {
+    //     return request('/rounds', {
+    //         headers: { authorization: token }
+    //     })
+    //     .then(response => dispatch({
+    //         type: 'LOAD_ROUNDS',
+    //         rounds: response.data
+    //     }));
+    // }
 
     onPredictionChange(prediction, score, property) {
         const { dispatch } = this.props;
@@ -67,13 +120,13 @@ class Fixtures extends Component {
     }
 
     render() {
-        const { predictions, autoSaving } = this.props;
+        const { predictions, autoSaving, rounds } = this.props;
 
         return (
             <div>
                 <div className="row">
                     <div className="col-xs-12 text-xs-center">
-                        header goes here
+                        <RoundSelector rounds={rounds}/>
                     </div>
                 </div>
                 <div className="row">
@@ -116,14 +169,16 @@ class Fixtures extends Component {
 Fixtures.propTypes = {
     //token: PropTypes.string.isRequired,
     predictions: PropTypes.array.isRequired,
-    autoSaving: PropTypes.bool.isRequired
+    autoSaving: PropTypes.bool.isRequired,
+    rounds: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
     return {
         token: state.auth.token,
         predictions: state.predictions,
-        autoSaving: state.autoSaving
+        autoSaving: state.autoSaving,
+        rounds: state.rounds
     }
 }
 

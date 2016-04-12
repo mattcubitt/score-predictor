@@ -1,12 +1,12 @@
 var Router = require('koa-router');
 var authMiddleware = require('../auth/authMiddleware');
 
-module.exports = Router({ prefix: '/fixtures' })
+module.exports = Router({ prefix: '/rounds' })
     .use(authMiddleware)
     .get('/', function *(next) {
-        this.status = 200;
-        this.body = this.fixtureService.findAll();
+        this.body = this.roundService.findAll();
 
+        this.status = 200;
         yield next;
     })
     .routes();
