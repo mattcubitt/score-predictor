@@ -1,23 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class RoundSelector extends Component {
-
-    selectorFragment(rounds) {
-        if(rounds.current){
-            return <div className="round-selector">
-                <div className="round-toggle"><div className="left-arrow"></div></div>
-                <div className="round-name">{rounds.current.name}</div>
-                <div className="round-toggle"><div className="right-arrow"></div></div>
-            </div>
-        }
-    }
-
     render() {
-        const { rounds } = this.props;
+        const { rounds, onPreviousRoundClick, onNextRoundClick } = this.props;
+        const name = rounds.current ? rounds.current.name : '';
 
         return (
             <div>
-                {this.selectorFragment(rounds)}
+                <div className="round-selector">
+                    <div className="round-toggle" onClick={onPreviousRoundClick.bind(this)}>
+                        <div className="left-arrow"></div>
+                    </div>
+                    <div className="round-name">{name}</div>
+                    <div className="round-toggle" onClick={onNextRoundClick.bind(this)}>
+                        <div className="right-arrow">
+                        </div>
+                    </div>
+                </div>
                 <div className="round-divider"></div>
             </div>
         )
@@ -26,5 +25,7 @@ export default class RoundSelector extends Component {
 
 RoundSelector.propTypes = {
     //token: PropTypes.string.isRequired,
-    rounds: PropTypes.object.isRequired
+    rounds: PropTypes.object.isRequired,
+    onPreviousRoundClick: PropTypes.func.isRequired,
+    onNextRoundClick: PropTypes.func.isRequired
 };

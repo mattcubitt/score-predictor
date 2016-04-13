@@ -119,14 +119,36 @@ class Fixtures extends Component {
         }));
     }
 
+    onPreviousRoundClick() {
+        const { dispatch } = this.props;
+
+        dispatch({
+            type: 'PREVIOUS_ROUND'
+        })
+    }
+
+    onNextRoundClick() {
+        const { dispatch } = this.props;
+
+        dispatch({
+            type: 'NEXT_ROUND'
+        })
+    }
+
     render() {
         const { predictions, autoSaving, rounds } = this.props;
+        const currentRoundId = rounds.current ? rounds.current._id : null;
+        const currentPredictions = predictions
+            .filter(p => p.fixture.roundId === currentRoundId);
 
         return (
             <div>
                 <div className="row">
                     <div className="col-xs-12 text-xs-center">
-                        <RoundSelector rounds={rounds}/>
+                        <RoundSelector rounds={rounds}
+                                       onPreviousRoundClick={this.onPreviousRoundClick.bind(this)}
+                                       onNextRoundClick={this.onNextRoundClick.bind(this)}
+                        />
                     </div>
                 </div>
                 <div className="row">
@@ -148,13 +170,18 @@ class Fixtures extends Component {
                                 </div>
                             </li>
                             {
-                                predictions.map(prediction => {
-                                    return <Fixture
-                                        key={prediction._id}
-                                        prediction={prediction}
-                                        onPredictionChange={this.onPredictionChange.bind(this)}/>;
-                                })
+                                currentPredictions
+                                    .filter(p => p.fixture.roundId === currentRoundId)
+                                    .map(prediction => {
+                                        return <Fixture
+                                            key={prediction._id}
+                                            prediction={prediction}
+                                            onPredictionChange={this.onPredictionChange.bind(this)}/>;
+                                    })
                             }
+                            <li className="fixture points-total">
+                                Total: { currentPredictions.map(p => p.points).reduce((a, b) => a + b, 0) }
+                            </li>
                         </ul>
                     </div>
                     <div className="col-xs-4 text-xs-center">

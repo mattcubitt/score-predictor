@@ -9,14 +9,16 @@ class FixtureService {
             homeScore: 0,
             awayTeam: 'ENG',
             awayScore: 1,
-            startsOn: moment().utc().add(-1, 'minute').toDate()
+            startsOn: moment().utc().add(-1, 'minute').toDate(),
+            roundId: 1
         }, {
             _id: 2,
             homeTeam: 'ENG',
             homeScore: 1,
             awayTeam: 'GER',
             awayScore: 1,
-            startsOn: moment().utc().add(5, 'minute').toDate()
+            startsOn: moment().utc().add(5, 'minute').toDate(),
+            roundId: 2
         }];
     }
 

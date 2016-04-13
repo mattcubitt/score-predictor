@@ -19,6 +19,7 @@ module.exports = Router({ prefix: '/predictions' })
                 prediction = {
                     userId: userId,
                     fixtureId: fixture._id,
+                    points: 0,
                     createdOn: new Date(),
                     updatedOn: new Date()
                 };
