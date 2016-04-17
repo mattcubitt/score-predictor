@@ -3,6 +3,8 @@ import thunkMiddleware from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form';
 import createLogger from 'redux-logger'
 import roundReducer from './roundSelector/roundReducer';
+import fixtureReducer from './fixtures/fixtureReducer';
+import adminReducer from './admin/adminReducer';
 
 var reducers = {
     form: formReducer,
@@ -14,14 +16,8 @@ var reducers = {
                 return state;
         }
     },
-    // fixtures: function(state=[], action) {
-    //     switch(action.type) {
-    //         case 'LOAD_FIXTURES':
-    //             return action.fixtures;
-    //         default:
-    //             return state;
-    //     }
-    // },
+    fixtures: fixtureReducer,
+    admin: adminReducer,
     predictions: function(state=[], action) {
         switch(action.type) {
             case 'LOAD_PREDICTIONS':

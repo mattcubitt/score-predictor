@@ -1,0 +1,74 @@
+.admin-fixtures {
+	list-style: none;
+	padding: 0;
+	.admin-fixture {
+		height: 3em;
+		line-height: 3em;
+		text-align: center;
+		overflow: hidden;
+		margin-bottom: 10px;
+
+		.placeholder-input {
+			background-color: white;
+			border: 1px solid #E0e0e0;
+			text-align: center;
+			width: 100%;
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		&.admin-fixture-header {
+			font-weight: bold;
+		}
+
+		.round-col {
+			float: left;
+			width: 10%;
+			height: 100%;
+		}
+
+		.home-team-col {
+			float: left;
+			width: 10%;
+			height: 100%;
+		}
+
+		.home-score-col {
+			float: left;
+			width: 10%;
+			height: 100%;
+		}
+
+		.away-score-col {
+			float: left;
+			width: 10%;
+			height: 100%;
+		}
+
+		.away-team-col {
+			float: left;
+			width: 10%;
+			height: 100%;
+		}
+
+		.starts-on-col {
+			float: left;
+			width: 30%;
+			height: 100%;
+		}
+
+		.action-col {
+			float: left;
+			width: 20%;
+			text-align: left;
+			height: 100%;
+
+			button {
+				margin-left: 10px;
+				width: 100px;
+			}
+		}
+	}
+}

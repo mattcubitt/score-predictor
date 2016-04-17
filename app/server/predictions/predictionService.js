@@ -1,5 +1,7 @@
 'use strict';
 
+var getLocalDate = require('../dateHelpers').GetLocalDate;
+
 class PredictionService {
     constructor() {
         this.predictions = [{
@@ -9,8 +11,8 @@ class PredictionService {
             homeScore: 1,
             awayScore: 1,
             points: 3,
-            createdOn: new Date(),
-            updatedOn: new Date()
+            createdOn: getLocalDate(),
+            updatedOn: getLocalDate()
         }];
     }
 

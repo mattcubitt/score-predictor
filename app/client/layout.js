@@ -12,6 +12,7 @@ export default React.createClass({
                         <li className="nav-item"><NavLink to="/login">Login</NavLink></li>
                         <li className="nav-item"><NavLink to="/registration">Registration</NavLink></li>
                         <li className="nav-item"><NavLink to="/fixtures">Fixture List</NavLink></li>
+                        <li className="nav-item"><NavLink to="/admin">Admin</NavLink></li>
                      </ul>
                 </nav>
                 <div style={{marginTop: '60px'}}>

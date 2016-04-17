@@ -3,17 +3,13 @@ var path = require('path');
 
 module.exports = {
     entry: [
-        // Add the client which connects to our middleware
-        // You can use full urls like 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr'
-        // useful if you run your app from another point like django
         'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-        // And then the actual application
         './app/client/app.js'
     ],
     output: {
         path: __dirname,
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: '/app/client/bundle.js'
     },
     devtool: '#source-map',
     plugins: [
@@ -27,7 +23,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
-                    presets: ['react', 'es2015']
+                    presets: ['react', 'es2015', 'stage-2']
                 }
             }, {
                 test: /\.woff2?$|\.ttf$|\.eot$|\.svg$/,
@@ -35,6 +31,9 @@ module.exports = {
             }, {
                 test: /\.scss$/,
                 loader: 'style-loader!css-loader!' + path.resolve(__dirname, 'node_modules/sass-loader/index.js')
+            }, {
+                test: /\.css$/,
+                loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
             }
         ]
     }

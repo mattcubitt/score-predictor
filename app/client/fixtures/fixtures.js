@@ -60,29 +60,6 @@ class Fixtures extends Component {
         }));
     }
 
-    // loadPredictions(token) {
-    //     return dispatch => {
-    //         return request('/predictions', {
-    //             headers: { authorization: token }
-    //         })
-    //         .then(response => dispatch({
-    //             type: 'LOAD_PREDICTIONS',
-    //             predictions: response.data
-    //         }))
-    //         .then(this.loadRounds(token, dispatch));
-    //     };
-    // }
-    //
-    // loadRounds(token, dispatch) {
-    //     return request('/rounds', {
-    //         headers: { authorization: token }
-    //     })
-    //     .then(response => dispatch({
-    //         type: 'LOAD_ROUNDS',
-    //         rounds: response.data
-    //     }));
-    // }
-
     onPredictionChange(prediction, score, property) {
         const { dispatch } = this.props;
 

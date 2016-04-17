@@ -17,7 +17,8 @@ module.exports = function*(next){
             userId: 1,
             name: 'matt',
             email: 'test@email.com',
-            password: 'password'
+            password: 'password',
+            role: 'admin'
         };
 
         yield next;
