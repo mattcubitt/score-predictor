@@ -9,7 +9,7 @@ module.exports = {
     output: {
         path: __dirname,
         publicPath: '/',
-        filename: '/app/client/bundle.js'
+        filename: 'bundle.js'
     },
     devtool: '#source-map',
     plugins: [

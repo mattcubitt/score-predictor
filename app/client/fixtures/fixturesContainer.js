@@ -2,26 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import request from 'axios';
 import { connect } from 'react-redux';
 import Fixture from './fixture';
-import _ from 'lodash'
-import RoundSelector from '../roundSelector/roundSelector'
+import _ from 'lodash';
+import RoundSelector from '../roundSelector/roundSelector';
+import LeaderTable from '../leaderTable/leaderTable';
 
-// function fetch(token) {
-//
-// }
-//
-// loadRounds() {
-//     const { dispatch, token } = this.props;
-//
-//     return request('/rounds', {
-//         headers: { authorization: token }
-//     })
-//         .then(response => dispatch({
-//             type: 'LOAD_ROUNDS',
-//             rounds: response.data
-//         }));
-// }
-
-class Fixtures extends Component {
+class FixturesContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -37,6 +22,7 @@ class Fixtures extends Component {
         return dispatch => {
             this.loadPredictions(token, dispatch);
             this.loadRounds(token, dispatch);
+            this.loadLeaderTables(token, dispatch);
         };
     }
 
@@ -47,6 +33,16 @@ class Fixtures extends Component {
         .then(response => dispatch({
             type: 'LOAD_PREDICTIONS',
             predictions: response.data
+        }));
+    }
+
+    loadLeaderTables(token, dispatch) {
+        return request('/leaderTables', {
+            headers: { authorization: token }
+        })
+        .then(response => dispatch({
+            type: 'LOAD_LEADER_TABLES',
+            leaderTables: response.data
         }));
     }
 
@@ -113,10 +109,15 @@ class Fixtures extends Component {
     }
 
     render() {
-        const { predictions, autoSaving, rounds } = this.props;
+        const { predictions, autoSaving, rounds, leaderTables } = this.props;
+
         const currentRoundId = rounds.current ? rounds.current._id : null;
+        const currentRoundName = rounds.current ? rounds.current.name : '';
         const currentPredictions = predictions
             .filter(p => p.fixture.roundId === currentRoundId);
+        const foundLeaderTables = leaderTables
+            .filter(t => t.roundId === currentRoundId);
+        const currentLeaderTable = foundLeaderTables.length === 0 ? undefined : foundLeaderTables[0];
 
         return (
             <div>
@@ -161,8 +162,8 @@ class Fixtures extends Component {
                             </li>
                         </ul>
                     </div>
-                    <div className="col-xs-4 text-xs-center">
-                        table goes here
+                    <div className="col-xs-4">
+                        <LeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
                     </div>
                 </div>
             </div>
@@ -170,11 +171,12 @@ class Fixtures extends Component {
     }
 }
 
-Fixtures.propTypes = {
+FixturesContainer.propTypes = {
     //token: PropTypes.string.isRequired,
     predictions: PropTypes.array.isRequired,
     autoSaving: PropTypes.bool.isRequired,
-    rounds: PropTypes.object.isRequired
+    rounds: PropTypes.object.isRequired,
+    leaderTables: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
@@ -182,8 +184,9 @@ function mapStateToProps(state) {
         token: state.auth.token,
         predictions: state.predictions,
         autoSaving: state.autoSaving,
-        rounds: state.rounds
+        rounds: state.rounds,
+        leaderTables: state.leaderTables
     }
 }
 
-export default connect(mapStateToProps)(Fixtures)
+export default connect(mapStateToProps)(FixturesContainer)

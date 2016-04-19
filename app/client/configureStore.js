@@ -5,6 +5,7 @@ import createLogger from 'redux-logger'
 import roundReducer from './roundSelector/roundReducer';
 import fixtureReducer from './fixtures/fixtureReducer';
 import adminReducer from './admin/adminReducer';
+import leaderTablesReducer from './leaderTable/leaderTablesReducer';
 
 var reducers = {
     form: formReducer,
@@ -60,7 +61,8 @@ var reducers = {
                 return state;
         }
     },
-    rounds: roundReducer
+    rounds: roundReducer,
+    leaderTables: leaderTablesReducer
 };
 
 var rootReducer = combineReducers(reducers);

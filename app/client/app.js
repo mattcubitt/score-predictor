@@ -7,7 +7,7 @@ import { Router, Route, browserHistory, hashHistory } from 'react-router';
 import Layout from './layout';
 import Login from './login/loginForm';
 import Registration from './registration/registerForm';
-import Fixtures from './fixtures/fixtures';
+import FixturesContainer from './fixtures/fixturesContainer';
 import AdminContainer from './admin/adminContainer'
 import configureStore from './configureStore'
 
@@ -19,7 +19,7 @@ render(
             <Route path="/" component={Layout}>
                 <Route path="login" component={Login}/>
                 <Route path="registration" component={Registration}/>
-                <Route path="fixtures" component={Fixtures}/>
+                <Route path="fixtures" component={FixturesContainer}/>
                 <Route path="admin" component={AdminContainer}/>
             </Route>
         </Router>

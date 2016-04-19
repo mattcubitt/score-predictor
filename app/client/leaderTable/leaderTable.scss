@@ -1,0 +1,46 @@
+.leader-table-wrapper {
+	margin-top: 33px;
+
+	.leader-table {
+		list-style: none;
+		background-color: #FFFFFF;
+		border-top: 0.1em solid #E5E4E6;
+
+		padding: 0;
+		margin-bottom: 0.5em;
+		font-size: 12px;
+		overflow: hidden;
+
+		.table-header {
+			background-color: #E3E2E4;
+			font-weight: bold;
+		}
+
+		li {
+			height: 2.5em;
+			line-height: 2.5em;
+			text-align: center;
+			border-bottom: 0.1em solid #E5E4E6;
+		}
+
+		li:nth-child(4) {
+			border-bottom: dashed 0.1em #2b2d2f;
+		}
+
+		.table-column-pos {
+			width: 20%;
+			float: left;
+		}
+
+		.table-column-name {
+			width: 60%;
+			float: left;
+			text-align: left;
+		}
+
+		.table-column-points {
+			width: 20%;
+			float: left;
+		}
+	}
+}
