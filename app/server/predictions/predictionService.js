@@ -16,6 +16,10 @@ class PredictionService {
         }];
     }
 
+    findAll() {
+        return this.predictions;
+    }
+
     find(userId) {
         return this.predictions.filter(p => p.userId === userId);
     }

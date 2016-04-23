@@ -6,7 +6,7 @@ class LeaderTableService {
     constructor() {
         this.leaderTableSnapshots = [{
             _id: 1,
-            createdOn: getLocalMoment().add(1, 'minute').toDate(),
+            createdOn: getLocalMoment().add(1, 'second').toDate(),
             roundId: 1,
             userPoints: [{
                 name: 'matt',
@@ -31,7 +31,7 @@ class LeaderTableService {
             }]
         }, {
             _id: 2,
-            createdOn: getLocalMoment().add(5, 'minute').toDate(),
+            createdOn: getLocalMoment().add(5, 'second').toDate(),
             roundId: 2,
             userPoints: [{
                 name: 'matt',
@@ -60,12 +60,19 @@ class LeaderTableService {
     getLatest(roundId) {
         var sortedLeaderTableSnapshots = this.leaderTableSnapshots
             .filter(s => s.roundId === roundId)
-            .sort((a, b) => a.createdOn > b.createdOn);
+            .sort((a, b) => a.createdOn < b.createdOn);
 
         if(sortedLeaderTableSnapshots.length === 0)
             return null;
 
         return sortedLeaderTableSnapshots[0];
+    }
+
+    insertAll(leaderTableSnapshots) {
+        for(var leaderTableSnapshot of leaderTableSnapshots) {
+            leaderTableSnapshot._id = new Date().getTime();
+            this.leaderTableSnapshots.push(leaderTableSnapshot);
+        }
     }
 }
 

@@ -24,6 +24,10 @@ class FixtureService {
         }];
     }
 
+    find(fixtureId) {
+        return this.fixtures.filter(f => f._id === fixtureId);
+    }
+
     findAll() {
         return this.fixtures;
     }

@@ -1,6 +1,6 @@
 var Router = require('koa-router');
 var authMiddleware = require('../auth/authMiddleware');
-var moment = require('moment');
+var predictionPointsCalculator = require('../admin/leaderTables/predictionPointsCalculator');
 
 module.exports = Router({ prefix: '/predictions' })
     .use(authMiddleware)
@@ -19,7 +19,6 @@ module.exports = Router({ prefix: '/predictions' })
                 prediction = {
                     userId: userId,
                     fixtureId: fixture._id,
-                    points: 0,
                     createdOn: new Date(),
                     updatedOn: new Date()
                 };
@@ -29,6 +28,7 @@ module.exports = Router({ prefix: '/predictions' })
                 prediction = foundPredictions[0]
             }
 
+            prediction.points = predictionPointsCalculator(prediction, fixture);
             prediction.fixture = fixture;
             prediction.editable = this.fixtureService.isEditable(prediction.fixtureId);
 

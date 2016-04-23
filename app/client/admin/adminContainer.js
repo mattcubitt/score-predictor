@@ -278,23 +278,43 @@ class AdminContainer extends Component {
         )
     }
 
+    onCalculatePoints() {
+        const { token } = this.props;
+
+        return request('/admin/leaderTables', {
+            method: 'post',
+            headers: { authorization: token }
+        })
+    }
+
     render() {
         const { admin } = this.props;
 
         return (
-            <div className="row">
-                <div className="col-xs-12">
-                    <ul className="admin-fixtures">
-                        { this.headerFragment() }
-                        {
-                            admin.fixtures.map(fixture => fixture._id === admin.editingFixtureId ?
-                                                        this.editingFixtureFragment(fixture) :
-                                                        this.editableFixtureFragment(fixture))
-                        }
-                        { this.fixturePlaceHolderFragment(admin.fixturePlaceholder) }
-                    </ul>
+            <div>
+                <div className="row">
+                    <div className="col-xs-12">
+                        <ul className="admin-fixtures">
+                            { this.headerFragment() }
+                            {
+                                admin.fixtures.map(fixture => fixture._id === admin.editingFixtureId ?
+                                    this.editingFixtureFragment(fixture) :
+                                    this.editableFixtureFragment(fixture))
+                            }
+                            { this.fixturePlaceHolderFragment(admin.fixturePlaceholder) }
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-xs-2">
+                        <button className="btn btn-danger"
+                                onClick={() => this.onCalculatePoints()}>
+                            Calculate Points
+                        </button>
+                    </div>
                 </div>
             </div>
+
         )
     }
 }
