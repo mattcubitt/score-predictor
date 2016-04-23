@@ -15,6 +15,7 @@ export default class LeaderTable extends Component {
                         leaderTable ?
                             leaderTable.userPoints.map(t =>
                                 <LeaderTableRow
+                                    key={t.name}
                                     position={t.position}
                                     name={t.name}
                                     points={t.points}

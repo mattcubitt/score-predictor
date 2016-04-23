@@ -1,0 +1,21 @@
+.top-bar {
+	background-color: #464C4C;
+	height: 5em;
+
+	.top-bar-logo {
+		background: url(/logo-collapsed.svg) center center no-repeat;
+		height: 5em;
+		width: 6em;
+		float: left;
+		padding: 0 2em;
+	}
+
+	.top-bar-title {
+		height: 3em;
+		width: 10em;
+		color: #FFFFFF;
+		float: left;
+		line-height: 4.2em;
+		font-size: 1.3em;
+	}
+}
