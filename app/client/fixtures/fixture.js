@@ -10,14 +10,18 @@ export default class Fixture extends Component {
                 <div className="teams-col">
                     <div className="team">
                         <div className="flag">
-                            <div className="flag-icon"></div>
+                            <img className="flag-icon"
+                                 src={"/assets/images/flags/" + prediction.fixture.homeTeam + ".png"}>
+                            </img>
                         </div>
                         <div className="name">{prediction.fixture.homeTeam}</div>
                     </div>
                     <div className="versus">vs</div>
                     <div className="team">
                         <div className="flag">
-                            <div className="flag-icon"></div>
+                            <img className="flag-icon"
+                                 src={"/assets/images/flags/" + prediction.fixture.awayTeam + ".png"}>
+                            </img>
                         </div>
                         <div className="name">{prediction.fixture.awayTeam}</div>
                     </div>
