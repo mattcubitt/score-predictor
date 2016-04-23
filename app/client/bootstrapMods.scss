@@ -1,0 +1,35 @@
+.form-group {
+	margin-bottom: 2rem;
+}
+
+.btn {
+	border-radius: 0;
+}
+
+.btn-primary {
+	background-color: #1AB188;
+	border-color: #1AB188;
+}
+
+.btn-primary:active:focus,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+	background-color: #179170;
+	border-color: #179170;
+}
+
+input.form-control {
+	border-radius: 0;
+}
+
+.alert {
+	padding: 5px 15px;
+	border-radius: 0;
+	text-align: center;
+
+	.alert-danger {
+		border-color: #f2dede;
+	}
+}
+

@@ -1,13 +1,11 @@
 import React from 'react'
-import TopBar from './navigation/topBar';
-import NavBar from './navigation/navBar';
+import NavContainer from './navigation/navContainer';
 
 export default React.createClass({
     render() {
         return (
             <div>
-                <TopBar/>
-                <NavBar/>
+                <NavContainer/>
                 <div className="container">
                     {this.props.children}
                 </div>

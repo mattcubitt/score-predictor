@@ -5,10 +5,11 @@ var bcrypt = require('bcrypt-nodejs');
 class UserService {
     constructor() {
         this.users = [{
-            _Id: 1,
+            _id: 1,
             name: 'matt',
             email: 'matt.d.cubitt@gmail.com',
-            password: 'password'
+            password: '$2a$04$jEsLdQv9mSfKiNSvU7fsZ.ZeJnv0cGleaR3dXwaIEkzBW4S1eC0bW',
+            role: 'admin'
         }];
     }
 

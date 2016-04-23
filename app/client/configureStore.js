@@ -2,10 +2,11 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form';
 import createLogger from 'redux-logger'
-import roundReducer from './roundSelector/roundReducer';
-import fixtureReducer from './fixtures/fixtureReducer';
-import adminReducer from './admin/adminReducer';
-import leaderTablesReducer from './leaderTable/leaderTablesReducer';
+import roundReducer from './roundSelector/roundReducer'
+import fixtureReducer from './fixtures/fixtureReducer'
+import adminReducer from './admin/adminReducer'
+import leaderTablesReducer from './leaderTable/leaderTablesReducer'
+import userReducer from './user/userReducer'
 
 var reducers = {
     form: formReducer,
@@ -62,7 +63,8 @@ var reducers = {
         }
     },
     rounds: roundReducer,
-    leaderTables: leaderTablesReducer
+    leaderTables: leaderTablesReducer,
+    user : userReducer
 };
 
 var rootReducer = combineReducers(reducers);
