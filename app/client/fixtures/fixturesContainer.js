@@ -14,46 +14,40 @@ class FixturesContainer extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, token } = this.props;
-        return dispatch(this.fetchState(token));
+        const { dispatch } = this.props;
+        return dispatch(this.fetchState());
     }
 
-    fetchState(token) {
+    fetchState() {
         return dispatch => {
-            this.loadPredictions(token, dispatch);
-            this.loadRounds(token, dispatch);
-            this.loadLeaderTables(token, dispatch);
+            this.loadPredictions(dispatch);
+            this.loadRounds(dispatch);
+            this.loadLeaderTables(dispatch);
         };
     }
 
-    loadPredictions(token, dispatch) {
-        return request('/predictions', {
-            headers: { authorization: token }
-        })
-        .then(response => dispatch({
-            type: 'LOAD_PREDICTIONS',
-            predictions: response.data
-        }));
+    loadPredictions(dispatch) {
+        return request('/predictions')
+            .then(response => dispatch({
+                type: 'LOAD_PREDICTIONS',
+                predictions: response.data
+            }));
     }
 
-    loadLeaderTables(token, dispatch) {
-        return request('/leaderTables', {
-            headers: { authorization: token }
-        })
-        .then(response => dispatch({
-            type: 'LOAD_LEADER_TABLES',
-            leaderTables: response.data
-        }));
+    loadLeaderTables(dispatch) {
+        return request('/leaderTables')
+            .then(response => dispatch({
+                type: 'LOAD_LEADER_TABLES',
+                leaderTables: response.data
+            }));
     }
 
-    loadRounds(token, dispatch) {
-        return request('/rounds', {
-            headers: { authorization: token }
-        })
-        .then(response => dispatch({
-            type: 'LOAD_ROUNDS',
-            rounds: response.data
-        }));
+    loadRounds(dispatch) {
+        return request('/rounds')
+            .then(response => dispatch({
+                type: 'LOAD_ROUNDS',
+                rounds: response.data
+            }));
     }
 
     onPredictionChange(prediction, score, property) {
@@ -80,11 +74,10 @@ class FixturesContainer extends Component {
     }
 
     onAutoSave() {
-        const { dispatch, token, predictions } = this.props;
+        const { dispatch, predictions } = this.props;
         
         return request('/predictions', {
             method: 'post',
-            headers: { authorization: token },
             data: predictions
         })
         .then(() => dispatch({
@@ -172,7 +165,6 @@ class FixturesContainer extends Component {
 }
 
 FixturesContainer.propTypes = {
-    //token: PropTypes.string.isRequired,
     predictions: PropTypes.array.isRequired,
     autoSaving: PropTypes.bool.isRequired,
     rounds: PropTypes.object.isRequired,
@@ -181,7 +173,6 @@ FixturesContainer.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        token: state.auth.token,
         predictions: state.predictions,
         autoSaving: state.autoSaving,
         rounds: state.rounds,

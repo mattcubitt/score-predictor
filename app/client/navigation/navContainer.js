@@ -16,7 +16,7 @@ class NavContainer extends Component {
             return (
                 <div>
                     <TopBar/>
-                    <NavBar/>
+                    <NavBar user={user} />
                 </div>
             )
         }

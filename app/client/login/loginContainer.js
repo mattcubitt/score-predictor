@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import request from 'axios';
-import { browserHistory } from 'react-router';
 import Alert from './alert';
 import LoginForm from './loginForm';
 
@@ -10,7 +8,7 @@ class LoginContainer extends Component {
         const { user } = this.props;
         return (
             <div className="row">
-                <div className="col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                <div className="col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8 col-xl-offset-3 col-xl-6">
                     <div className="login-form">
                         <Alert error={user.error} />
                         <LoginForm/>

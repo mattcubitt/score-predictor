@@ -3,7 +3,8 @@ import NavLink from './navLink';
 
 export default class NavBar extends Component {
     render() {
-        const { } = this.props;
+        const { user } = this.props;
+        const adminLinkStyle = user.role !== 'admin' ? { display: 'none' } : { };
 
         return (
             <div className="fluid-container">
@@ -13,7 +14,7 @@ export default class NavBar extends Component {
                             <li className="nav-bar-link"><NavLink to="/login">Login</NavLink></li>
                             <li className="nav-bar-link"><NavLink to="/registration">Registration</NavLink></li>
                             <li className="nav-bar-link"><NavLink to="/fixtures">My Predictions</NavLink></li>
-                            <li className="nav-bar-link"><NavLink to="/admin">Admin</NavLink></li>
+                            <li className="nav-bar-link" style={adminLinkStyle}><NavLink to="/admin">Admin</NavLink></li>
                         </ul>
                     </div>
                 </div>
@@ -22,4 +23,6 @@ export default class NavBar extends Component {
     }
 }
 
-NavBar.propTypes = { };
+NavBar.propTypes = {
+    user: PropTypes.object.isRequired
+};

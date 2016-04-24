@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import loginValidator from './loginValidator';
-import request from 'axios';
 import { hashHistory } from 'react-router';
+import registrationValidator from './registrationValidator';
+import request from 'axios';
 
 //push up to container
 var onSubmit = (values, dispatch) => {
+    debugger;
     return request
-        .post('/auth/login', { email: values.email, password: values.password })
+        .post('/auth/register', { email: values.email, password: values.password })
         .then((response) => {
             const user = response.data;
 
@@ -30,29 +31,43 @@ var onSubmit = (values, dispatch) => {
         });
 };
 
-class LoginForm extends Component {
-    
+const onAsyncValidate = (values, dispatch) => {
+    return request
+        .get(`/auth/validate/email/${values.email}`)
+        .then(() => {})
+        .catch((response) => {
+            return response.data;
+        });
+};
+
+class RegistrationForm extends Component {
     render() {
-        const {fields: {email, password}, handleSubmit, submitting} = this.props;
+        const {fields: {name, email, password}, handleSubmit, submitting} = this.props;
         return (
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="login-form-title">Login into your account</div>
+                <div className="login-form-title">Create a new account</div>
+                <div className={'form-group' + (name.touched && name.error ? ' has-danger' : '')}>
+                    <input type="text" className="form-control form-control-lg" placeholder="Name" {...name}/>
+                    {name.touched && name.error && <span className="text-help">{name.error}</span>}
+                </div>
                 <div className={'form-group' + (email.touched && email.error ? ' has-danger' : '')}>
-                    <input type="text" className="form-control form-control-lg" placeholder="Email" {...email}/>
+                    <input type="email" className="form-control form-control-lg" placeholder="Email" {...email}/>
                     {email.touched && email.error && <span className="text-help">{email.error}</span>}
                 </div>
                 <div className={'form-group' + (password.touched && password.error ? ' has-danger' : '')}>
                     <input type="password" className="form-control form-control-lg" placeholder="Password" {...password}/>
                     {password.touched && password.error && <span className="text-help">{password.error}</span>}
                 </div>
-                <button type="submit" className="btn btn-primary btn-block btn-lg" disabled={submitting}>Login</button>
+                <button type="submit" className="btn btn-primary btn-block btn-lg" disabled={submitting}>Register</button>
             </form>
         )
     }
 }
 
 export default reduxForm({
-    form: 'loginForm',
-    fields: ['email', 'password'],
-    validate: loginValidator
-})(LoginForm);
+    form: 'registrationForm',
+    fields: ['name', 'email', 'password'],
+    asyncValidate: onAsyncValidate,
+    asyncBlurFields: ['email'],
+    validate: registrationValidator
+})(RegistrationForm);

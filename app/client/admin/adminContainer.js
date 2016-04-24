@@ -8,24 +8,22 @@ class AdminContainer extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, token } = this.props;
-        return dispatch(this.fetchState(token));
+        const { dispatch } = this.props;
+        return dispatch(this.fetchState());
     }
 
-    fetchState(token) {
+    fetchState() {
         return dispatch => {
-            this.loadFixtures(token, dispatch);
+            this.loadFixtures(dispatch);
         };
     }
 
-    loadFixtures(token, dispatch) {
-        return request('/fixtures', {
-            headers: { authorization: token }
-        })
-        .then(response => dispatch({
-            type: 'ADMIN_LOAD_FIXTURES',
-            fixtures: response.data
-        }));
+    loadFixtures(dispatch) {
+        return request('/fixtures')
+            .then(response => dispatch({
+                type: 'ADMIN_LOAD_FIXTURES',
+                fixtures: response.data
+            }));
     }
 
     headerFragment() {
@@ -55,11 +53,10 @@ class AdminContainer extends Component {
     }
 
     onDeleteFixture(fixtureId) {
-        const { dispatch, admin, token } = this.props;
+        const { dispatch, admin } = this.props;
 
         return request('/admin/fixtures/' + fixtureId, {
-            method: 'delete',
-            headers: { authorization: token }
+            method: 'delete'
         })
         .then(response => dispatch({
             type: 'ADMIN_DELETE_FIXTURE',
@@ -122,11 +119,10 @@ class AdminContainer extends Component {
     }
 
     onSaveFixture(fixture) {
-        const { dispatch, token } = this.props;
+        const { dispatch } = this.props;
 
         return request('/admin/fixtures/', {
             method: 'put',
-            headers: { authorization: token },
             data: fixture
         })
         .then(response => dispatch({
@@ -207,11 +203,10 @@ class AdminContainer extends Component {
     }
 
     onPlaceHolderAdd() {
-        const { dispatch, admin, token } = this.props;
+        const { dispatch, admin } = this.props;
 
         return request('/admin/fixtures', {
             method: 'post',
-            headers: { authorization: token },
             data: admin.fixturePlaceholder
         })
         .then(response => dispatch({
@@ -279,11 +274,8 @@ class AdminContainer extends Component {
     }
 
     onCalculatePoints() {
-        const { token } = this.props;
-
         return request('/admin/leaderTables', {
-            method: 'post',
-            headers: { authorization: token }
+            method: 'post'
         })
     }
 
@@ -320,13 +312,11 @@ class AdminContainer extends Component {
 }
 
 AdminContainer.propTypes = {
-    //token: PropTypes.string.isRequired,
     admin: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
     return {
-        token: state.auth.token,
         admin: state.admin
     }
 }
