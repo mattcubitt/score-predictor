@@ -10,12 +10,10 @@
     "chai": "^3.5.0",
     "co-mocha": "^1.1.2",
     "co-request": "^1.0.0",
-    "css-loader": "^0.23.1",
     "jquery": "^2.2.3",
     "jsonwebtoken": "^5.7.0",
     "koa": "^1.2.0",
     "koa-bodyparser": "^2.0.1",
-    "koa-logger": "^1.3.0",
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",
     "lodash": "^4.9.0",
@@ -35,9 +33,7 @@
     "style-loader": "^0.13.1",
     "superagent": "^1.8.3",
     "tether": "^1.2.0",
-    "webpack-hot-middleware": "^2.10.0"
-  },
-  "devDependencies": {
+    "webpack-hot-middleware": "^2.10.0",
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.5.0",
@@ -51,8 +47,9 @@
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
   },
+  "devDependencies": {
+  },
   "scripts": {
-    "start:hot": "node server.js"
   },
   "repository": {
     "type": "git",
