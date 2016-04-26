@@ -1,24 +1,20 @@
 var Router = require('koa-router');
 
+var mongo = require('../../mongo');
+var AdminFixtureController = require('./adminFixtureController');
+var FixtureService = require('../../fixtures/fixtureService');
+
 module.exports = Router({ prefix: '/fixtures' })
     .post('/', function *() {
-        var fixture = this.request.body;
-
-        var id = this.fixtureService.insert(fixture);
-
-        this.body = id;
-        this.status = 200;
+        var adminFixtureController = new AdminFixtureController(this, new FixtureService(mongo.db));
+        yield adminFixtureController.create(this.request.body);
     })
     .delete('/:fixtureId', function *() {
-        this.fixtureService.remove(parseInt(this.params.fixtureId));
-
-        this.status = 200;
+        var adminFixtureController = new AdminFixtureController(this, new FixtureService(mongo.db));
+        yield adminFixtureController.delete(this.param.fixtureId);
     })
     .put('/', function *() {
-        var fixture = this.request.body;
-        
-        this.fixtureService.update(fixture);
-
-        this.status = 200;
+        var adminFixtureController = new AdminFixtureController(this, new FixtureService(mongo.db));
+        yield adminFixtureController.update(this.request.body);
     })
     .routes();

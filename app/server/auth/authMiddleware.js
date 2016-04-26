@@ -1,30 +1,19 @@
 var authConfig = require('./authConfig');
 var jwt = require('jsonwebtoken');
+var mongo = require('../mongo');
+var UserService = require('../users/userService');
 
 module.exports = function*(next){
-    try {
-        var token = this.request.header.authorization;
-        
-        var options = {
-            audience: authConfig.audience,
-            issuer: authConfig.issuer
-        };
+    var token = this.request.header.authorization;
 
-        var claims = jwt.verify(token, authConfig.privateKey, options);
+    var options = {
+        audience: authConfig.audience,
+        issuer: authConfig.issuer
+    };
 
-        this.currentUser = this.userService.find(claims.email);
-        // this.currentUser = {
-        //     userId: 1,
-        //     name: 'matt',
-        //     email: 'test@email.com',
-        //     password: 'password',
-        //     role: 'admin'
-        // };
+    var claims = jwt.verify(token, authConfig.privateKey, options);
 
-        yield next;
+    this.currentUser = new UserService(mongo.db).find(claims.email);
 
-    } catch(ex) {
-        this.status = 401;
-        this.body = 'Unauthorized';
-    }
+    yield next;
 };

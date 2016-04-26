@@ -4,36 +4,21 @@ var getLocalMoment = require('../dateHelpers').GetLocalMoment;
 var moment = require('moment');
 
 class FixtureService {
-    constructor() {
-        this.fixtures = [{
-            _id: 1,
-            homeTeam: 'GER',
-            homeScore: 0,
-            awayTeam: 'ENG',
-            awayScore: 1,
-            startsOn: getLocalMoment().add(-1, 'minute').toDate(),
-            roundId: 1
-        }, {
-            _id: 2,
-            homeTeam: 'ENG',
-            homeScore: 1,
-            awayTeam: 'GER',
-            awayScore: 1,
-            startsOn: getLocalMoment().add(5, 'minute').toDate(),
-            roundId: 2
-        }];
+    constructor(db) {
+        this.fixtures = db.collection('fixtures');
     }
 
-    find(fixtureId) {
-        return this.fixtures.filter(f => f._id === fixtureId);
+    *find(fixtureId) {
+        return yield this.fixtures.find({ _id: fixtureId }).toArray();
     }
 
-    findAll() {
-        return this.fixtures;
+    *findAll() {
+        return yield this.fixtures.find({ }).toArray();
     }
 
-    isEditable(fixtureId) {
-        var foundFixtures = this.fixtures.filter(f => f._id === fixtureId);
+    //TODO: move to helper function?
+    *isEditable(fixtureId) {
+        var foundFixtures = yield this.find({ _id: fixtureId });
 
         var localTime = getLocalDate();
 
@@ -44,27 +29,22 @@ class FixtureService {
         return true;
     }
 
-    insert(fixture) {
+    *insert(fixture) {
         fixture._id = new Date().getTime();
         fixture.startsOn = moment(fixture.startsOn).toDate();
-        this.fixtures.push(fixture);
+
+        yield this.fixtures.insertOne(fixture);
 
         return fixture._id;
     }
 
-    remove(fixtureId) {
-        this.fixtures = this.fixtures.filter(f => f._id !== fixtureId)
+    *remove(fixtureId) {
+        yield this.fixtures.deleteOne({ _id: fixtureId });
     }
 
-    update(fixture) {
-        this.fixtures = this.fixtures.map(f => {
-            if(f._id !== fixture._id)
-                return f;
-
-            fixture.startsOn = moment(fixture.startsOn).toDate();
-            return fixture;
-        })
+    *update(fixture) {
+        yield this.fixtures.updateOne({_id : fixture._id}, fixture)
     }
 }
 
-module.exports = new FixtureService();
+module.exports = FixtureService;

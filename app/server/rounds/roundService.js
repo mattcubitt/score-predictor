@@ -16,4 +16,4 @@ class RoundService {
     }
 }
 
-module.exports = new RoundService();
+module.exports = RoundService;

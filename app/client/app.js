@@ -27,6 +27,10 @@ request.interceptors.request.use((config) => {
 }, (e) => e);
 
 request.interceptors.response.use((r) => r, (error) => {
+    if(error.status !== 403) {
+        return Promise.reject(error);
+    }
+
     store.dispatch({
         type: 'CLEAR_USER'
     });

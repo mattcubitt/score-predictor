@@ -3,62 +3,15 @@
 var getLocalMoment = require('../dateHelpers').GetLocalMoment;
 
 class LeaderTableService {
-    constructor() {
-        this.leaderTableSnapshots = [{
-            _id: 1,
-            createdOn: getLocalMoment().add(1, 'second').toDate(),
-            roundId: 1,
-            userPoints: [{
-                name: 'matt',
-                position: 1,
-                lastPosition: 2,
-                points: 99
-            }, {
-                name: 'aloke',
-                position: 2,
-                lastPosition: 2,
-                points: 50
-            }, {
-                name: 'wing',
-                position: 3,
-                lastPosition: 2,
-                points: 30
-            }, {
-                name: 'pete',
-                position: 4,
-                lastPosition: 2,
-                points: 1
-            }]
-        }, {
-            _id: 2,
-            createdOn: getLocalMoment().add(5, 'second').toDate(),
-            roundId: 2,
-            userPoints: [{
-                name: 'matt',
-                position: 1,
-                lastPosition: 2,
-                points: 10
-            }, {
-                name: 'pete',
-                position: 2,
-                lastPosition: 2,
-                points: 5
-            }, {
-                name: 'wing',
-                position: 3,
-                lastPosition: 2,
-                points: 4
-            }, {
-                name: 'aloke',
-                position: 4,
-                lastPosition: 2,
-                points: 1
-            }]
-        }];
+    constructor(db) {
+        this.leaderTableSnapshots = db.collection('leaderTableSnapshots');
     }
 
-    getLatest(roundId) {
-        var sortedLeaderTableSnapshots = this.leaderTableSnapshots
+    *getLatest(roundId) {
+        var leaderTableSnapshots = yield this.leaderTableSnapshots
+            .find({ roundId: roundId}).toArray();
+
+        var sortedLeaderTableSnapshots = leaderTableSnapshots
             .filter(s => s.roundId === roundId)
             .sort((a, b) => a.createdOn < b.createdOn);
 
@@ -68,12 +21,9 @@ class LeaderTableService {
         return sortedLeaderTableSnapshots[0];
     }
 
-    insertAll(leaderTableSnapshots) {
-        for(var leaderTableSnapshot of leaderTableSnapshots) {
-            leaderTableSnapshot._id = new Date().getTime();
-            this.leaderTableSnapshots.push(leaderTableSnapshot);
-        }
+    *insertAll(leaderTableSnapshots) {
+        yield this.leaderTableSnapshots.insertMany(leaderTableSnapshots);
     }
 }
 
-module.exports = new LeaderTableService();
+module.exports = LeaderTableService;

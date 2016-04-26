@@ -3,22 +3,23 @@
 var bcrypt = require('bcrypt-nodejs');
 
 class UserService {
-    constructor() {
-        this.users = [{
-            _id: 1,
-            name: 'matt',
-            email: 'matt.d.cubitt@gmail.com',
-            password: '$2a$04$jEsLdQv9mSfKiNSvU7fsZ.ZeJnv0cGleaR3dXwaIEkzBW4S1eC0bW',
-            role: 'admin'
-        }];
+    constructor(db) {
+        // this.users = [{
+        //     _id: 1,
+        //     name: 'matt',
+        //     email: 'matt.d.cubitt@gmail.com',
+        //     password: '$2a$04$jEsLdQv9mSfKiNSvU7fsZ.ZeJnv0cGleaR3dXwaIEkzBW4S1eC0bW',
+        //     role: 'admin'
+        // }];
+        this.users = db.collection('users');
     }
 
-    findAll() {
-        return this.users;
+    *findAll() {
+        return yield this.users.find({ }).toArray();
     }
 
-    find(email) {
-        var foundUsers = this.users.filter(u => u.email == email);
+    *find(email) {
+        var foundUsers = yield this.users.find({ email: email }).toArray();
 
         if(foundUsers.length === 0)
             return null;
@@ -26,20 +27,22 @@ class UserService {
         return foundUsers[0];
     }
 
-    insert(name, email, password) {
+    *insert(name, email, password) {
         var user = {
             name: name,
             email: email,
             password: bcrypt.hashSync(password, null, null)
         };
-        this.users.push(user);
+
+        yield this.users.insertOne(user);
 
         return user;
     }
 
+    //TODO: move out
     comparePassword(plainText, hash) {
         return bcrypt.compareSync(plainText, hash);
     }
 }
 
-module.exports = new UserService();
+module.exports = UserService;
