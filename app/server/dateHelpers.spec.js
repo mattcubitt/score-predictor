@@ -26,7 +26,5 @@ describe('dateHelpers ', () => {
         var localDate = getLocalDate();
 
         var time = localDate.getTime();
-
-        debugger;
     });
 });

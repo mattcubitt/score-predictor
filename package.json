@@ -50,7 +50,11 @@
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.10.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "co-mocha": "^1.1.2",
+    "sinon": "^1.17.3",
+    "sinon-as-promised": "^4.0.0"
+  },
   "scripts": {},
   "repository": {
     "type": "git",

@@ -13,7 +13,10 @@ class LeaderTableController {
         var latestRoundTables = [];
         for(var round of rounds) {
             var latestRoundTable = yield this.leaderTableService.getLatest(round._id);
-            latestRoundTables.push(latestRoundTable);
+
+            if(latestRoundTable !== null) {
+                latestRoundTables.push(latestRoundTable);
+            }
         }
 
         this.context.body = latestRoundTables;

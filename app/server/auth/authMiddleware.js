@@ -13,7 +13,7 @@ module.exports = function*(next){
 
     var claims = jwt.verify(token, authConfig.privateKey, options);
 
-    this.currentUser = new UserService(mongo.db).find(claims.email);
+    this.currentUser = yield new UserService(mongo.db).find(claims.email);
 
     yield next;
 };

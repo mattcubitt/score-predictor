@@ -2,6 +2,7 @@ var co = require('co');
 var mongo = require('./mongo');
 var mongodb = require('mongodb');
 var config = require('./config');
+var moment = require('moment');
 
 var koa = require('koa');
 var bodyParser = require('koa-bodyparser');
@@ -57,25 +58,3 @@ app().catch(function (err) {
     console.error(err.stack);
     process.exit(1);
 });
-
-
-// mongo.connect(process.env.MONGODB_URI, function(err, db) {
-//     if(err) {
-//         console.error(`Error connecting to mongodb ${err}`);
-//     } else {
-//         console.log('Connected correctly to mongodb');
-//
-//         var app = configureApp(db);
-//         app.listen(process.env.PORT, (err) => {
-//             if(err) {
-//                 console.error(`Error starting server ${err}`);
-//                 if(db) db.close();
-//             } else {
-//                 console.log('Server started')
-//             }
-//         });
-//     }
-// });
-
-
-

@@ -1,7 +1,5 @@
 'use strict';
 
-var getLocalMoment = require('../dateHelpers').GetLocalMoment;
-
 class LeaderTableService {
     constructor(db) {
         this.leaderTableSnapshots = db.collection('leaderTableSnapshots');
