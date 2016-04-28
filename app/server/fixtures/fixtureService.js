@@ -30,7 +30,6 @@ class FixtureService {
     }
 
     *insert(fixture) {
-        fixture._id = new Date().getTime();
         fixture.startsOn = moment(fixture.startsOn).toDate();
 
         yield this.fixtures.insertOne(fixture);

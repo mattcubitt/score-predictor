@@ -52,7 +52,7 @@ class AuthController {
 
             var now = Math.floor(Date.now() / 1000);
             var oneDayExpiry = 60 * 60 * 24;
-            //var oneDayExpiry = 1;
+            
             var claims = {
                 iss: authConfig.issuer,
                 aud: authConfig.audience,

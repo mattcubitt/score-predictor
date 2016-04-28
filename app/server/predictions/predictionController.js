@@ -11,7 +11,7 @@ class PredictionController {
     }
 
     *findAll() {
-        var userId = this.currentUser.userId;
+        var userId = this.currentUser._id;
 
         var fixtures = yield this.fixtureService.findAll();
         var predictions = [];

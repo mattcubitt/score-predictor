@@ -7,7 +7,7 @@ import request from 'axios';
 //push up to container
 var onSubmit = (values, dispatch) => {
     return request
-        .post('/auth/register', { email: values.email, password: values.password })
+        .post('/auth/register', { name: values.name, email: values.email, password: values.password })
         .then((response) => {
             const user = response.data;
 

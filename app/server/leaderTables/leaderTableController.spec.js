@@ -8,7 +8,7 @@ var stubSetup = require('../stubSetup');
 var LeaderTableController = require('./leaderTableController');
 
 describe('leaderTableController', () => {
-    it('get latest should empty array when leader tables have no data', function *() {
+    it('get latest should return empty array when leader tables have no data', function *() {
         var context = {};
         var rounds = [{_id: 0}, {_id: 1}];
         var leaderTables = [null, null];

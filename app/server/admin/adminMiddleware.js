@@ -5,11 +5,4 @@ module.exports = function*(next){
     } else {
         yield next;
     }
-
-    // try {
-    //
-    // } catch(ex) {
-    //     this.status = 401;
-    //     this.body = 'Unauthorized';
-    // }
 };
