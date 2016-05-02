@@ -3,7 +3,7 @@
 require('co-mocha');
 var chai = require('chai');
 var expect = chai.expect;
-var predictionPointsCalculator = require('./predictionPointsCalculator');
+var pointsCalculator = require('./pointsCalculator');
 
 describe('predictionPointsCalculator', () => {
     it('calculates 3 points for a correct score and result', function *() {
@@ -17,7 +17,7 @@ describe('predictionPointsCalculator', () => {
             awayScore: 1
         };
 
-        var points = predictionPointsCalculator(prediction, fixture);
+        var points = pointsCalculator(prediction, fixture);
 
         expect(points).to.be.equal(3);
     });
@@ -33,7 +33,7 @@ describe('predictionPointsCalculator', () => {
             awayScore: 1
         };
 
-        var points = predictionPointsCalculator(prediction, fixture);
+        var points = pointsCalculator(prediction, fixture);
 
         expect(points).to.be.equal(1);
     });
@@ -49,7 +49,7 @@ describe('predictionPointsCalculator', () => {
             awayScore: 2
         };
 
-        var points = predictionPointsCalculator(prediction, fixture);
+        var points = pointsCalculator(prediction, fixture);
 
         expect(points).to.be.equal(0);
     });
@@ -62,7 +62,20 @@ describe('predictionPointsCalculator', () => {
 
         var fixture = { };
 
-        var points = predictionPointsCalculator(prediction, fixture);
+        var points = pointsCalculator(prediction, fixture);
+
+        expect(points).to.be.equal(0);
+    });
+
+    it('calculates 0 points when there is no prediction', function *() {
+        var prediction = { };
+
+        var fixture = {
+            homeScore: 0,
+            awayScore: 0
+        };
+
+        var points = pointsCalculator(prediction, fixture);
 
         expect(points).to.be.equal(0);
     });

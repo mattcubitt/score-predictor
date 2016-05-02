@@ -1,6 +1,6 @@
 'use strict';
 
-var predictionPointsCalculator = require('../admin/leaderTables/predictionPointsCalculator');
+var predictionPointsCalculator = require('../admin/leaderTables/pointsCalculator');
 
 class PredictionController {
     constructor(context, fixtureService, predictionService) {
@@ -16,12 +16,16 @@ class PredictionController {
         var fixtures = yield this.fixtureService.findAll();
         var predictions = [];
 
+        var userPredictions = yield this.predictionService
+            .findByUserId(userId);
+
         for(var fixture of fixtures) {
-            var foundPredictions = yield this.predictionService.find(userId, fixture._id);
+            var fixturePredictions = userPredictions
+                .filter(p => p.fixtureId.toString() === fixture._id.toString());
 
             var prediction;
 
-            if(foundPredictions.length === 0) {
+            if(fixturePredictions.length === 0) {
                 prediction = {
                     userId: userId,
                     fixtureId: fixture._id,
@@ -31,12 +35,12 @@ class PredictionController {
 
                 yield this.predictionService.insert(prediction);
             } else {
-                prediction = foundPredictions[0]
+                prediction = fixturePredictions[0];
             }
 
             prediction.points = predictionPointsCalculator(prediction, fixture);
             prediction.fixture = fixture;
-            prediction.editable = yield this.fixtureService.isEditable(prediction.fixtureId);
+            prediction.editable = this.fixtureService.isEditable(fixture);
 
             predictions.push(prediction);
         }
@@ -47,11 +51,13 @@ class PredictionController {
     }
 
     *saveAll(predictions) {
-        var userId = this.currentUser.userId;
+        var userId = this.currentUser._id;
 
         var editablePredictions = [];
         for(var prediction of predictions) {
-            if(this.fixtureService.isEditable(prediction.fixtureId)) {
+            var fixtures = yield this.fixtureService.find(prediction.fixtureId);
+
+            if(this.fixtureService.isEditable(fixtures[0])) {
                 editablePredictions.push(prediction);
             }
         }

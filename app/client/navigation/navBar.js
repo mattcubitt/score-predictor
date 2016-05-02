@@ -11,9 +11,10 @@ export default class NavBar extends Component {
                 <div className="nav-bar">
                     <div className="container">
                         <ul className="nav-bar-links">
-                            <li className="nav-bar-link"><NavLink to="/login">Login</NavLink></li>
+                            <li className="nav-bar-link"><NavLink to="login">Login</NavLink></li>
                             <li className="nav-bar-link"><NavLink to="/registration">Registration</NavLink></li>
                             <li className="nav-bar-link"><NavLink to="/fixtures">My Predictions</NavLink></li>
+                            <li className="nav-bar-link"><NavLink to="/standings">MI League Table</NavLink></li>
                             <li className="nav-bar-link" style={adminLinkStyle}><NavLink to="/admin">Admin</NavLink></li>
                         </ul>
                     </div>

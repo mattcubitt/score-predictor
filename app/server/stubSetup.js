@@ -8,7 +8,7 @@ module.exports = {
 
         return roundService;
     },
-    leaderTableService: (rounds, leaderTables) => {
+    leaderTableService: (rounds, leaderTables, overallLeaderTable) => {
         var leaderTableService = sinon.createStubInstance(require('./leaderTables/leaderTableService'));
 
         var i = 0;
@@ -17,6 +17,8 @@ module.exports = {
             i++;
         }
 
+        leaderTableService.getLatestOverall.resolves(overallLeaderTable);
+
         return leaderTableService;
     }
-}
+};

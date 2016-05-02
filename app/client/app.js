@@ -12,6 +12,7 @@ import AdminContainer from './admin/adminContainer'
 import configureStore from './configureStore'
 import UserStates from './user/userStates';
 import request from 'axios';
+import StandingsContainer from './standings/standingsContainer';
 
 const store = configureStore();
 
@@ -88,10 +89,11 @@ render(
         <Router history={hashHistory}>
             <Route path="/" component={Layout} onEnter={updateUser}>
                 <IndexRoute component={LoginContainer} />
-                <Route path="login" component={LoginContainer}/>
-                <Route path="registration" component={RegistrationContainer}/>
-                <Route path="fixtures" component={FixturesContainer} onEnter={isAuthenticated}/>
-                <Route path="admin" component={AdminContainer} onEnter={isAdmin}/>
+                <Route name="login" path="login" component={LoginContainer}/>
+                <Route path="/registration" component={RegistrationContainer}/>
+                <Route path="/fixtures" component={FixturesContainer} onEnter={isAuthenticated}/>
+                <Route path="/standings" component={StandingsContainer} onEnter={isAuthenticated}/>
+                <Route path="/admin" component={AdminContainer} onEnter={isAdmin}/>
             </Route>
         </Router>
     </Provider>,

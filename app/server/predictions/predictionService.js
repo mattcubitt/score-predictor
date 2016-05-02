@@ -1,6 +1,6 @@
 'use strict';
 
-var getLocalDate = require('../dateHelpers').GetLocalDate;
+var ObjectID = require('mongodb').ObjectID;
 
 class PredictionService {
     constructor(db) {
@@ -11,26 +11,26 @@ class PredictionService {
         return yield this.predictions.find({ }).toArray();
     }
 
-    *find(userId) {
+    // *find(userId) {
+    //     return yield this.predictions.find({ userId: userId }).toArray();
+    // }
+
+    *findByUserId(userId) {
         return yield this.predictions.find({ userId: userId }).toArray();
     }
 
-    *find(userId, fixtureId) {
-        return yield this.predictions.find({ userId: userId, fixtureId: fixtureId }).toArray();
-    }
-
-    *find(id, fixtureId) {
-        return yield this.predictions.find({ _id: id, fixtureId: fixtureId }).toArray();
-    }
+    // *find(id, fixtureId) {
+    //     return yield this.predictions.find({ _id: new ObjectID(id), fixtureId: new ObjectID(fixtureId) }).toArray();
+    // }
 
     *update(userId, predictions) {
         for(var prediction of predictions) {
-            var foundPredictions = yield this.find(prediction._id, userId).toArray();
+            var foundPredictions = yield this.predictions.find({ _id: new ObjectID(prediction._id), userId: userId }).toArray();
 
             if(foundPredictions.length > 0) {
                 var foundPrediction = foundPredictions[0];
 
-                yield this.fixtures.updateOne({_id : foundPrediction._id}, {
+                var result = yield this.predictions.updateOne({_id : foundPrediction._id}, {
                     $set: { 'homeScore': prediction.homeScore, 'awayScore': prediction.awayScore },
                     $currentDate: { 'updatedOn': true }
                 });

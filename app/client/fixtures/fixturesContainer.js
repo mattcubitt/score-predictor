@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import Fixture from './fixture';
 import _ from 'lodash';
 import RoundSelector from '../roundSelector/roundSelector';
-import LeaderTable from '../leaderTable/leaderTable';
+import RoundLeaderTable from '../leaderTable/roundLeaderTable';
 
 class FixturesContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.autoSaveDebounce = _.debounce(this.onAutoSave, 5000);
+        this.autoSaveDebounce = _.debounce(this.onAutoSave, 1000);
     }
 
     componentDidMount() {
@@ -156,7 +156,7 @@ class FixturesContainer extends Component {
                         </ul>
                     </div>
                     <div className="col-xs-4">
-                        <LeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
+                        <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
                     </div>
                 </div>
             </div>

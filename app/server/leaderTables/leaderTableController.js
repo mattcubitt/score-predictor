@@ -19,6 +19,12 @@ class LeaderTableController {
             }
         }
 
+        var latestOverallTable = yield this.leaderTableService.getLatestOverall();
+
+        if(latestOverallTable !== null) {
+            latestRoundTables.push(latestOverallTable);
+        }
+
         this.context.body = latestRoundTables;
         this.context.status = 200;
      }

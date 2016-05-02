@@ -15,7 +15,7 @@ describe('leaderTableController', () => {
 
         var leaderTableController = new LeaderTableController(context,
                                             stubSetup.roundService(rounds),
-                                            stubSetup.leaderTableService(rounds, leaderTables));
+                                            stubSetup.leaderTableService(rounds, leaderTables, null));
 
         yield leaderTableController.getLatest();
 

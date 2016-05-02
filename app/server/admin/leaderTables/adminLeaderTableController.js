@@ -1,8 +1,9 @@
 'use strict';
 
-var pointsCalculator = require('./predictionPointsCalculator');
+var userPointsCalculator = require('./userPointsCalculator');
 var getLocalMoment = require('../../dateHelpers').GetLocalMoment;
 var leaderTablePositionCalculator = require('./leaderTablePositionCalculator');
+var leaderTableSnapshotFactory = require('./leaderTableSnapshotFactory');
 
 class AdminLeaderTableController {
     constructor(context, predictionService, fixtureService, roundService, userService, leaderTableService) {
@@ -25,27 +26,11 @@ class AdminLeaderTableController {
         var users = yield this.userService.findAll();
 
         var leaderTableSnapshots = rounds
-            .map(round => {
-                var userPoints = users
-                    .map(user => {
-                        var points = predictions
-                            .filter(p => p.userId === user._id && p.fixture.roundId === round._id)
-                            .map(p => pointsCalculator(p, p.fixture))
-                            .reduce((p1, p2) => p1 + p2, 0);
+            .map(round => leaderTableSnapshotFactory(predictions, users, round._id));
 
-                        return {
-                            userId: user._id,
-                            name: user.name,
-                            points: points
-                        }
-                    });
+        var overallSnapshot = leaderTableSnapshotFactory(predictions, users);
 
-                return {
-                    createdOn: getLocalMoment().toDate(),
-                    roundId: round._id,
-                    userPoints: leaderTablePositionCalculator(userPoints)
-                }
-            });
+        leaderTableSnapshots.push(overallSnapshot);
 
         this.leaderTableService.insertAll(leaderTableSnapshots);
         this.context.status = 200;

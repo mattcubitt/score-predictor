@@ -8,8 +8,10 @@ var resultTypeCalculator = function(result) {
     return 'draw';
 };
 
-var predictionPointsCalculator = function(prediction, fixture) {
-    if(!fixture.homeScore || !fixture.awayScore) {
+var pointsCalculator = function(prediction, fixture) {
+    if(prediction.homeScore === undefined || prediction.awayScore === undefined) {
+        return 0;
+    } else if(fixture.homeScore === undefined || fixture.awayScore === undefined) {
         return 0;
     } else if(prediction.homeScore === fixture.homeScore &&
         prediction.awayScore === fixture.awayScore) {
@@ -21,4 +23,4 @@ var predictionPointsCalculator = function(prediction, fixture) {
     return 0;
 };
 
-module.exports = predictionPointsCalculator;
+module.exports = pointsCalculator;

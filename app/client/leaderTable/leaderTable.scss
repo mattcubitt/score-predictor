@@ -27,19 +27,18 @@
 			border-bottom: dashed 0.1em #2b2d2f;
 		}
 
-		.table-column-pos {
+		.table-column-small {
 			width: 20%;
 			float: left;
 		}
 
-		.table-column-name {
+		.table-column-medium {
+			width: 40%;
+			float: left;
+		}
+
+		.table-column-large {
 			width: 60%;
-			float: left;
-			text-align: left;
-		}
-
-		.table-column-points {
-			width: 20%;
 			float: left;
 		}
 	}

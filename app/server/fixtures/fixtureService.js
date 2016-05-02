@@ -1,7 +1,7 @@
 'use strict';
 var getLocalDate = require('../dateHelpers').GetLocalDate;
-var getLocalMoment = require('../dateHelpers').GetLocalMoment;
 var moment = require('moment');
+var ObjectID = require('mongodb').ObjectID;
 
 class FixtureService {
     constructor(db) {
@@ -9,24 +9,17 @@ class FixtureService {
     }
 
     *find(fixtureId) {
-        return yield this.fixtures.find({ _id: fixtureId }).toArray();
+        return yield this.fixtures.find({ _id: new ObjectID(fixtureId) }).toArray();
     }
 
     *findAll() {
         return yield this.fixtures.find({ }).toArray();
     }
-
-    //TODO: move to helper function?
-    *isEditable(fixtureId) {
-        var foundFixtures = yield this.find({ _id: fixtureId });
-
+    
+    isEditable(fixture) {
         var localTime = getLocalDate();
 
-        if(foundFixtures.length > 0) {
-            return localTime.getTime() < foundFixtures[0].startsOn.getTime()
-        }
-
-        return true;
+        return localTime.getTime() < fixture.startsOn.getTime();
     }
 
     *insert(fixture) {
@@ -38,11 +31,11 @@ class FixtureService {
     }
 
     *remove(fixtureId) {
-        yield this.fixtures.deleteOne({ _id: fixtureId });
+        yield this.fixtures.deleteOne({ _id: new ObjectID(fixtureId) });
     }
 
     *update(fixture) {
-        yield this.fixtures.updateOne({_id : fixture._id}, fixture)
+        yield this.fixtures.updateOne({_id : new ObjectID(fixture._id) }, fixture)
     }
 }
 
