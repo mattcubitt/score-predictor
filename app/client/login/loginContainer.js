@@ -4,6 +4,14 @@ import Alert from './alert';
 import LoginForm from './loginForm';
 
 class LoginContainer extends Component {
+    componentDidMount() {
+        const { dispatch } = this.props;
+        return dispatch({
+            type: 'SET_ACTIVE_ROUTE',
+            route: 'LOGIN'
+        });
+    }
+    
     render() {
         const { user } = this.props;
         return (

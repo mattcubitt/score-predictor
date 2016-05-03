@@ -2,11 +2,13 @@
 
 var authConfig = require('./authConfig');
 var jwt = require('jsonwebtoken');
+var pointsCalculator = require('../admin/leaderTables/pointsCalculator');
 
 class AuthController {
-    constructor(context, userService) {
+    constructor(context, userService, predictionService) {
         this.context = context;
         this.userService = userService;
+        this.predictionService = predictionService;
     }
 
     *login(loginRequest) {
@@ -30,13 +32,21 @@ class AuthController {
 
             var token = jwt.sign(claims, authConfig.privateKey);
 
+            var userPredictions = yield this.predictionService.findByUserId(user._id);
+
+            var points = userPredictions
+                .map(p => pointsCalculator(p, p.fixture))
+                .reduce((p1, p2) => p1 + p2, 0);
+
             this.context.status = 200;
             this.context.body = {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
                 role: user.role,
-                token: token
+                token: token,
+                points: points,
+                state: 1
             };
         }
     }

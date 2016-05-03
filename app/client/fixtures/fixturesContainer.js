@@ -23,7 +23,15 @@ class FixturesContainer extends Component {
             this.loadPredictions(dispatch);
             this.loadRounds(dispatch);
             this.loadLeaderTables(dispatch);
+            this.setActiveRoute(dispatch);
         };
+    }
+
+    setActiveRoute(dispatch) {
+        dispatch({
+            type: 'SET_ACTIVE_ROUTE',
+            route: 'FIXTURES'
+        });
     }
 
     loadPredictions(dispatch) {
@@ -155,7 +163,7 @@ class FixturesContainer extends Component {
                             </li>
                         </ul>
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-12 col-md-4">
                         <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
                     </div>
                 </div>

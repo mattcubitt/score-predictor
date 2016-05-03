@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import UserStates from '../user/userStates';
 
 export default class TopBar extends Component {
     render() {
-        const { } = this.props;
+        const { onLogout, user, points } = this.props;
+        const accountStyle = user.state !== UserStates.AUTHENTICATED ? {display: 'none'} : {};
 
         return (
             <div className="fluid-container">
@@ -10,6 +12,11 @@ export default class TopBar extends Component {
                     <div className="container">
                         <div className="top-bar-logo"></div>
                         <div className="top-bar-title">Euro 2016 Predictor</div>
+                        <div className="top-bar-account hidden-sm-down" style={accountStyle}>
+                            <div className="pull-xs-right top-bar-logout" onClick={onLogout}>Logout</div>
+                            <div className="top-bar-account-item"><span className="top-bar-points-box">{points}pts</span></div>
+                            <div className="pull-xs-right">{user.name}</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -17,4 +24,7 @@ export default class TopBar extends Component {
     }
 }
 
-TopBar.propTypes = { };
+TopBar.defaultProps = {
+    points: 0,
+    user: {}
+};

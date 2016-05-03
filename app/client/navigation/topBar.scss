@@ -18,4 +18,33 @@
 		line-height: 4.2em;
 		font-size: 1.3em;
 	}
+
+	.top-bar-account {
+		height: 3em;
+		width: 15em;
+		color: #FFFFFF;
+		float: right;
+		line-height: 5.5em;
+		text-align: right;
+
+		.top-bar-name {
+			float: right;
+		}
+
+		.top-bar-account-item {
+			float: right;
+			margin-right: 2em;
+		}
+
+		.top-bar-points-box {
+			margin-left: 0.5em;
+			padding: 0.1em;
+			background-color: #FFA34C;
+		}
+
+		.top-bar-logout:hover {
+			cursor: pointer;
+			color: #FEA24B;
+		}
+	}
 }

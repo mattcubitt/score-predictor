@@ -3,39 +3,56 @@ import { connect } from 'react-redux';
 import TopBar from './topBar';
 import NavBar from './navBar';
 import UserStates from '../user/userStates';
+import { hashHistory } from 'react-router';
 
 class NavContainer extends Component {
     constructor(props) {
         super(props);
     }
 
-    renderNavBar(user) {
+    onLogout() {
+        const { dispatch } = this.props;
+
+        dispatch({
+            type: 'CLEAR_USER'
+        });
+
+        if(typeof(Storage) !== "undefined") {
+            localStorage.removeItem("user");
+        }
+
+        hashHistory.push('/login');
+    }
+
+    renderNavBar(user, activeRoute) {
         if(user.state === UserStates.NOT_AUTHENTICATED) {
             return (<TopBar/>)
         } else {
             return (
                 <div>
-                    <TopBar/>
-                    <NavBar user={user} />
+                    <TopBar user={user} points={0} onLogout={this.onLogout.bind(this)}/>
+                    <NavBar user={user} activeRoute={activeRoute} />
                 </div>
             )
         }
     }
 
     render() {
-        const { user } = this.props;
+        const { user, activeRoute } = this.props;
 
-        return this.renderNavBar(user);
+        return this.renderNavBar(user, activeRoute);
     }
 }
 
 NavContainer.propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    activeRoute: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        activeRoute: state.activeRoute
     }
 }
 

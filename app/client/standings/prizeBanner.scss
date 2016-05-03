@@ -9,24 +9,26 @@
 
 	.prize-container {
 		background-color: #ffffff;
+		padding: 10px;
 
 		.prize-item {
 			list-style: none;
 			text-align: center;
 
 			.prize-icon {
-				width: 4em;
-				height: 4em;
-				background-color: antiquewhite;
+				width: 6em;
+				height: 3em;
 				margin: auto;
 			}
 
 			.prize-title {
 				font-weight: bold;
+				font-size: 13px;
+				margin-bottom: 5px;
 			}
 
 			.prize-description {
-				font-size: 0.9em;
+				font-size: 12px;
 			}
 		}
 	}

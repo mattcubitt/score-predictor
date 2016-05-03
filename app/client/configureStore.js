@@ -1,14 +1,16 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import { reducer as formReducer } from 'redux-form';
+import { reducer as formReducer } from 'redux-form'
 import createLogger from 'redux-logger'
 import roundReducer from './roundSelector/roundReducer'
 import fixtureReducer from './fixtures/fixtureReducer'
 import adminReducer from './admin/adminReducer'
 import leaderTablesReducer from './leaderTable/leaderTablesReducer'
 import userReducer from './user/userReducer'
+import activeRouteReducer from './navigation/activeRouteReducer'
 
 var reducers = {
+    activeRoute : activeRouteReducer,
     form: formReducer,
     auth: function(state={}, action) {
         switch(action.type) {
@@ -24,17 +26,6 @@ var reducers = {
         switch(action.type) {
             case 'LOAD_PREDICTIONS':
                 return action.predictions;
-            // case 'CREATE_PREDICTION':
-            //     var newScore = action.score === '' ? undefined : parseInt(action.score);
-            //
-            //     var prediction = {};
-            //     prediction.fixtureId = action.fixtureId;
-            //     prediction[action.property] = newScore;
-            //
-            //     return [
-            //         prediction,
-            //         ...state
-            //     ];
             case 'UPDATE_PREDICTION':
                 return state.map(prediction => {
                     if(prediction._id === action.id) {

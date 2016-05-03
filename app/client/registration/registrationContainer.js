@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import Alert from '../login/alert';
 
 class RegistrationContainer extends Component {
+    componentDidMount() {
+        const { dispatch } = this.props;
+        return dispatch({
+            type: 'SET_ACTIVE_ROUTE',
+            route: 'REGISTRATION'
+        });
+    }
+    
     render() {
         const { user } = this.props;
         return (

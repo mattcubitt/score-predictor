@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import NavLink from './navLink';
+import { Link } from 'react-router'
 
 export default class NavBar extends Component {
     render() {
-        const { user } = this.props;
+        const { user, activeRoute } = this.props;
         const adminLinkStyle = user.role !== 'admin' ? { display: 'none' } : { };
 
         return (
@@ -11,11 +11,10 @@ export default class NavBar extends Component {
                 <div className="nav-bar">
                     <div className="container">
                         <ul className="nav-bar-links">
-                            <li className="nav-bar-link"><NavLink to="login">Login</NavLink></li>
-                            <li className="nav-bar-link"><NavLink to="/registration">Registration</NavLink></li>
-                            <li className="nav-bar-link"><NavLink to="/fixtures">My Predictions</NavLink></li>
-                            <li className="nav-bar-link"><NavLink to="/standings">MI League Table</NavLink></li>
-                            <li className="nav-bar-link" style={adminLinkStyle}><NavLink to="/admin">Admin</NavLink></li>
+                            <li className="nav-bar-link"><Link to="/fixtures" className={ activeRoute === 'FIXTURES' ? 'nav-link active' : 'nav-link' }>My Predictions</Link></li>
+                            <li className="nav-bar-link"><Link to="/standings" className={ activeRoute === 'STANDINGS' ? 'nav-link active' : 'nav-link' }>MI League Table</Link></li>
+                            <li className="nav-bar-link" style={adminLinkStyle}><Link to="/rules" className={ activeRoute === 'RULES' ? 'nav-link active' : 'nav-link' }>Rules</Link></li>
+                            <li className="nav-bar-link" style={adminLinkStyle}><Link to="/admin" className={ activeRoute === 'ADMIN' ? 'nav-link active' : 'nav-link' }>Admin</Link></li>
                         </ul>
                     </div>
                 </div>

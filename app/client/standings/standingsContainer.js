@@ -15,7 +15,15 @@ class OverallStandingsContainer extends Component {
         return dispatch => {
             this.loadRounds(dispatch);
             this.loadLeaderTables(dispatch);
+            this.setActiveRoute(dispatch);
         };
+    }
+
+    setActiveRoute(dispatch) {
+        dispatch({
+            type: 'SET_ACTIVE_ROUTE',
+            route: 'STANDINGS'
+        });
     }
 
     loadLeaderTables(dispatch) {

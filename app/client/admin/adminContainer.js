@@ -14,8 +14,16 @@ class AdminContainer extends Component {
 
     fetchState() {
         return dispatch => {
+            this.setActiveRoute(dispatch)
             this.loadFixtures(dispatch);
         };
+    }
+
+    setActiveRoute(dispatch) {
+        dispatch({
+            type: 'SET_ACTIVE_ROUTE',
+            route: 'ADMIN'
+        });
     }
 
     loadFixtures(dispatch) {

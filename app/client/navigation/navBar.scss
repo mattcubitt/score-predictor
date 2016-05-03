@@ -1,11 +1,11 @@
 .nav-bar {
 	background-color: #FFFFFF;
-	height: 3em;
 	text-align: center;
 
 	.nav-bar-links {
 		list-style: none;
 		padding: 0;
+		margin: 0;
 
 		.nav-bar-link {
 			display: inline-block;
@@ -21,9 +21,9 @@
 					color: #FEA24B;
 				}
 
-				//&.active {
-				//	color: #FEA24B;
-				//}
+				&.active {
+					color: #FEA24B;
+				}
 			}
 		}
 	}
