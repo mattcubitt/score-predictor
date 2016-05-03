@@ -1,9 +1,12 @@
-require('newrelic');
+var config = require('./config');
+
+if(config.NODE_ENV === 'production') {
+    require('newrelic');
+}
 
 var co = require('co');
 var mongo = require('./mongo');
 var mongodb = require('mongodb');
-var config = require('./config');
 var moment = require('moment');
 
 var koa = require('koa');
