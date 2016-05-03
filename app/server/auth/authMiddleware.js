@@ -4,23 +4,28 @@ var mongo = require('../mongo');
 var UserService = require('../users/userService');
 
 module.exports = function*(next){
-    var token = this.request.header.authorization;
+    try {
+        var token = this.request.header.authorization;
 
-    var options = {
-        audience: authConfig.audience,
-        issuer: authConfig.issuer
-    };
+        var options = {
+            audience: authConfig.audience,
+            issuer: authConfig.issuer
+        };
 
-    var claims = jwt.verify(token, authConfig.privateKey, options);
+        var claims = jwt.verify(token, authConfig.privateKey, options);
 
-    var currentUser = yield new UserService(mongo.db).find(claims.email);
+        var currentUser = yield new UserService(mongo.db).find(claims.email);
 
-    this.currentUser = {
-        _id: currentUser._id,
-        email: currentUser.email,
-        name: currentUser.name,
-        role: currentUser.role
-    };
+        this.currentUser = {
+            _id: currentUser._id,
+            email: currentUser.email,
+            name: currentUser.name,
+            role: currentUser.role
+        };
 
-    yield next;
+        yield next;
+    } catch(ex) {
+        this.status = 403;
+        this.body = 'Forbidden';
+    }
 };
