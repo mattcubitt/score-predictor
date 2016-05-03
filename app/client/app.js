@@ -13,7 +13,7 @@ import configureStore from './configureStore'
 import UserStates from './user/userStates';
 import request from 'axios';
 import StandingsContainer from './standings/standingsContainer';
-import RulesContainer from './rules/RulesContainer';
+import RulesContainer from './rules/rulesContainer';
 
 const store = configureStore();
 
