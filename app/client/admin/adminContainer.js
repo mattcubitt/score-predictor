@@ -219,7 +219,7 @@ class AdminContainer extends Component {
         })
         .then(response => dispatch({
             type: 'ADMIN_PLACEHOLDER_ADD',
-            id: response
+            id: response.data
         }));
     }
 
