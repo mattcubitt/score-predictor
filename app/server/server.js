@@ -5,6 +5,7 @@ var config = require('./config');
 var moment = require('moment');
 
 var koa = require('koa');
+var gzip = require('koa-gzip');
 var bodyParser = require('koa-bodyparser');
 var serve = require('koa-static');
 var logger = require('koa-logger');
@@ -29,8 +30,8 @@ var app = co.wrap(function *() {
 
     var app = koa();
 
+    app.use(gzip());
     app.use(logger());
-
     app.use(bodyParser());
 
     if(config.NODE_ENV === 'debug') {
