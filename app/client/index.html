@@ -7,7 +7,29 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <style>
+            .loader {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                text-align: center;
+                padding-top: 10%;
+            }
+
+            .loader .text {
+                font-family: Arial;
+                font-size: 20px;
+                margin: 20px;
+            }
+        </style>
+        <div class="loader">
+            <div class="text">Please wait.</div>
+            <img src="assets/images/loader.gif" alt="loading...">
+        </div>
+    </div>
     <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
