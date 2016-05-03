@@ -1,3 +1,5 @@
+require('newrelic');
+
 var co = require('co');
 var mongo = require('./mongo');
 var mongodb = require('mongodb');
