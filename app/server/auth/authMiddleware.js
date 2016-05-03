@@ -20,14 +20,16 @@ module.exports = function*(next){
         this.body = 'Forbidden';
     }
 
-    var currentUser = yield new UserService(mongo.db).find(claims.email);
+    if(claims !== undefined) {
+        var currentUser = yield new UserService(mongo.db).find(claims.email);
 
-    this.currentUser = {
-        _id: currentUser._id,
-        email: currentUser.email,
-        name: currentUser.name,
-        role: currentUser.role
-    };
+        this.currentUser = {
+            _id: currentUser._id,
+            email: currentUser.email,
+            name: currentUser.name,
+            role: currentUser.role
+        };
 
-    yield next;
+        yield next;
+    }
 };

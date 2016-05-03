@@ -35,7 +35,9 @@ class FixtureService {
     }
 
     *update(fixture) {
-        yield this.fixtures.updateOne({_id : new ObjectID(fixture._id) }, fixture)
+        fixture._id = new ObjectID(fixture._id);
+
+        yield this.fixtures.replaceOne({_id : fixture._id}, fixture);
     }
 }
 
