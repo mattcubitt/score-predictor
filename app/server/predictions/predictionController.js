@@ -56,8 +56,9 @@ class PredictionController {
         var editablePredictions = [];
         for(var prediction of predictions) {
             var fixtures = yield this.fixtureService.find(prediction.fixtureId);
-            
-            if(fixtures[0] && this.fixtureService.isEditable(fixtures[0])) {
+            var fixture = fixtures[0];
+
+            if(fixture !== undefined && this.fixtureService.isEditable(fixtures[0])) {
                 editablePredictions.push(prediction);
             }
         }
