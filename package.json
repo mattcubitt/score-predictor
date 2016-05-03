@@ -46,17 +46,17 @@
     "style-loader": "^0.13.1",
     "superagent": "^1.8.3",
     "tether": "^1.2.0",
-    "webpack": "^1.12.13",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "webpack": "^1.12.13"
   },
   "devDependencies": {
     "co-mocha": "^1.1.2",
     "sinon": "^1.17.3",
-    "sinon-as-promised": "^4.0.0"
+    "sinon-as-promised": "^4.0.0",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.10.0"
   },
   "scripts": {
-    "start" : "webpack --config webpack.prod.config.js"
+    "postinstall" : "webpack --config webpack.prod.config.js"
   },
   "repository": {
     "type": "git",
