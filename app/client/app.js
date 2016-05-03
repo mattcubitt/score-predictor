@@ -13,6 +13,7 @@ import configureStore from './configureStore'
 import UserStates from './user/userStates';
 import request from 'axios';
 import StandingsContainer from './standings/standingsContainer';
+import RulesContainer from './rules/RulesContainer';
 
 const store = configureStore();
 
@@ -93,6 +94,7 @@ render(
                 <Route path="/registration" component={RegistrationContainer}/>
                 <Route path="/fixtures" component={FixturesContainer} onEnter={isAuthenticated}/>
                 <Route path="/standings" component={StandingsContainer} onEnter={isAuthenticated}/>
+                <Route path="/rules" component={RulesContainer} onEnter={isAuthenticated}/>
                 <Route path="/admin" component={AdminContainer} onEnter={isAdmin}/>
             </Route>
         </Router>
