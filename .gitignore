@@ -3,3 +3,4 @@ node_modules
 bundle.js
 bundle.js.map
 data
+newrelic_agent.log
