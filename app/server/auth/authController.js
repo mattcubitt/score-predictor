@@ -72,8 +72,17 @@ class AuthController {
 
             var token = jwt.sign(claims, authConfig.privateKey);
 
+            var user = yield this.userService.find(registerRequest.email);
+
             this.context.status = 200;
-            this.context.body = { token: token };
+            this.context.body = {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                token: token,
+                state: 1
+            };
         }
     }
 
