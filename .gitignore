@@ -1,5 +1,5 @@
 .idea
 node_modules
-app\client\bundle.js
-app\client\bundle.js.map
+bundle.js
+bundle.js.map
 data

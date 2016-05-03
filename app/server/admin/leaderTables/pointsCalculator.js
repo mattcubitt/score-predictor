@@ -9,6 +9,9 @@ var resultTypeCalculator = function(result) {
 };
 
 var pointsCalculator = function(prediction, fixture) {
+    prediction = prediction || {};
+    fixture = fixture || {};
+
     if(prediction.homeScore === undefined || prediction.awayScore === undefined) {
         return 0;
     } else if(fixture.homeScore === undefined || fixture.awayScore === undefined) {

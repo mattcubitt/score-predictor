@@ -55,7 +55,9 @@
     "sinon": "^1.17.3",
     "sinon-as-promised": "^4.0.0"
   },
-  "scripts": {},
+  "scripts": {
+    "start" : "webpack --config webpack.prod.config.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mattcubitt/score-predictor.git"

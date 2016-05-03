@@ -32,14 +32,17 @@ var app = co.wrap(function *() {
     app.use(logger());
 
     app.use(bodyParser());
-    app.use(devMiddleware(compiler, {
-        noInfo: true, publicPath: webpackConfig.output.publicPath
-    }));
 
-    app.use(hotMiddleware(compiler, {
-        log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
-    }));
+    if(config.NODE_ENV === 'debug') {
+        app.use(devMiddleware(compiler, {
+            noInfo: true, publicPath: webpackConfig.output.publicPath
+        }));
 
+        app.use(hotMiddleware(compiler, {
+            log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+        }));
+    }
+    
     app.use(serve(path.resolve(__dirname, '../client')));
 
     app.use(authRoute);
