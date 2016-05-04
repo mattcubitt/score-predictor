@@ -34,6 +34,7 @@ class FixturesContainer extends Component {
         });
     }
 
+    //TODO: flatten
     loadPredictions(dispatch) {
         return request('/predictions')
             .then(response => dispatch({
@@ -109,6 +110,58 @@ class FixturesContainer extends Component {
         })
     }
 
+    renderBody(currentRoundName, currentPredictions, currentLeaderTable, currentRoundId, autoSaving) {
+        if(currentPredictions.length === 0) {
+            return(
+                <div className="row">
+                    <div className="col-xs-12 text-xs-center">
+                        <h4 className="text-muted">This round doesn't have any fixtures yet. Come back later!</h4>
+                    </div>
+                </div>
+            )
+        }
+
+        return(
+            <div className="row">
+                <div className="col-xs-12 col-md-8">
+                    <div className="saving-status">{ autoSaving ? 'Saving...' : 'All changes saved'}</div>
+                    <ul className="fixtures">
+                        <li className="fixture fixture-header">
+                            <div className="teams-col">
+                                Fixtures
+                            </div>
+                            <div className="prediction-col">
+                                Predictions
+                            </div>
+                            <div className="calender-col">
+                                Results
+                            </div>
+                            <div className="points-col">
+                                Points
+                            </div>
+                        </li>
+                        {
+                            currentPredictions
+                                .filter(p => p.fixture.roundId === currentRoundId)
+                                .map(prediction => {
+                                    return <Fixture
+                                        key={prediction._id}
+                                        prediction={prediction}
+                                        onPredictionChange={this.onPredictionChange.bind(this)}/>;
+                                })
+                        }
+                        <li className="fixture points-total">
+                            Total: { currentPredictions.map(p => p.points).reduce((a, b) => a + b, 0) }
+                        </li>
+                    </ul>
+                </div>
+                <div className="col-xs-12 col-md-4">
+                    <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
+                </div>
+            </div>
+        )
+    }
+
     render() {
         const { predictions, autoSaving, rounds, leaderTables } = this.props;
 
@@ -130,43 +183,7 @@ class FixturesContainer extends Component {
                         />
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-xs-12 col-md-8">
-                        <div className="saving-status">{ autoSaving ? 'Saving...' : 'All changes saved'}</div>
-                        <ul className="fixtures">
-                            <li className="fixture fixture-header">
-                                <div className="teams-col">
-                                    Fixtures
-                                </div>
-                                <div className="prediction-col">
-                                    Predictions
-                                </div>
-                                <div className="calender-col">
-                                    Results
-                                </div>
-                                <div className="points-col">
-                                    Points
-                                </div>
-                            </li>
-                            {
-                                currentPredictions
-                                    .filter(p => p.fixture.roundId === currentRoundId)
-                                    .map(prediction => {
-                                        return <Fixture
-                                            key={prediction._id}
-                                            prediction={prediction}
-                                            onPredictionChange={this.onPredictionChange.bind(this)}/>;
-                                    })
-                            }
-                            <li className="fixture points-total">
-                                Total: { currentPredictions.map(p => p.points).reduce((a, b) => a + b, 0) }
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="col-xs-12 col-md-4">
-                        <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
-                    </div>
-                </div>
+                { this.renderBody(currentRoundName, currentPredictions, currentLeaderTable, currentRoundId, autoSaving) }
             </div>
         )
     }
