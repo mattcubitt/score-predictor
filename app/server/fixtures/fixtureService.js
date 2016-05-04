@@ -36,6 +36,7 @@ class FixtureService {
 
     *update(fixture) {
         fixture._id = new ObjectID(fixture._id);
+        fixture.startsOn = moment(fixture.startsOn).toDate();
 
         yield this.fixtures.replaceOne({_id : fixture._id}, fixture);
     }
