@@ -3,10 +3,10 @@
 var pointsCalculator = require('./pointsCalculator');
 
 module.exports = (predictions, user, roundId) => {
-    var userPredictions = predictions.filter(p => p.userId === user._id);
+    var userPredictions = predictions.filter(p => p.userId.toString() === user._id.toString());
 
-    if(roundId) {
-        userPredictions = predictions
+    if(roundId !== undefined) {
+        userPredictions = userPredictions
             .filter(p => p.fixture.roundId === roundId);
     }
 

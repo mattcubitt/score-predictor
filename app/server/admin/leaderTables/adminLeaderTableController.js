@@ -19,7 +19,8 @@ class AdminLeaderTableController {
         var predictions = yield this.predictionService.findAll();
 
         for(var prediction of predictions) {
-            prediction.fixture = yield this.fixtureService.find(prediction.fixtureId);
+            var fixtures = yield this.fixtureService.find(prediction.fixtureId);
+            prediction.fixture = fixtures[0]
         }
 
         var rounds = yield this.roundService.findAll();
@@ -32,7 +33,7 @@ class AdminLeaderTableController {
 
         leaderTableSnapshots.push(overallSnapshot);
 
-        this.leaderTableService.insertAll(leaderTableSnapshots);
+        yield this.leaderTableService.insertAll(leaderTableSnapshots);
         this.context.status = 200;
     }
 }

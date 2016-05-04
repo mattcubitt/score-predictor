@@ -31,7 +31,7 @@ var leaderTableRoute = require('./leaderTables/leaderTableRoute');
 Date.prototype.toJSON = function(){ return moment(this).format(); };
 
 var app = co.wrap(function *() {
-    yield mongo.connect();
+    yield mongo.connect(config.MONGODB_URI);
 
     var app = koa();
 

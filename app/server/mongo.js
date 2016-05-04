@@ -4,12 +4,12 @@ var mongodb = require('mongodb');
 var config = require('./config');
 
 class Mongo {
-    *connect() {
+    *connect(url) {
         if (this.db) {
             yield mongodb.db.close();
         }
 
-        this.db = yield mongodb.connect(config.MONGODB_URI);
+        this.db = yield mongodb.connect(url);
     }
 }
 

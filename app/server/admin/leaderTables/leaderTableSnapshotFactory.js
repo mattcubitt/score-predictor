@@ -11,6 +11,7 @@ module.exports = (predictions, users, roundId) => {
     return {
         createdOn: getLocalMoment().toDate(),
         isOverall: roundId === undefined,
+        roundId: roundId,
         userPoints: leaderTablePositionCalculator(userPoints)
     };
 };

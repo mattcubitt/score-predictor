@@ -32,7 +32,7 @@ class LeaderTableService {
     }
 
     *insertAll(leaderTableSnapshots) {
-        yield this.leaderTableSnapshots.insertMany(leaderTableSnapshots);
+        yield this.leaderTableSnapshots.insert(leaderTableSnapshots);
     }
 }
 
