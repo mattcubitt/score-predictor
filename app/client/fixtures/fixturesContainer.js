@@ -173,6 +173,10 @@ class FixturesContainer extends Component {
             .filter(t => t.roundId === currentRoundId);
         const currentLeaderTable = foundLeaderTables.length === 0 ? undefined : foundLeaderTables[0];
 
+        if(predictions.length === 0) {
+            return(<div></div>)
+        }
+
         return (
             <div>
                 <div className="row">
