@@ -148,7 +148,7 @@ class FixturesContainer extends Component {
 
                                     var date2 = new Date(p2.fixture.startsOn).getTime();
 
-                                    return date1 > date2;
+                                    return date1 > date2 ? 1 : -1;
                                 })
                                 .map(prediction => {
                                     return <Fixture

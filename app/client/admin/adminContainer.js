@@ -298,7 +298,7 @@ class AdminContainer extends Component {
                             { this.headerFragment() }
                             {
                                 admin.fixtures
-                                    .sort((f1, f2) => f1.roundId > f2.roundId)
+                                    .sort((f1, f2) => f1.roundId > f2.roundId ? 1 : -1)
                                     .map(fixture => fixture._id === admin.editingFixtureId ?
                                         this.editingFixtureFragment(fixture) :
                                         this.editableFixtureFragment(fixture))
