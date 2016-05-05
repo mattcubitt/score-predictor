@@ -297,9 +297,11 @@ class AdminContainer extends Component {
                         <ul className="admin-fixtures">
                             { this.headerFragment() }
                             {
-                                admin.fixtures.map(fixture => fixture._id === admin.editingFixtureId ?
-                                    this.editingFixtureFragment(fixture) :
-                                    this.editableFixtureFragment(fixture))
+                                admin.fixtures
+                                    .sort((f1, f2) => f1.roundId > f2.roundId)
+                                    .map(fixture => fixture._id === admin.editingFixtureId ?
+                                        this.editingFixtureFragment(fixture) :
+                                        this.editableFixtureFragment(fixture))
                             }
                             { this.fixturePlaceHolderFragment(admin.fixturePlaceholder) }
                         </ul>

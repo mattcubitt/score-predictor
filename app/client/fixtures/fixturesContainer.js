@@ -143,6 +143,13 @@ class FixturesContainer extends Component {
                         {
                             currentPredictions
                                 .filter(p => p.fixture.roundId === currentRoundId)
+                                .sort((p1, p2) => {
+                                    var date1 = new Date(p1.fixture.startsOn).getTime();
+
+                                    var date2 = new Date(p2.fixture.startsOn).getTime();
+
+                                    return date1 > date2;
+                                })
                                 .map(prediction => {
                                     return <Fixture
                                         key={prediction._id}

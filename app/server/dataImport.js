@@ -3,9 +3,10 @@ var mongo = require('./mongo');
 var bcrypt = require('bcrypt-nodejs');
 var data = require('./dataImport.data');
 var moment = require('moment');
+var config = require('./config');
 
 co(function*() {
-    yield mongo.connect();
+    yield mongo.connect(config.MONGODB_URI);
 
     var usersCollection = mongo.db.collection('users');
     var fixturesCollection = mongo.db.collection('fixtures');
