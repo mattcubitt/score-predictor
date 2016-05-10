@@ -24,7 +24,7 @@ export default class WildcardSelector extends Component {
                                         <div className={classNames({ 'wildcard-box': true, 'wildcard-selected': wildcard.selected}, wildcard.type)} onClick={() => onSelectWildcard(wildcard)}>
                                             <img className="wildcard-icon" src={`./assets/images/wildcards/${wildcard.type}.png`} alt={wildcard.type}/>
                                             <div className="wildcard-description">{wildcard.description}</div>
-                                            <div className="wildcard-availability">{wildcard.type === selectedWildcard.type ? 'Selected' : `${wildcard.reminding} available`}</div>
+                                            <div className="wildcard-availability">{selectedWildcard && wildcard.type === selectedWildcard.type ? 'Selected' : `${wildcard.reminding} available`}</div>
                                         </div>
                                     </li>
                                 )
