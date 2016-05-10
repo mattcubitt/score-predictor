@@ -7,6 +7,10 @@ class PredictionService {
         this.predictions = db.collection('predictions');
     }
 
+    *findOne(query) {
+        return yield this.predictions.findOne(query);
+    }
+
     *findAll() {
         return yield this.predictions.find({ }).toArray();
     }
@@ -22,6 +26,10 @@ class PredictionService {
     // *find(id, fixtureId) {
     //     return yield this.predictions.find({ _id: new ObjectID(id), fixtureId: new ObjectID(fixtureId) }).toArray();
     // }
+
+    *replaceOne(prediction) {
+        yield this.predictions.replaceOne({_id : prediction._id}, prediction);
+    }
 
     *update(userId, predictions) {
         for(var prediction of predictions) {

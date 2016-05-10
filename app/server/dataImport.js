@@ -12,6 +12,14 @@ co(function*() {
     var fixturesCollection = mongo.db.collection('fixtures');
     var predictionsCollection = mongo.db.collection('predictions');
     var leaderTableSnapshotsCollection = mongo.db.collection('leaderTableSnapshots');
+    var wildcardCollection = mongo.db.collection('wildcards');
+
+    console.log('------------------WILDCARDS------------------');
+    yield wildcardCollection.remove({});
+    yield wildcardCollection.insert(data.wildcards);
+
+    var wildcards = yield wildcardCollection.find({}).toArray();
+    console.log(wildcards);
 
     console.log('------------------USERS------------------');
     yield usersCollection.remove({});

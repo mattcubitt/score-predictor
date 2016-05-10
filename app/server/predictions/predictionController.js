@@ -1,13 +1,15 @@
 'use strict';
 
 var predictionPointsCalculator = require('../admin/leaderTables/pointsCalculator');
+var ObjectID = require('mongodb').ObjectID;
 
 class PredictionController {
-    constructor(context, fixtureService, predictionService) {
+    constructor(context, fixtureService, predictionService, wildcardService) {
         this.context = context;
         this.currentUser = context.currentUser;
         this.fixtureService = fixtureService;
         this.predictionService = predictionService;
+        this.wildcardService = wildcardService;
     }
 
     *findAll() {
@@ -38,6 +40,7 @@ class PredictionController {
                 prediction = fixturePredictions[0];
             }
 
+            prediction.wildcard = yield this.wildcardService.getWildcard(prediction.wildcardId);
             prediction.points = predictionPointsCalculator(prediction, fixture);
             prediction.fixture = fixture;
             prediction.editable = this.fixtureService.isEditable(fixture);
@@ -66,6 +69,40 @@ class PredictionController {
         yield this.predictionService.update(userId, editablePredictions);
 
         this.context.status = 200;
+    }
+
+    *deleteWildcard(predictionId) {
+        var prediction = yield this.predictionService.findOne({ _id: new ObjectID(predictionId), userId: this.currentUser._id });
+        var fixture = yield this.fixtureService.findOne({ _id: new ObjectID(prediction.fixtureId) });
+
+        if(fixture !== undefined && this.fixtureService.isEditable(fixture)) {
+            prediction.wildcardId = undefined;
+
+            yield this.predictionService.replaceOne(prediction);
+
+            this.context.status = 200;
+        } else {
+            this.context.status = 409;
+            this.context.body = 'Fixture is not editable';
+        }
+    }
+
+    *addWildcard(predictionId, wildcard) {
+        var prediction = yield this.predictionService.findOne({ _id: new ObjectID(predictionId), userId: this.currentUser._id });
+        var fixture = yield this.fixtureService.findOne({ _id: new ObjectID(prediction.fixtureId) });
+
+        var remindingWildcards = yield this.wildcardService.getReminding(this.currentUser._id, wildcard.type);
+
+        if(fixture !== undefined && this.fixtureService.isEditable(fixture) && remindingWildcards > 0) {
+            prediction.wildcardId = wildcard._id;
+
+            yield this.predictionService.replaceOne(prediction);
+
+            this.context.status = 200;
+        } else {
+            this.context.status = 409;
+            this.context.body = 'Fixture is not editable';
+        }
     }
 }
 

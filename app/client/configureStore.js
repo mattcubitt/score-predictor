@@ -8,6 +8,8 @@ import adminReducer from './admin/adminReducer'
 import leaderTablesReducer from './leaderTable/leaderTablesReducer'
 import userReducer from './user/userReducer'
 import activeRouteReducer from './navigation/activeRouteReducer'
+import wildcardSelectorReducer from './fixtures/wildcardSelectorReducer'
+import predictionReducer from './fixtures/predictionReducer'
 
 var reducers = {
     activeRoute : activeRouteReducer,
@@ -22,27 +24,7 @@ var reducers = {
     },
     fixtures: fixtureReducer,
     admin: adminReducer,
-    predictions: function(state=[], action) {
-        switch(action.type) {
-            case 'LOAD_PREDICTIONS':
-                return action.predictions;
-            case 'UPDATE_PREDICTION':
-                return state.map(prediction => {
-                    if(prediction._id === action.id) {
-                        var newScore = action.score === '' ? undefined : parseInt(action.score);
-
-                        var newPrediction = {};
-                        newPrediction[action.property] = newScore;
-
-                        return Object.assign({}, prediction, newPrediction);
-                    }
-
-                    return prediction;
-                });
-            default:
-                return state;
-        }
-    },
+    predictions: predictionReducer,
     autoSaving: function(state=false, action) {
         switch(action.type) {
             case 'STARTED_AUTOSAVE':
@@ -55,7 +37,8 @@ var reducers = {
     },
     rounds: roundReducer,
     leaderTables: leaderTablesReducer,
-    user : userReducer
+    user : userReducer,
+    wildcardSelector: wildcardSelectorReducer
 };
 
 var rootReducer = combineReducers(reducers);

@@ -8,6 +8,10 @@ class FixtureService {
         this.fixtures = db.collection('fixtures');
     }
 
+    *findOne(query) {
+        return yield this.fixtures.findOne(query);
+    }
+
     *find(fixtureId) {
         return yield this.fixtures.find({ _id: new ObjectID(fixtureId) }).toArray();
     }

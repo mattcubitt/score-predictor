@@ -6,13 +6,14 @@ var leaderTablePositionCalculator = require('./leaderTablePositionCalculator');
 var leaderTableSnapshotFactory = require('./leaderTableSnapshotFactory');
 
 class AdminLeaderTableController {
-    constructor(context, predictionService, fixtureService, roundService, userService, leaderTableService) {
+    constructor(context, predictionService, fixtureService, roundService, userService, leaderTableService, wildcardService) {
         this.context = context;
         this.predictionService = predictionService;
         this.fixtureService = fixtureService;
         this.roundService = roundService;
         this.userService = userService;
         this.leaderTableService = leaderTableService;
+        this.wildcardService = wildcardService;
     }
 
     *createNewSnapshot() {
@@ -20,7 +21,8 @@ class AdminLeaderTableController {
 
         for(var prediction of predictions) {
             var fixtures = yield this.fixtureService.find(prediction.fixtureId);
-            prediction.fixture = fixtures[0]
+            prediction.fixture = fixtures[0];
+            prediction.wildcard = yield this.wildcardService.getWildcard(prediction.wildcardId);
         }
 
         var rounds = yield this.roundService.findAll();

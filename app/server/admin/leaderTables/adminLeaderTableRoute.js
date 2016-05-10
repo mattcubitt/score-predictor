@@ -8,6 +8,7 @@ var FixtureService = require('../../fixtures/fixtureService');
 var RoundService = require('../../rounds/roundService');
 var UserService = require('../../users/userService');
 var LeaderTableService = require('../../leaderTables/leaderTableService');
+var WildcardService = require('../../wildcards/wildcardService');
 
 module.exports = Router({ prefix: '/leaderTables' })
     .post('/', function *() {
@@ -15,7 +16,8 @@ module.exports = Router({ prefix: '/leaderTables' })
                                                               new FixtureService(mongo.db),
                                                               new RoundService(mongo.db),
                                                               new UserService(mongo.db),
-                                                              new LeaderTableService(mongo.db));
+                                                              new LeaderTableService(mongo.db),
+                                                              new WildcardService());
         yield controller.createNewSnapshot();
     })
     .routes();

@@ -16,7 +16,7 @@
 
 		.teams-col {
 			height: 100%;
-			width: 40%;
+			width: 30%;
 			float: left;
 
 			.team {
@@ -52,10 +52,60 @@
 			}
 		}
 
+		.wildcard-col {
+			height: 3.5em;
+			width: 10%;
+			float: left;
+
+			.wildcard-holder {
+				width: 3em;
+				margin: auto;
+				text-align: center;
+				line-height: 4em;
+
+				&.wildcard-not-editable:hover {
+					cursor: default;
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+
+				.wildcard-icon {
+					width: 100%;
+				}
+			}
+
+			.wildcard-selector {
+				text-align: center;
+				line-height: 3.5em;
+				border: 1px dashed black;
+				border-radius: 5px;
+				width: 3em;
+				margin: auto;
+
+				.wildcard-icon {
+					width: 100%;
+				}
+			}
+
+			.wildcard-selector:hover {
+				cursor: pointer;
+				color: #FFA34C;
+				border-color: #FFA34C;
+			}
+		}
+
 		.prediction-input {
 			height: 100%;
 			width: 45%;
 			float: left;
+
+			&.result {
+				height: 100%;
+				width: 45%;
+				float: left;
+			}
 
 			.readonly {
 				width: 1.4em;

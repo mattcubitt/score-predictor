@@ -5,6 +5,7 @@ import Fixture from './fixture';
 import _ from 'lodash';
 import RoundSelector from '../roundSelector/roundSelector';
 import RoundLeaderTable from '../leaderTable/roundLeaderTable';
+import WildcardSelector from './wildcardSelector';
 
 class FixturesContainer extends Component {
     constructor(props) {
@@ -110,12 +111,90 @@ class FixturesContainer extends Component {
         })
     }
 
+    onShowWildcardSelector(prediction) {
+        const { dispatch } = this.props;
+
+        return request('/wildcards', {
+            method: 'get'
+        })
+        .then((response) => dispatch({
+            type: 'OPEN_WILDCARD_SELECTOR',
+            prediction,
+            wildcards: response.data
+        }));
+    }
+
+    onCloseWildcardSelector() {
+        const { dispatch } = this.props;
+
+        dispatch({
+            type: 'CLOSE_WILDCARD_SELECTOR'
+        });
+    }
+
+    onSaveWildcardSelector() {
+        const { dispatch, wildcardSelector } = this.props;
+
+        const selectedWildcard = wildcardSelector.wildcards.filter(w => w.selected)[0];
+        const predictionId = wildcardSelector.predictionId;
+
+        if(selectedWildcard !== undefined) {
+            return this.saveWildcard(dispatch, predictionId, selectedWildcard);
+        }
+
+        return this.deleteWildcard(dispatch, predictionId, selectedWildcard);
+    }
+
+    saveWildcard(dispatch, predictionId, selectedWildcard) {
+        return request(`/predictions/${predictionId}/wildcards`, {
+            method: 'post',
+            data: selectedWildcard
+        })
+        .then(() => {
+            dispatch({
+                type: 'SAVE_PREDICTION_WILDCARD',
+                predictionId,
+                selectedWildcard
+            });
+
+            dispatch({
+                type: 'CLOSE_WILDCARD_SELECTOR'
+            });
+        });
+    }
+
+    deleteWildcard(dispatch, predictionId, selectedWildcard) {
+        return request(`/predictions/${predictionId}/wildcards`, {
+            method: 'delete'
+        })
+        .then(() => {
+            dispatch({
+                type: 'SAVE_PREDICTION_WILDCARD',
+                predictionId,
+                selectedWildcard
+            });
+
+            dispatch({
+                type: 'CLOSE_WILDCARD_SELECTOR'
+            });
+        });
+    }
+
+    onSelectWildcard(wildcard) {
+        const { dispatch } = this.props;
+
+        dispatch({
+            type: 'SELECT_WILDCARD',
+            wildcard
+        })
+    }
+
     renderBody(currentRoundName, currentPredictions, currentLeaderTable, currentRoundId, autoSaving) {
         if(currentPredictions.length === 0) {
             return(
                 <div className="row">
                     <div className="col-xs-12 text-xs-center">
-                        <h4 className="text-muted">This round doesn't have any fixtures yet. Come back later!</h4>
+                        <h4 className="text-muted">This round doesn't have any fixtures yet. Please come back later!</h4>
                     </div>
                 </div>
             )
@@ -132,6 +211,9 @@ class FixturesContainer extends Component {
                             </div>
                             <div className="prediction-col">
                                 Predictions
+                            </div>
+                            <div className="wildcard-col">
+                                Wildcards
                             </div>
                             <div className="calender-col">
                                 Results
@@ -154,7 +236,9 @@ class FixturesContainer extends Component {
                                     return <Fixture
                                         key={prediction._id}
                                         prediction={prediction}
-                                        onPredictionChange={this.onPredictionChange.bind(this)}/>;
+                                        onPredictionChange={this.onPredictionChange.bind(this)}
+                                        onShowWildcardSelector={ () => this.onShowWildcardSelector(prediction)}
+                                    />;
                                 })
                         }
                         <li className="fixture points-total">
@@ -170,7 +254,7 @@ class FixturesContainer extends Component {
     }
 
     render() {
-        const { predictions, autoSaving, rounds, leaderTables } = this.props;
+        const { predictions, autoSaving, rounds, leaderTables, wildcardSelector } = this.props;
 
         const currentRoundId = rounds.current ? rounds.current._id : null;
         const currentRoundName = rounds.current ? rounds.current.name : '';
@@ -186,6 +270,12 @@ class FixturesContainer extends Component {
 
         return (
             <div>
+                <WildcardSelector
+                    wildcardSelector={wildcardSelector}
+                    onSaveWildcardSelector={this.onSaveWildcardSelector.bind(this)}
+                    onCloseWildcardSelector={this.onCloseWildcardSelector.bind(this)}
+                    onSelectWildcard={this.onSelectWildcard.bind(this)}
+                />
                 <div className="row">
                     <div className="col-xs-12 text-xs-center">
                         <RoundSelector rounds={rounds}
@@ -200,11 +290,17 @@ class FixturesContainer extends Component {
     }
 }
 
+FixturesContainer.defaultProps = {
+    wildcardSelector: { wildcards: [] }
+};
+
+
 FixturesContainer.propTypes = {
     predictions: PropTypes.array.isRequired,
     autoSaving: PropTypes.bool.isRequired,
     rounds: PropTypes.object.isRequired,
-    leaderTables: PropTypes.array.isRequired
+    leaderTables: PropTypes.array.isRequired,
+    wildcardSelector: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -212,7 +308,8 @@ function mapStateToProps(state) {
         predictions: state.predictions,
         autoSaving: state.autoSaving,
         rounds: state.rounds,
-        leaderTables: state.leaderTables
+        leaderTables: state.leaderTables,
+        wildcardSelector: state.wildcardSelector
     }
 }
 

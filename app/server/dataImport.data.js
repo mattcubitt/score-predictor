@@ -2,6 +2,19 @@ var bcrypt = require('bcrypt-nodejs');
 var moment = require('moment');
 
 module.exports = {
+    wildcards: [{
+        type: 'clean-sheet-points',
+        description: 'Ideal for games where two defensive teams are playing.'
+    }, {
+        type: 'goals-points',
+        description: 'Perfect for when a strong attacking team is playing a weaker team.'
+    }, {
+        type: 'triple-points',
+        description: 'Best used when you are certain you will get your result.'
+    }, {
+        type: 'penalty-points',
+        description: 'Useful in the knockout stages when games go to a penalty shootout.'
+    }],
     users: [{
         name: 'matt',
         email: 'matt@test.com',

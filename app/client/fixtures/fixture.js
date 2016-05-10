@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import moment from 'moment'
+import Prediction from './prediction'
+import Wildcard from './wildcard'
 
 export default class Fixture extends Component {
     render() {
-        const { prediction, onPredictionChange } = this.props;
+        const { prediction, onPredictionChange, onShowWildcardSelector } = this.props;
 
         return (
             <li className="fixture">
@@ -26,29 +28,8 @@ export default class Fixture extends Component {
                         <div className="name">{prediction.fixture.awayTeam}</div>
                     </div>
                 </div>
-                <div className="prediction-col">
-                    <div className="prediction-input">
-                        {
-                            !prediction.editable ?
-                                <div className="readonly">{prediction.homeScore}</div> :
-                                <input type="text"
-                                       onChange={(event) => onPredictionChange(prediction, event.target.value, 'homeScore')}
-                                       value={prediction ? prediction.homeScore : ''}/>
-                        }
-                    </div>
-                    <div className="dash">
-                        <span>–</span>
-                    </div>
-                    <div className="prediction-input">
-                        {
-                            !prediction.editable ?
-                                <div className="readonly">{prediction.awayScore}</div> :
-                                <input type="text"
-                                       onChange={(event) => onPredictionChange(prediction, event.target.value, 'awayScore')}
-                                       value={prediction ? prediction.awayScore : ''}/>
-                        }
-                    </div>
-                </div>
+                <Prediction {...this.props}/>
+                <Wildcard {...this.props}/>
                 <div className="calender-col">
                     {
                         prediction.editable 
@@ -59,13 +40,13 @@ export default class Fixture extends Component {
                             </div> 
                             :
                             <div>
-                                <div className="prediction-input">
+                                <div className="prediction-input result">
                                     <div className="readonly">{prediction.fixture.homeScore}</div>
                                 </div>
                                 <div className="dash">
                                     <span>–</span>
                                 </div>
-                                <div className="prediction-input">
+                                <div className="prediction-input result">
                                     <div className="readonly">{prediction.fixture.awayScore}</div>
                                 </div>
                             </div>
@@ -85,5 +66,6 @@ export default class Fixture extends Component {
 
 Fixture.propTypes = {
     prediction: PropTypes.object.isRequired,
-    onPredictionChange: PropTypes.func.isRequired
+    onPredictionChange: PropTypes.func.isRequired,
+    onShowWildcardSelector: PropTypes.func.isRequired
 };

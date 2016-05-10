@@ -12,18 +12,41 @@ var pointsCalculator = function(prediction, fixture) {
     prediction = prediction || {};
     fixture = fixture || {};
 
+    var points = 0;
+
     if(prediction.homeScore === undefined || prediction.awayScore === undefined) {
-        return 0;
+        points = 0;
     } else if(fixture.homeScore === undefined || fixture.awayScore === undefined) {
-        return 0;
+        points = 0;
     } else if(prediction.homeScore === fixture.homeScore &&
         prediction.awayScore === fixture.awayScore) {
-        return 3;
+        points = 3;
     } else if(resultTypeCalculator(prediction) === resultTypeCalculator(fixture)) {
-        return 1;
+        points = 1;
     }
 
-    return 0;
+    if(!prediction.wildcard) {
+        return points;
+    }
+
+    switch(prediction.wildcard.type) {
+        case 'clean-sheet-points':
+            if(fixture.homeScore === 0) {
+                points =+ 3;
+            }
+
+            if(fixture.awayScore === 0) {
+                points =+ 3;
+            }
+        case 'goals-points':
+            points =+ (fixture.homeScore + fixture.awayScore);
+        case 'triple-points':
+            points =+ (points * 3);
+        case 'penalty-points':
+            points =+ (fixture.homePenalties + fixture.awayPenalties);
+    }
+
+    return points;
 };
 
 module.exports = pointsCalculator;

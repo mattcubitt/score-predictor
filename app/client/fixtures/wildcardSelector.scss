@@ -1,0 +1,130 @@
+$clean-sheet-color: #FF7B7B;
+$goals-points-color: #7DB6F9;
+$triple-points-color: #54C6AD;
+$penalty-points-color: #5A458E;
+
+.wildcard-modal {
+	h4.modal-title {
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+
+	.wildcard-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		.wildcard-box.clean-sheet-points {
+			&.wildcard-selected {
+				background-color: lighten($clean-sheet-color, 20%);
+			}
+
+			&:hover, &.wildcard-selected {
+				border-color: $clean-sheet-color;
+
+				.wildcard-availability {
+					background-color: $clean-sheet-color;
+					color: #FFFFFF;
+				}
+			}
+
+			.wildcard-availability {
+				border-color: $clean-sheet-color;
+				color: $clean-sheet-color;
+			}
+		}
+
+		.wildcard-box.goals-points {
+			&.wildcard-selected {
+				background-color: lighten($goals-points-color, 20%);
+			}
+
+			&:hover, &.wildcard-selected {
+				border-color: $goals-points-color;
+
+				.wildcard-availability {
+					background-color: $goals-points-color;
+					color: #FFFFFF;
+				}
+			}
+
+			.wildcard-availability {
+				border-color: $goals-points-color;
+				color: $goals-points-color;
+			}
+		}
+
+		.wildcard-box.triple-points {
+			&.wildcard-selected {
+				background-color: lighten($triple-points-color, 40%);
+			}
+
+			&:hover, &.wildcard-selected {
+				border-color: $triple-points-color;
+
+				.wildcard-availability {
+					background-color: $triple-points-color;
+					color: #FFFFFF;
+				}
+			}
+
+			.wildcard-availability {
+				border-color: $triple-points-color;
+				color: $triple-points-color;
+			}
+		}
+
+		.wildcard-box.penalty-points {
+			&.wildcard-selected {
+				background-color: lighten($penalty-points-color, 50%);
+			}
+
+			&:hover, &.wildcard-selected {
+				border-color: $penalty-points-color;
+
+				.wildcard-availability {
+					background-color: $penalty-points-color;
+					color: #FFFFFF;
+				}
+			}
+
+			.wildcard-availability {
+				border-color: $penalty-points-color;
+				color: $penalty-points-color;
+			}
+		}
+
+		.wildcard-item {
+			display: inline-flex;
+			width: 25%;
+			padding: 0.5em;
+
+			.wildcard-box {
+				border: 2px solid #E7E7EC;
+				border-radius: 5px;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				padding: 1em;
+
+				&:hover {
+					cursor: pointer;
+				}
+
+				.wildcard-icon {
+					width: 6em;
+				}
+
+				.wildcard-description {
+					font-size: 0.8em;
+					padding: 1em;
+				}
+
+				.wildcard-availability {
+					border: 2px solid;
+					border-radius: 5px;
+				}
+			}
+		}
+	}
+}

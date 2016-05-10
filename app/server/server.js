@@ -27,6 +27,7 @@ var predictionRoute = require('./predictions/predictionRoute');
 var roundRoute = require('./rounds/roundRoute');
 var adminRoute = require('./admin/adminRoute');
 var leaderTableRoute = require('./leaderTables/leaderTableRoute');
+var wildcardRoute = require('./wildcards/wildcardRoute');
 
 Date.prototype.toJSON = function(){ return moment(this).format(); };
 
@@ -57,6 +58,7 @@ var app = co.wrap(function *() {
     app.use(roundRoute);
     app.use(adminRoute);
     app.use(leaderTableRoute);
+    app.use(wildcardRoute);
 
     app.listen(config.PORT);
 
