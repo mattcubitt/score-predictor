@@ -18,7 +18,7 @@ export default class WildcardSelector extends Component {
                     <ul className="wildcard-list">
                         {
                             wildcards
-                                .filter(wildcard => wildcard.reminding > 0 || wildcard.type === selectedWildcard.type)
+                                .filter(wildcard => wildcard.reminding > 0 || (selectedWildcard && wildcard.type === selectedWildcard.type))
                                 .map(wildcard =>
                                     <li className="wildcard-item" key={wildcard._id}>
                                         <div className={classNames({ 'wildcard-box': true, 'wildcard-selected': wildcard.selected}, wildcard.type)} onClick={() => onSelectWildcard(wildcard)}>
