@@ -4,8 +4,16 @@ import Prediction from './prediction'
 import Wildcard from './wildcard'
 
 export default class Fixture extends Component {
+    getTeamImageSrc(teamName) {
+        if(teamName.length === 3) {
+            return `/assets/images/flags/${teamName}.png`
+        }
+
+        return '/assets/images/flags/default.png'
+    }
+
     render() {
-        const { prediction, onPredictionChange, onShowWildcardSelector } = this.props;
+        const { prediction } = this.props;
 
         return (
             <li className="fixture">
@@ -13,7 +21,7 @@ export default class Fixture extends Component {
                     <div className="team">
                         <div className="flag">
                             <img className="flag-icon"
-                                 src={"/assets/images/flags/" + prediction.fixture.homeTeam + ".png"}>
+                                 src={this.getTeamImageSrc(prediction.fixture.homeTeam)}>
                             </img>
                         </div>
                         <div className="name">{prediction.fixture.homeTeam}</div>
@@ -22,7 +30,7 @@ export default class Fixture extends Component {
                     <div className="team">
                         <div className="flag">
                             <img className="flag-icon"
-                                 src={"/assets/images/flags/" + prediction.fixture.awayTeam + ".png"}>
+                                 src={this.getTeamImageSrc(prediction.fixture.awayTeam)}>
                             </img>
                         </div>
                         <div className="name">{prediction.fixture.awayTeam}</div>
