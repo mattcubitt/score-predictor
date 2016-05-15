@@ -15,7 +15,8 @@ describe('leaderTableSnapshotFactory', () => {
             fixture: {
                 homeScore: 0,
                 awayScore: 0
-            }
+            },
+            points: 3
         }];
 
         var users = [{
@@ -24,7 +25,6 @@ describe('leaderTableSnapshotFactory', () => {
         }];
 
         var actualSnapshot = leaderTableSnapshotFactory(predictions, users);
-        console.log(actualSnapshot);
 
         var actualUserPoints = actualSnapshot.userPoints
             .filter(p => p.userId === users[0]._id)[0]

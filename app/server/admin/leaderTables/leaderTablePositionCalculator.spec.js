@@ -7,7 +7,7 @@ var expect = chai.expect;
 var leaderTablePositionCalculator = require('./leaderTablePositionCalculator');
 
 describe('leaderTablePositionCalculator', () => {
-    it('calculates 3 points for a correct score and result', function *() {
+    it('calculates correct leader table position', function *() {
         var userPoints = [{
             name: 'matt',
             points: 99

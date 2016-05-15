@@ -1,20 +1,19 @@
 'use strict';
 
+var rounds = require('../rounds/roundsConfig');
+
 class LeaderTableController {
-    constructor(context, roundService, leaderTableService) {
+    constructor(context, leaderTableService) {
         this.context = context;
-        this.roundService = roundService;
         this.leaderTableService = leaderTableService;
     }
 
     *getLatest() {
-        var rounds = yield this.roundService.findAll();
-
         var latestRoundTables = [];
         for(var round of rounds) {
             var latestRoundTable = yield this.leaderTableService.getLatest(round._id);
 
-            if(latestRoundTable !== null) {
+            if(latestRoundTable != null) {
                 latestRoundTables.push(latestRoundTable);
             }
         }

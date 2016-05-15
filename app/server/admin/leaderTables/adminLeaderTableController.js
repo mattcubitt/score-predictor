@@ -1,32 +1,41 @@
 'use strict';
 
-var userPointsCalculator = require('./userPointsCalculator');
-var getLocalMoment = require('../../dateHelpers').GetLocalMoment;
 var leaderTablePositionCalculator = require('./leaderTablePositionCalculator');
 var leaderTableSnapshotFactory = require('./leaderTableSnapshotFactory');
+var ObjectID = require('mongodb').ObjectID;
+var rounds = require('../../rounds/roundsConfig');
+var predictionPointsCalculator = require('./pointsCalculator');
 
 class AdminLeaderTableController {
-    constructor(context, predictionService, fixtureService, roundService, userService, leaderTableService, wildcardService) {
+    constructor(context, predictionRepository, fixtureRepository, userService, leaderTableService, wildcardService) {
         this.context = context;
-        this.predictionService = predictionService;
-        this.fixtureService = fixtureService;
-        this.roundService = roundService;
-        this.userService = userService;
-        this.leaderTableService = leaderTableService;
-        this.wildcardService = wildcardService;
+        this.predictionRepository = predictionRepository || require('../../repository').Create('predictions');
+        this.fixtureRepository = fixtureRepository || require('../../repository').Create('fixtures');
+        this.userService = userService || require('../../repository').Create('users');
+        this.leaderTableService = leaderTableService || require('../../repository').Create('leaderTableSnapshots');
+        this.wildcardService = wildcardService || require('../../repository').Create('wildcards');
     }
 
     *createNewSnapshot() {
-        var predictions = yield this.predictionService.findAll();
+        var predictions = yield this.predictionRepository.find({});
 
         for(var prediction of predictions) {
-            var fixtures = yield this.fixtureService.find(prediction.fixtureId);
-            prediction.fixture = fixtures[0];
-            prediction.wildcard = yield this.wildcardService.getWildcard(prediction.wildcardId);
+            let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
+            let wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
+
+            prediction.points = predictionPointsCalculator(prediction, fixture, wildcard);
+
+            yield this.predictionRepository.replaceOne(prediction._id, prediction);
         }
 
-        var rounds = yield this.roundService.findAll();
-        var users = yield this.userService.findAll();
+        for(var prediction of predictions) {
+            let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
+            prediction.fixture = fixture;
+            prediction.wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
+        }
+
+        //create snapshots
+        var users = yield this.userService.find({});
 
         var leaderTableSnapshots = rounds
             .map(round => leaderTableSnapshotFactory(predictions, users, round._id));
@@ -35,7 +44,7 @@ class AdminLeaderTableController {
 
         leaderTableSnapshots.push(overallSnapshot);
 
-        yield this.leaderTableService.insertAll(leaderTableSnapshots);
+        yield this.leaderTableService.insertMany(leaderTableSnapshots);
         this.context.status = 200;
     }
 }

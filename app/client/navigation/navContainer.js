@@ -30,7 +30,7 @@ class NavContainer extends Component {
         } else {
             return (
                 <div>
-                    <TopBar user={user} points={0} onLogout={this.onLogout.bind(this)}/>
+                    <TopBar user={user} points={user.points} onLogout={this.onLogout.bind(this)}/>
                     <NavBar user={user} activeRoute={activeRoute} />
                 </div>
             )

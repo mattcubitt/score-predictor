@@ -1,16 +1,16 @@
 'use strict';
 
 class LeaderTableService {
-    constructor(db) {
-        this.leaderTableSnapshots = db.collection('leaderTableSnapshots');
+    constructor() {
+        this.leaderTableSnapshots = require('../repository').Create('leaderTableSnapshots');
     }
 
     *getLatest(roundId) {
         var leaderTableSnapshots = yield this.leaderTableSnapshots
-            .find({ roundId: roundId }).toArray();
+            .find({ roundId: roundId });
 
         var sortedLeaderTableSnapshots = leaderTableSnapshots
-            .sort((a, b) => a.createdOn < b.createdOn);
+            .sort((a, b) => a.createdOn < b.createdOn ? 1 : -1);
 
         if(sortedLeaderTableSnapshots.length === 0)
             return null;
@@ -20,10 +20,10 @@ class LeaderTableService {
 
     *getLatestOverall() {
         var leaderTableSnapshots = yield this.leaderTableSnapshots
-            .find({ isOverall: true }).toArray();
+            .find({ isOverall: true });
 
         var sortedLeaderTableSnapshots = leaderTableSnapshots
-            .sort((a, b) => a.createdOn < b.createdOn);
+            .sort((a, b) => a.createdOn < b.createdOn ? 1 : -1);
 
         if(sortedLeaderTableSnapshots.length === 0)
             return null;
@@ -31,6 +31,7 @@ class LeaderTableService {
         return sortedLeaderTableSnapshots[0];
     }
 
+    //TODO: remove use repo instead
     *insertAll(leaderTableSnapshots) {
         yield this.leaderTableSnapshots.insert(leaderTableSnapshots);
     }

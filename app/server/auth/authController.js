@@ -32,11 +32,7 @@ class AuthController {
 
             var token = jwt.sign(claims, authConfig.privateKey);
 
-            var userPredictions = yield this.predictionService.findByUserId(user._id);
-
-            var points = userPredictions
-                .map(p => pointsCalculator(p, p.fixture))
-                .reduce((p1, p2) => p1 + p2, 0);
+            var points = yield this.userService.getTotalPoints(user._id);
 
             this.context.status = 200;
             this.context.body = {
@@ -81,7 +77,8 @@ class AuthController {
                 email: user.email,
                 role: user.role,
                 token: token,
-                state: 1
+                state: 1,
+                points: 0
             };
         }
     }

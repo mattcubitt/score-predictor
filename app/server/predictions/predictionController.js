@@ -41,7 +41,7 @@ class PredictionController {
             }
 
             prediction.wildcard = yield this.wildcardService.getWildcard(prediction.wildcardId);
-            prediction.points = predictionPointsCalculator(prediction, fixture);
+            //prediction.points = predictionPointsCalculator(prediction, fixture);
             prediction.fixture = fixture;
             prediction.editable = this.fixtureService.isEditable(fixture);
 

@@ -18,6 +18,14 @@ class Repository {
     *findOne(query) {
         return yield this.getCollection().findOne(query);
     }
+
+    *insertMany(collection) {
+        return yield this.getCollection().insertMany(collection);
+    }
+
+    *replaceOne(id, document) {
+        yield this.getCollection().replaceOne({_id : id}, document);
+    }
 }
 
 Repository.Create = (collectionName) => new Repository(collectionName);

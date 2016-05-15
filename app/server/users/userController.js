@@ -1,27 +1,34 @@
 'use strict';
 
 var pointsCalculator = require('../admin/leaderTables/pointsCalculator');
+var LeaderTableService = require('../leaderTables/leaderTableService')
 
 class UserController {
-    constructor(context, predictionService) {
+    constructor(context, predictionService, leaderTableService) {
         this.context = context;
         this.currentUser = context.currentUser;
         this.predictionService = predictionService;
+        this.leaderTableService = leaderTableService || new LeaderTableService();
     }
 
     *getPoints(userId) {
-        if(this.currentUser._id.toString() !== userId) {
+        var currentUserId = this.currentUser._id.toString();
+
+        if(currentUserId !== userId) {
             this.context.body = 'Forbidden';
             this.context.status = 403;
         } else {
-            var userPredictions = yield this.predictionService.findByUserId(userId);
+            var latestOverallTable = yield this.leaderTableService.getLatestOverall();
 
-            var points = userPredictions
-                .map(p => pointsCalculator(p, p.fixture))
-                .reduce((p1, p2) => p1 + p2, 0);
+            var userPoints = latestOverallTable.userPoints.filter(p => p._id.toString() === currentUserId);
 
-            this.context.body = points;
-            this.context.status = 200;
+            if(userPoints.length > 0) {
+                this.context.body = userPoints[0].points;
+                this.context.status = 200;
+            } else {
+                this.context.body = 0;
+                this.context.status = 200;
+            }
         }
     }
 }

@@ -2,6 +2,17 @@ var bcrypt = require('bcrypt-nodejs');
 var moment = require('moment');
 
 module.exports = {
+    rounds: [{
+        name: 'Group stage 1'
+    }, {
+        name: 'Group stage 2'
+    }, {
+        name: 'Group stage 3'
+    }, {
+        name: 'Last 16'
+    }, {
+        name: 'Finals'
+    }],
     wildcards: [{
         type: 'clean-sheet-points',
         description: 'Ideal for games where two defensive teams are playing.'
@@ -58,70 +69,70 @@ module.exports = {
         homeScore: 2,
         awayScore: 1,
         awayTeam: 'AUT',
-        startsOn: moment().add(-10, 'days').toDate()
+        startsOn: moment().add(10, 'days').toDate()
     }, {
         roundId: 2,
         homeTeam: 'BEL',
         homeScore: 0,
         awayScore: 1,
         awayTeam: 'CRO',
-        startsOn: moment().add(-9, 'days').toDate()
+        startsOn: moment().add(9, 'days').toDate()
     }, {
         roundId: 1,
         homeTeam: 'CZE',
         homeScore: 0,
         awayScore: 3,
         awayTeam: 'ENG',
-        startsOn: moment().add(-8, 'days').toDate()
+        startsOn: moment().add(8, 'days').toDate()
     }, {
         roundId: 2,
         homeTeam: 'ESP',
         homeScore: 0,
         awayScore: 0,
         awayTeam: 'FRA',
-        startsOn: moment().add(-7, 'days').toDate()
+        startsOn: moment().add(7, 'days').toDate()
     }, {
         roundId: 1,
         homeTeam: 'GER',
         homeScore: 1,
         awayScore: 1,
         awayTeam: 'HUN',
-        startsOn: moment().add(-6, 'days').toDate()
+        startsOn: moment().add(6, 'days').toDate()
     }, {
         roundId: 2,
         homeTeam: 'IRL',
         homeScore: 2,
         awayScore: 4,
         awayTeam: 'ISL',
-        startsOn: moment().add(-5, 'days').toDate()
+        startsOn: moment().add(5, 'days').toDate()
     }, {
         roundId: 1,
         homeTeam: 'ITA',
         homeScore: 0,
         awayScore: 2,
         awayTeam: 'NIR',
-        startsOn: moment().add(-4, 'days').toDate()
+        startsOn: moment().add(4, 'days').toDate()
     }, {
         roundId: 2,
         homeTeam: 'POL',
         homeScore: 3,
         awayScore: 1,
         awayTeam: 'ROU',
-        startsOn: moment().add(-3, 'days').toDate()
+        startsOn: moment().add(3, 'days').toDate()
     }, {
         roundId: 1,
         homeTeam: 'RUS',
         homeScore: 5,
         awayScore: 1,
         awayTeam: 'SUI',
-        startsOn: moment().add(-2, 'days').toDate()
+        startsOn: moment().add(2, 'days').toDate()
     }, {
         roundId: 2,
         homeTeam: 'SVK',
         homeScore: 3,
         awayScore: 1,
         awayTeam: 'SWE',
-        startsOn: moment().add(-1, 'days').toDate()
+        startsOn: moment().add(1, 'days').toDate()
     }, {
         roundId: 1,
         homeTeam: 'TUR',

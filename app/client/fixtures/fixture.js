@@ -12,6 +12,14 @@ export default class Fixture extends Component {
         return '/assets/images/flags/default.png'
     }
 
+    getPredictionPoints(prediction) {
+        if(prediction.editable) {
+            return '–';
+        } else {
+            return prediction.points == null ? 0 : prediction.points;
+        }
+    }
+
     render() {
         const { prediction } = this.props;
 
@@ -62,9 +70,7 @@ export default class Fixture extends Component {
                 </div>
                 <div className="points-col">
                     <div className="points">
-                        {
-                            prediction && prediction.points ? prediction.points : '–'
-                        }
+                        { this.getPredictionPoints(prediction) }
                     </div>
                 </div>
             </li>

@@ -8,11 +8,19 @@ var config = require('./config');
 co(function*() {
     yield mongo.connect(config.MONGODB_URI);
 
+    var roundsCollection = mongo.db.collection('rounds');
     var usersCollection = mongo.db.collection('users');
     var fixturesCollection = mongo.db.collection('fixtures');
     var predictionsCollection = mongo.db.collection('predictions');
     var leaderTableSnapshotsCollection = mongo.db.collection('leaderTableSnapshots');
     var wildcardCollection = mongo.db.collection('wildcards');
+
+    console.log('------------------ROUNDS------------------');
+    yield roundsCollection.remove({});
+    yield roundsCollection.insert(data.rounds);
+
+    var rounds = yield roundsCollection.find({}).toArray();
+    console.log(rounds);
 
     console.log('------------------WILDCARDS------------------');
     yield wildcardCollection.remove({});

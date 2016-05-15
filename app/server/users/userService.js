@@ -1,10 +1,12 @@
 'use strict';
 
 var bcrypt = require('bcrypt-nodejs');
+var LeaderTableService = require('../leaderTables/leaderTableService');
 
 class UserService {
-    constructor(db) {
+    constructor(db, leaderTableService) {
         this.users = db.collection('users');
+        this.leaderTableService = leaderTableService || new LeaderTableService();
     }
 
     *findAll() {
@@ -30,6 +32,18 @@ class UserService {
         yield this.users.insertOne(user);
 
         return user;
+    }
+
+    *getTotalPoints(userId) {
+        var latestOverallTable = yield this.leaderTableService.getLatestOverall();
+
+        if(latestOverallTable == null) {
+            return 0;
+        }
+
+        var userPoints = latestOverallTable.userPoints.filter(p => p.userId.toString() === userId.toString());
+
+        return userPoints.length > 0 ? userPoints[0].points : 0;
     }
 
     //TODO: move out

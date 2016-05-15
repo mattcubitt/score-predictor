@@ -242,7 +242,7 @@ class FixturesContainer extends Component {
                                 })
                         }
                         <li className="fixture points-total">
-                            Total: { currentPredictions.map(p => p.points).reduce((a, b) => a + b, 0) }
+                            Total: { currentPredictions.map(p => isNaN(p.points) ? 0 : p.points).reduce((a, b) => a + b, 0) }
                         </li>
                     </ul>
                 </div>

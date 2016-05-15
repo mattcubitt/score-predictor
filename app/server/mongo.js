@@ -6,7 +6,7 @@ var config = require('./config');
 class Mongo {
     *connect(url) {
         if (this.db) {
-            yield mongodb.db.close();
+            yield this.db.close();
         }
 
         this.db = yield mongodb.connect(url);

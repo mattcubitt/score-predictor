@@ -1,13 +1,14 @@
 'use strict';
 
+var rounds = require('./roundsConfig');
+
 class RoundController {
-    constructor(context, roundService) {
+    constructor(context) {
         this.context = context;
-        this.roundService = roundService;
     }
 
     *findAll() {
-        this.context.body = yield this.roundService.findAll();
+        this.context.body = rounds;
 
         this.context.status = 200;
     }

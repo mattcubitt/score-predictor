@@ -10,11 +10,10 @@ var LeaderTableController = require('./leaderTableController');
 describe('leaderTableController', () => {
     it('get latest should return empty array when leader tables have no data', function *() {
         var context = {};
-        var rounds = [{_id: 0}, {_id: 1}];
-        var leaderTables = [null, null];
+        var rounds = require('../rounds/roundsConfig');
+        var leaderTables = [null, null, null, null, null];
 
         var leaderTableController = new LeaderTableController(context,
-                                            stubSetup.roundService(rounds),
                                             stubSetup.leaderTableService(rounds, leaderTables, null));
 
         yield leaderTableController.getLatest();
