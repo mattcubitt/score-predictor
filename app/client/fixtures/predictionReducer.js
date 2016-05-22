@@ -5,7 +5,7 @@ export default function(state=[], action) {
         case 'UPDATE_PREDICTION':
             return state.map(prediction => {
                 if(prediction._id === action.id) {
-                    var newScore = action.score === '' ? undefined : parseInt(action.score);
+                    var newScore = action.score === '' || action.score == null ? '' : parseInt(action.score);
 
                     var newPrediction = {};
                     newPrediction[action.property] = newScore;

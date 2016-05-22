@@ -63,6 +63,12 @@ class FixturesContainer extends Component {
     onPredictionChange(prediction, score, property) {
         const { dispatch } = this.props;
 
+        var scoreInt = parseInt(score);
+
+        if((score.length > 2 || isNaN(scoreInt) || scoreInt < 0) && score !== '') {
+            score = prediction[property];
+        }
+
         this.autoSave();
 
         return dispatch({
