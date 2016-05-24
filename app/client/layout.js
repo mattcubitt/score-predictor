@@ -1,5 +1,7 @@
 import React from 'react'
 import NavContainer from './navigation/navContainer';
+import Footer from './navigation/footer';
+
 
 export default React.createClass({
     render() {
@@ -9,6 +11,7 @@ export default React.createClass({
                 <div className="container">
                     {this.props.children}
                 </div>
+                <Footer/>
             </div>
 
         )

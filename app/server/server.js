@@ -50,7 +50,7 @@ var app = co.wrap(function *() {
         }));
     }
     
-    app.use(serve(path.resolve(__dirname, '../client')));
+    app.use(serve(path.resolve(__dirname, '../client'), { maxage: 1000 * 60 * 60 * 24 * 7}));
 
     app.use(authRoute);
     app.use(fixtureRoute);
