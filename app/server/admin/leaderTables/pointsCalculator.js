@@ -54,7 +54,7 @@ var pointsCalculator = function(prediction, fixture, wildcard) {
     }
 
     if(isNaN(points)) {
-        debugger;
+        return 0;
     }
 
     return points;

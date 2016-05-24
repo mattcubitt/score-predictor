@@ -291,4 +291,24 @@ describe('predictionPointsCalculator', function() {
 
         expect(points).to.be.equal(1);
     });
+
+    it('when fixture scores are undefined should return zero points', function *() {
+        var wildcard = {
+            type: 'goals-points'
+        };
+
+        var prediction = {
+            homeScore: 1,
+            awayScore: 1
+        };
+
+        var fixture = {
+            homeScore: undefined,
+            awayScore: undefined
+        };
+
+        var points = pointsCalculator(prediction, fixture, wildcard);
+
+        expect(points).to.be.equal(0);
+    });
 });
