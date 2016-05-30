@@ -4,6 +4,14 @@ export default class ChangeIndicator extends Component {
     render() {
         const { change } = this.props;
 
+        if(change === 0) {
+            return (
+                <div className="arrow-placeholder">
+                    <div className="leader-table-no-change-indicator"></div>
+                </div>
+            )
+        }
+
         if(change > 0) {
             return (
                 <div className="arrow-placeholder">
@@ -14,7 +22,7 @@ export default class ChangeIndicator extends Component {
 
         return (
             <div className="arrow-placeholder">
-                <div className="leader-table-no-change-indicator"></div>
+                <div className="leader-table-down-arrow"></div>
             </div>
         )
     }
