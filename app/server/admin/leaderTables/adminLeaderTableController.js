@@ -36,9 +36,10 @@ class AdminLeaderTableController {
 
         //create snapshots
         var users = yield this.userService.find({});
+        var previousSnapshots = yield this.leaderTableService.find({});
 
         var leaderTableSnapshots = rounds
-            .map(round => leaderTableSnapshotFactory(predictions, users, round._id));
+            .map(round => leaderTableSnapshotFactory(predictions, users, round._id, previousSnapshots));
 
         var overallSnapshot = leaderTableSnapshotFactory(predictions, users);
 

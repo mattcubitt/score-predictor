@@ -5,6 +5,10 @@ class LeaderTableService {
         this.leaderTableSnapshots = require('../repository').Create('leaderTableSnapshots');
     }
 
+    *find(query) {
+        return yield this.leaderTableSnapshots.find(query);
+    }
+
     *getLatest(roundId) {
         var leaderTableSnapshots = yield this.leaderTableSnapshots
             .find({ roundId: roundId });

@@ -16,10 +16,10 @@ class AuthController {
 
         if(user === null) {
             this.context.status = 404;
-            this.context.body = 'Account not found';
+            this.context.body = 'Incorrect details';
         } else if(!this.userService.comparePassword(loginRequest.password, user.password)) {
             this.context.status = 409;
-            this.context.body = 'Password incorrect';
+            this.context.body = 'Incorrect details';
         } else {
             var now = Math.floor(Date.now() / 1000);
             var oneDayExpiry = 60 * 60 * 24;

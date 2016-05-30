@@ -2,8 +2,9 @@
 
 var getLocalMoment = require('../../dateHelpers').GetLocalMoment;
 var leaderTablePositionCalculator = require('./leaderTablePositionCalculator');
+var leaderTableMovementCalculator = require('./leaderTableMovementCalculator');
 
-module.exports = (predictions, users, roundId) => {
+module.exports = (predictions, users, roundId, previousSnapshots) => {
     var userPoints = users
         .map(user => {
             var userPredictions = predictions.filter(p => p.userId.toString() === user._id.toString());
@@ -24,10 +25,16 @@ module.exports = (predictions, users, roundId) => {
             }
         });
 
+    previousSnapshots = previousSnapshots || [];
+
+    var previousSnapshot = previousSnapshots
+        .filter(s => s.roundId === roundId)
+        .sort((a, b) => a.createdOn > b.createdOn ? 1 : -1)[0];
+
     return {
         createdOn: getLocalMoment().toDate(),
         isOverall: roundId === undefined,
         roundId: roundId,
-        userPoints: leaderTablePositionCalculator(userPoints)
+        userPoints: leaderTablePositionCalculator(userPoints, previousSnapshot)
     };
 };

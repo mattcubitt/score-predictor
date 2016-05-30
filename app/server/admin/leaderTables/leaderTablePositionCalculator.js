@@ -1,4 +1,6 @@
-module.exports = function(userPoints) {
+var leaderTableMovementCalculator = require('./leaderTableMovementCalculator');
+
+module.exports = function(userPoints, previousSnapshot) {
     var userPointsWithPositions = userPoints
         .sort((a, b) => a.points < b.points ? 1 : -1)
         .map((p, i) => {
@@ -21,5 +23,14 @@ module.exports = function(userPoints) {
         previousUserPoint = userPoint;
     }
 
-    return userPointsWithPositions;
+    return userPointsWithPositions.map(userPoint => {
+        var change = leaderTableMovementCalculator(userPoint, previousSnapshot);
+
+        if(change !== null) {
+            userPoint.change = change;
+            return userPoint;
+        }
+
+        return userPoint;
+    });
 };
