@@ -29,7 +29,7 @@ module.exports = (predictions, users, roundId, previousSnapshots) => {
 
     var previousSnapshot = previousSnapshots
         .filter(s => s.roundId === roundId)
-        .sort((a, b) => a.createdOn > b.createdOn ? 1 : -1)[0];
+        .sort((a, b) => a.createdOn < b.createdOn ? 1 : -1)[0];
 
     return {
         createdOn: getLocalMoment().toDate(),
