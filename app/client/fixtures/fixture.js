@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import moment from 'moment'
-import Prediction from './prediction'
-import Wildcard from './wildcard'
+import React, { Component, PropTypes } from 'react';
+import moment from 'moment';
+import Prediction from './prediction';
+import Wildcard from './wildcard';
+import Tooltip from 'react-bootstrap/lib/Tooltip';
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 
 export default class Fixture extends Component {
     getTeamImageSrc(teamName) {
@@ -20,6 +22,10 @@ export default class Fixture extends Component {
         }
     }
 
+    getTeamName(shortName) {
+        
+    }
+
     render() {
         const { prediction } = this.props;
 
@@ -27,7 +33,7 @@ export default class Fixture extends Component {
             <li className="fixture">
                 <div className="teams-col">
                     <div className="team">
-                        <div className="flag">
+                        <div className="flag" data-toggle="tooltip" data-placement="bottom" title={prediction.fixture.homeTeam}>
                             <img className="flag-icon"
                                  src={this.getTeamImageSrc(prediction.fixture.homeTeam)}>
                             </img>
@@ -36,7 +42,7 @@ export default class Fixture extends Component {
                     </div>
                     <div className="versus">vs</div>
                     <div className="team">
-                        <div className="flag">
+                        <div className="flag" data-toggle="tooltip" data-placement="bottom" title={prediction.fixture.awayTeam}>
                             <img className="flag-icon"
                                  src={this.getTeamImageSrc(prediction.fixture.awayTeam)}>
                             </img>
