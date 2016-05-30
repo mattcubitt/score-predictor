@@ -4,7 +4,7 @@ export default class ChangeIndicator extends Component {
     render() {
         const { change } = this.props;
 
-        if(change === 0) {
+        if(change === 0 || change === undefined) {
             return (
                 <div className="arrow-placeholder">
                     <div className="leader-table-no-change-indicator"></div>
