@@ -13,10 +13,18 @@ class OverallStandingsContainer extends Component {
 
     fetchState() {
         return dispatch => {
-            this.loadRounds(dispatch);
-            this.loadLeaderTables(dispatch);
+            this.loadState(dispatch, '/leaderTables', 'LOAD_LEADER_TABLES');
+            this.loadState(dispatch, '/rounds', 'LOAD_ROUNDS');
             this.setActiveRoute(dispatch);
         };
+    }
+
+    loadState(dispatch, resource, type) {
+        return request(resource)
+            .then(response => dispatch({
+                type: type,
+                data: response.data
+            }));
     }
 
     setActiveRoute(dispatch) {
@@ -24,22 +32,6 @@ class OverallStandingsContainer extends Component {
             type: 'SET_ACTIVE_ROUTE',
             route: 'STANDINGS'
         });
-    }
-
-    loadLeaderTables(dispatch) {
-        return request('/leaderTables')
-            .then(response => dispatch({
-                type: 'LOAD_LEADER_TABLES',
-                leaderTables: response.data
-            }));
-    }
-
-    loadRounds(dispatch) {
-        return request('/rounds')
-            .then(response => dispatch({
-                type: 'LOAD_ROUNDS',
-                rounds: response.data
-            }));
     }
 
     render() {
