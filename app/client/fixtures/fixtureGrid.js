@@ -51,7 +51,6 @@ export default class FixtureGrid extends Component {
 
 FixtureGrid.propTypes = {
     currentPredictions: PropTypes.array.isRequired,
-    currentRoundId: PropTypes.number.isRequired,
     autoSaving: PropTypes.bool.isRequired,
     onPredictionChange: PropTypes.func.isRequired,
     onShowWildcardSelector: PropTypes.func.isRequired

@@ -23,7 +23,7 @@ export default class RoundLeaderTable extends Component {
                             leaderTable.userPoints
                                 .map(t => {
                                     return (
-                                        <li className="table-row">
+                                        <li key={t.userId} className="table-row">
                                             <ChangeIndicator change={t.change} />
                                             <div className="table-column-small">{t.position}</div>
                                             <div className="table-column-large text-xs-left">{t.name}</div>
@@ -31,7 +31,7 @@ export default class RoundLeaderTable extends Component {
                                         </li>
                                     )
                                 }) :
-                                <li className="table-row">No results</li>
+                        <li className="table-row">No results</li>
                     }
                 </ul>
             </div>
@@ -40,6 +40,5 @@ export default class RoundLeaderTable extends Component {
 }
 
 RoundLeaderTable.propTypes = {
-    roundName: PropTypes.string.isRequired,
-    leaderTable: PropTypes.object.isRequired
+    roundName: PropTypes.string.isRequired
 };

@@ -71,6 +71,7 @@ class OverallStandingsContainer extends Component {
                                     <div className="row">
                                         <div className="col-xs-12">
                                             <RoundPrizeLeaderTable
+                                                key={round._id}
                                                 leaderTable={leaderTable}
                                                 roundName={round.name}
                                                 options={roundTableOptions}/>

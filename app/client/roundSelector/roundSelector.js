@@ -24,7 +24,6 @@ export default class RoundSelector extends Component {
 }
 
 RoundSelector.propTypes = {
-    //token: PropTypes.string.isRequired,
     rounds: PropTypes.object.isRequired,
     onPreviousRoundClick: PropTypes.func.isRequired,
     onNextRoundClick: PropTypes.func.isRequired
