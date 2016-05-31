@@ -85,13 +85,23 @@ var updateUser = () => {
     });
 };
 
+var redirectIfLoggedIn = (nextState, replaceState, callback) => {
+    const state = store.getState();
+
+    if(state.user.state === UserStates.AUTHENTICATED) {
+        replaceState({ nextPathname: nextState.location.pathname }, '/fixtures')
+    }
+
+    callback();
+};
+
 render(
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route path="/" component={Layout} onEnter={updateUser}>
-                <IndexRoute component={LoginContainer} />
-                <Route name="login" path="login" component={LoginContainer}/>
-                <Route path="/registration" component={RegistrationContainer}/>
+                <IndexRoute component={LoginContainer} onEnter={redirectIfLoggedIn}/>
+                <Route path="/login" component={LoginContainer} onEnter={redirectIfLoggedIn}/>
+                <Route path="/registration" component={RegistrationContainer} onEnter={redirectIfLoggedIn}/>
                 <Route path="/fixtures" component={FixturesContainer} onEnter={isAuthenticated}/>
                 <Route path="/standings" component={StandingsContainer} onEnter={isAuthenticated}/>
                 <Route path="/rules" component={RulesContainer} onEnter={isAuthenticated}/>
