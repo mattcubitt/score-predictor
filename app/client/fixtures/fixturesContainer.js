@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import request from 'axios';
 import { connect } from 'react-redux';
-import Fixture from './fixture';
 import _ from 'lodash';
 import RoundSelector from '../roundSelector/roundSelector';
 import RoundLeaderTable from '../leaderTable/roundLeaderTable';
 import WildcardSelector from './wildcardSelector';
+import FixtureGrid from './fixtureGrid';
 
 class FixturesContainer extends Component {
     constructor(props) {
@@ -21,9 +21,9 @@ class FixturesContainer extends Component {
 
     fetchState() {
         return dispatch => {
-            this.loadPredictions(dispatch);
-            this.loadRounds(dispatch);
-            this.loadLeaderTables(dispatch);
+            this.loadState(dispatch, '/predictions', 'LOAD_PREDICTIONS');
+            this.loadState(dispatch, '/leaderTables', 'LOAD_LEADER_TABLES');
+            this.loadState(dispatch, '/rounds', 'LOAD_ROUNDS');
             this.setActiveRoute(dispatch);
         };
     }
@@ -35,28 +35,11 @@ class FixturesContainer extends Component {
         });
     }
 
-    //TODO: flatten
-    loadPredictions(dispatch) {
-        return request('/predictions')
+    loadState(dispatch, resource, type) {
+        return request(resource)
             .then(response => dispatch({
-                type: 'LOAD_PREDICTIONS',
-                predictions: response.data
-            }));
-    }
-
-    loadLeaderTables(dispatch) {
-        return request('/leaderTables')
-            .then(response => dispatch({
-                type: 'LOAD_LEADER_TABLES',
-                leaderTables: response.data
-            }));
-    }
-
-    loadRounds(dispatch) {
-        return request('/rounds')
-            .then(response => dispatch({
-                type: 'LOAD_ROUNDS',
-                rounds: response.data
+                type: type,
+                data: response.data
             }));
     }
 
@@ -195,70 +178,6 @@ class FixturesContainer extends Component {
         })
     }
 
-    renderBody(currentRoundName, currentPredictions, currentLeaderTable, currentRoundId, autoSaving) {
-        if(currentPredictions.length === 0) {
-            return(
-                <div className="row">
-                    <div className="col-xs-12 text-xs-center">
-                        <h4 className="text-muted">This round doesn't have any fixtures yet. Please come back later!</h4>
-                    </div>
-                </div>
-            )
-        }
-
-        return(
-            <div className="row">
-                <div className="col-xs-12 col-md-8">
-                    <div className="saving-status">{ autoSaving ? 'Saving...' : 'All changes saved'}</div>
-                    <ul className="fixtures">
-                        <li className="fixture fixture-header">
-                            <div className="teams-col">
-                                Fixtures
-                            </div>
-                            <div className="prediction-col">
-                                Predictions
-                            </div>
-                            <div className="wildcard-col">
-                                Wildcards
-                            </div>
-                            <div className="calender-col">
-                                Results
-                            </div>
-                            <div className="points-col">
-                                Points
-                            </div>
-                        </li>
-                        {
-                            currentPredictions
-                                .filter(p => p.fixture.roundId === currentRoundId)
-                                .sort((p1, p2) => {
-                                    var date1 = new Date(p1.fixture.startsOn).getTime();
-
-                                    var date2 = new Date(p2.fixture.startsOn).getTime();
-
-                                    return date1 > date2 ? 1 : -1;
-                                })
-                                .map(prediction => {
-                                    return <Fixture
-                                        key={prediction._id}
-                                        prediction={prediction}
-                                        onPredictionChange={this.onPredictionChange.bind(this)}
-                                        onShowWildcardSelector={ () => this.onShowWildcardSelector(prediction)}
-                                    />;
-                                })
-                        }
-                        <li className="fixture points-total">
-                            Total: { currentPredictions.map(p => isNaN(p.points) ? 0 : p.points).reduce((a, b) => a + b, 0) }
-                        </li>
-                    </ul>
-                </div>
-                <div className="col-xs-12 col-md-4">
-                    <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
-                </div>
-            </div>
-        )
-    }
-
     render() {
         const { predictions, autoSaving, rounds, leaderTables, wildcardSelector } = this.props;
 
@@ -270,9 +189,13 @@ class FixturesContainer extends Component {
             .filter(t => t.roundId === currentRoundId);
         const currentLeaderTable = foundLeaderTables.length === 0 ? undefined : foundLeaderTables[0];
 
-        if(predictions.length === 0) {
-            return(<div></div>)
-        }
+        const gridProps = {
+            currentPredictions,
+            currentRoundId,
+            autoSaving,
+            onPredictionChange: this.onPredictionChange.bind(this),
+            onShowWildcardSelector: this.onShowWildcardSelector.bind(this)
+        };
 
         return (
             <div>
@@ -290,7 +213,14 @@ class FixturesContainer extends Component {
                         />
                     </div>
                 </div>
-                { this.renderBody(currentRoundName, currentPredictions, currentLeaderTable, currentRoundId, autoSaving) }
+                <div className="row">
+                    <div className="col-xs-12 col-md-8">
+                        <FixtureGrid {...gridProps}/>
+                    </div>
+                    <div className="col-xs-12 col-md-4">
+                        <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
+                    </div>
+                </div>
             </div>
         )
     }

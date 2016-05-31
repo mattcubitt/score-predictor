@@ -1,7 +1,7 @@
 export default function(state=[], action) {
     switch(action.type) {
         case 'LOAD_PREDICTIONS':
-            return action.predictions;
+            return action.data;
         case 'UPDATE_PREDICTION':
             return state.map(prediction => {
                 if(prediction._id === action.id) {

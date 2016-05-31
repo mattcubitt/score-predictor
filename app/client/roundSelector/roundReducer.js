@@ -33,8 +33,8 @@ export default function(state=initialState, action) {
     switch(action.type) {
         case 'LOAD_ROUNDS':
             return {
-                current: action.rounds[0],
-                list: action.rounds
+                current: action.data[0],
+                list: action.data
             };
         case 'NEXT_ROUND':
             return nextRound(state);
