@@ -1,40 +1,26 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import { reducer as formReducer } from 'redux-form'
-import createLogger from 'redux-logger'
-import roundReducer from './roundSelector/roundReducer'
-import fixtureReducer from './fixtures/fixtureReducer'
-import adminReducer from './admin/adminReducer'
-import leaderTablesReducer from './leaderTable/leaderTablesReducer'
-import userReducer from './user/userReducer'
-import activeRouteReducer from './navigation/activeRouteReducer'
-import wildcardSelectorReducer from './fixtures/wildcardSelectorReducer'
-import predictionReducer from './fixtures/predictionReducer'
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form';
+import createLogger from 'redux-logger';
+import roundReducer from './roundSelector/roundReducer';
+import fixtureReducer from './fixtures/fixtureReducer';
+import adminReducer from './admin/adminReducer';
+import leaderTablesReducer from './leaderTable/leaderTablesReducer';
+import userReducer from './user/userReducer';
+import activeRouteReducer from './navigation/activeRouteReducer';
+import wildcardSelectorReducer from './fixtures/wildcardSelectorReducer';
+import predictionReducer from './fixtures/predictionReducer';
+import authReducer from './login/authReducer';
+import autoSavingReducer from './fixtures/autoSavingReducer';
 
 var reducers = {
     activeRoute : activeRouteReducer,
     form: formReducer,
-    auth: function(state={}, action) {
-        switch(action.type) {
-            case 'ADD_TOKEN':
-                return Object.assign({}, { token: action.token });
-            default:
-                return state;
-        }
-    },
+    auth: authReducer,
     fixtures: fixtureReducer,
     admin: adminReducer,
     predictions: predictionReducer,
-    autoSaving: function(state=false, action) {
-        switch(action.type) {
-            case 'STARTED_AUTOSAVE':
-                return true;
-            case 'FINISHED_AUTOSAVE':
-                return false;
-            default:
-                return state;
-        }
-    },
+    autoSaving: autoSavingReducer,
     rounds: roundReducer,
     leaderTables: leaderTablesReducer,
     user : userReducer,
