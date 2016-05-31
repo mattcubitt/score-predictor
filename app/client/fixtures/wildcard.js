@@ -1,6 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class Prediction extends Component {
+    getWildcardDescription(type) {
+        switch(type) {
+            case 'clean-sheet-points':
+                return '3 points for every clean sheet';
+            case 'goals-points':
+                return '1 point for every goal scored';
+            case 'penalty-points':
+                return '1 point for every penalty scored. -1 point for every penalty missed.';
+            case 'triple-points':
+                return 'Triple points for this game';
+        }
+    }
+
     render() {
         const { prediction, onShowWildcardSelector } = this.props;
 
@@ -8,7 +21,12 @@ export default class Prediction extends Component {
             return (
                 <div className="wildcard-col">
                     <div className="wildcard-holder wildcard-not-editable">
-                        <img className="wildcard-icon" src={`./assets/images/wildcards/${prediction.wildcard.type}-small.png`} alt={prediction.wildcard.type}/>
+                        <img className="wildcard-icon"
+                             data-toggle="tooltip"
+                             data-placement="bottom"
+                             title={this.getWildcardDescription(prediction.wildcard.type)}
+                             src={`./assets/images/wildcards/${prediction.wildcard.type}-small.png`}
+                             alt={prediction.wildcard.type}/>
                     </div>
                 </div>
             )
@@ -16,7 +34,12 @@ export default class Prediction extends Component {
             return (
                 <div className="wildcard-col">
                     <div className="wildcard-selector" onClick={onShowWildcardSelector}>
-                        <img className="wildcard-icon" src={`./assets/images/wildcards/${prediction.wildcard.type}-small.png`} alt={prediction.wildcard.type}/>
+                        <img className="wildcard-icon"
+                             data-toggle="tooltip"
+                             data-placement="bottom"
+                             title={this.getWildcardDescription(prediction.wildcard.type)}
+                             src={`./assets/images/wildcards/${prediction.wildcard.type}-small.png`}
+                             alt={prediction.wildcard.type}/>
                     </div>
                 </div>
             )
