@@ -20,6 +20,12 @@ class UserController {
         } else {
             var latestOverallTable = yield this.leaderTableService.getLatestOverall();
 
+            if(latestOverallTable == null) {
+                this.context.body = 0;
+                this.context.status = 200;
+                return;
+            }
+
             var userPoints = latestOverallTable.userPoints.filter(p => p.userId.toString() === currentUserId);
 
             if(userPoints.length > 0) {
