@@ -54,6 +54,7 @@ class RulesContainer extends Component {
                     <li><strong>1st place:</strong> iPad Mini (or equivalent in amazon or john lewis vouchers)</li>
                     <li><strong>2nd place:</strong> Beats headphones (or equivalent in amazon or john lewis vouchers)</li>
                     <li><strong>3rd place:</strong> Additional day holiday</li>
+                    <li><strong>Last place:</strong> French baguette</li>
                 </ul>
 
                 <p>Round leaderboard prizes (for all 5 rounds):</p>
@@ -61,6 +62,7 @@ class RulesContainer extends Component {
                     <li><strong>1st place:</strong> £50 voucher (Amazon or John Lewis)</li>
                     <li><strong>2nd place:</strong> £30 voucher (Amazon or John Lewis)</li>
                     <li><strong>3rd place:</strong> £15 voucher (Amazon or John Lewis)</li>
+                    <li><strong>Last place:</strong> French baguette</li>
                 </ul>
                 <p>All prizes will be handed out after the round has finished on the next team meeting.</p>
             </div>
