@@ -28,6 +28,7 @@ var roundRoute = require('./rounds/roundRoute');
 var adminRoute = require('./admin/adminRoute');
 var leaderTableRoute = require('./leaderTables/leaderTableRoute');
 var wildcardRoute = require('./wildcards/wildcardRoute');
+var userRoute = require('./users/userRoute');
 
 Date.prototype.toJSON = function(){ return moment(this).format(); };
 
@@ -59,6 +60,7 @@ var app = co.wrap(function *() {
     app.use(adminRoute);
     app.use(leaderTableRoute);
     app.use(wildcardRoute);
+    app.use(userRoute);
 
     app.listen(config.PORT);
 

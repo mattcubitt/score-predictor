@@ -26,9 +26,9 @@ export default class RoundPrizeLeaderTable extends Component {
 
     getPrize(position, isLast) {
         if(position === 1) {
-            return '£30 Amazon voucher';
+            return '£50 Amazon voucher';
         } else if(position === 2) {
-            return '£20 Amazon voucher';
+            return '£30 Amazon voucher';
         } else if(position === 3) {
             return '£10 Amazon voucher';
         } else if(isLast) {

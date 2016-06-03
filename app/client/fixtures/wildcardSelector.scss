@@ -126,5 +126,12 @@ $penalty-points-color: #5A458E;
 				}
 			}
 		}
+
+		@media only screen and (max-width: 542px) {
+		//@media screen and (min-device-width: 765px) {
+			.wildcard-item {
+				width: 100%;
+			}
+		}
 	}
 }

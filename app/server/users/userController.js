@@ -20,7 +20,7 @@ class UserController {
         } else {
             var latestOverallTable = yield this.leaderTableService.getLatestOverall();
 
-            var userPoints = latestOverallTable.userPoints.filter(p => p._id.toString() === currentUserId);
+            var userPoints = latestOverallTable.userPoints.filter(p => p.userId.toString() === currentUserId);
 
             if(userPoints.length > 0) {
                 this.context.body = userPoints[0].points;

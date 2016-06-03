@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes, CSSTransitionGroup } from 'react';
 import request from 'axios';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -6,6 +6,10 @@ import RoundSelector from '../roundSelector/roundSelector';
 import RoundLeaderTable from '../leaderTable/roundLeaderTable';
 import WildcardSelector from './wildcardSelector';
 import FixtureGrid from './fixtureGrid';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { Transition } from 'react-motion-ui-pack';
+import { spring } from 'react-motion';
+import { Bounce } from 'react-motion-pack';
 
 class FixturesContainer extends Component {
     constructor(props) {
@@ -103,14 +107,28 @@ class FixturesContainer extends Component {
     onShowWildcardSelector(prediction) {
         const { dispatch } = this.props;
 
+        dispatch({
+            type: 'UPDATE_PREDICTION_WILDCARDLOADING',
+            id: prediction._id,
+            loading: true
+        });
+
         return request('/wildcards', {
             method: 'get'
         })
-        .then((response) => dispatch({
-            type: 'OPEN_WILDCARD_SELECTOR',
-            prediction,
-            wildcards: response.data
-        }));
+        .then((response) => {
+            dispatch({
+                type: 'UPDATE_PREDICTION_WILDCARDLOADING',
+                id: prediction._id,
+                loading: false
+            });
+
+            dispatch({
+                type: 'OPEN_WILDCARD_SELECTOR',
+                prediction,
+                wildcards: response.data
+            });
+        });
     }
 
     onCloseWildcardSelector() {
@@ -215,10 +233,10 @@ class FixturesContainer extends Component {
                 </div>
                 <div className="row">
                     <div className="col-xs-12 col-md-8">
-                        <FixtureGrid {...gridProps}/>
+                        <FixtureGrid {...gridProps} key={currentRoundName} />
                     </div>
                     <div className="col-xs-12 col-md-4">
-                        <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName}/>
+                        <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName} key={currentRoundName}/>
                     </div>
                 </div>
             </div>

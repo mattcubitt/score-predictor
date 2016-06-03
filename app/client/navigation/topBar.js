@@ -11,7 +11,7 @@ export default class TopBar extends Component {
                 <div className="top-bar">
                     <div className="container">
                         <div className="top-bar-logo"></div>
-                        <div className="top-bar-title">Euro 2016 Predictor</div>
+                        <div className="top-bar-title hidden-xs-down">Euro 2016 Predictor</div>
                         <div className="top-bar-account hidden-sm-down" style={accountStyle}>
                             <div className="pull-xs-right top-bar-logout" onClick={onLogout}>Logout</div>
                             <div className="top-bar-account-item"><span className="top-bar-points-box">{points}pts</span></div>

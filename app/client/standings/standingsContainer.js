@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import request from 'axios';
 import { connect } from 'react-redux';
 import MainLeaderTable from '../leaderTable/mainLeaderTable';
-import RoundPrizeLeaderTable from '../leaderTable/roundPrizeLeaderTable';
 import PrizeBanner from './prizeBanner';
+import DummyPrizeLeaderTable from '../leaderTable/dummyPrizeLeaderTable'
 
 class OverallStandingsContainer extends Component {
     componentDidMount() {
@@ -44,17 +44,17 @@ class OverallStandingsContainer extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-xs-offset-1 col-xs-10">
+                    <div className="col-md-offset-1 col-xs-12 col-md-10">
                         <PrizeBanner/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-xs-offset-1 col-xs-5">
+                    <div className="col-md-offset-1 col-xs-12 col-md-5">
                         <MainLeaderTable
                             leaderTable={overallLeaderTable}
                             roundName={overallRoundName} />
                     </div>
-                    <div className="col-xs-5">
+                    <div className="col-xs-12 col-md-5">
                         {
                             rounds.list.map(round => {
                                 const leaderTable = leaderTables.filter(t => t.roundId === round._id)[0];
@@ -62,7 +62,7 @@ class OverallStandingsContainer extends Component {
                                 return(
                                     <div className="row">
                                         <div className="col-xs-12">
-                                            <RoundPrizeLeaderTable
+                                            <DummyPrizeLeaderTable
                                                 key={round._id}
                                                 leaderTable={leaderTable}
                                                 roundName={round.name}

@@ -15,6 +15,17 @@ export default function(state=[], action) {
 
                 return prediction;
             });
+        case 'UPDATE_PREDICTION_WILDCARDLOADING':
+            return state.map(prediction => {
+                if(prediction._id === action.id) {
+                    return {
+                        ...prediction,
+                        wildcardLoading: action.loading
+                    }
+                }
+
+                return prediction;
+            });
         case 'SAVE_PREDICTION_WILDCARD':
             return state.map(prediction => {
                 if(prediction._id === action.predictionId) {

@@ -7,13 +7,7 @@ export default class FixtureGrid extends Component {
         const { currentPredictions, currentRoundId, autoSaving, onPredictionChange, onShowWildcardSelector } = this.props;
 
         if(currentPredictions.length === 0) {
-            return(
-                <div className="row">
-                    <div className="col-xs-12 text-xs-center">
-                        <h4 className="text-muted">This round doesn't have any fixtures yet. Please come back later!</h4>
-                    </div>
-                </div>
-            )
+            return <div></div>
         }
 
         return (
@@ -44,6 +38,7 @@ export default class FixtureGrid extends Component {
                         Total: { currentPredictions.map(p => isNaN(p.points) ? 0 : p.points).reduce((a, b) => a + b, 0) }
                     </li>
                 </ul>
+                <div className="result-note">Note: Result includes score after 90 minutes and extra time if applicable.</div>
             </div>
         )
     }

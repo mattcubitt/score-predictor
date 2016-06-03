@@ -1,6 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./fonts.scss";
 @import "./bootstrapMods.scss";
+@import "./animations.scss";
 @import "./layoutStyles.scss";
 @import "./fixtures/fixtureStyles.scss";
 @import "./roundSelector/roundSelectorStyles.scss";
@@ -11,3 +12,5 @@
 @import "./login/loginContainer.scss";
 @import "./standings/prizeBanner.scss";
 @import "./fixtures/wildcardSelector.scss";
+@import "./about/aboutStyles.scss";
+@import "./rules/rulesStyles.scss";

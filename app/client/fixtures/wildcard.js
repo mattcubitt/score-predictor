@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Spinner from 'react-spinkit';
 
 export default class Prediction extends Component {
     getWildcardDescription(type) {
@@ -17,7 +18,15 @@ export default class Prediction extends Component {
     render() {
         const { prediction, onShowWildcardSelector } = this.props;
 
-        if(!prediction.editable && prediction.wildcard) {
+        if(prediction.wildcardLoading) {
+            return (
+                <div className="wildcard-col">
+                    <div className="wildcard-selector">
+                        <Spinner spinnerName='pulse'/>
+                    </div>
+                </div>
+            )
+        } else if(!prediction.editable && prediction.wildcard) {
             return (
                 <div className="wildcard-col">
                     <div className="wildcard-holder wildcard-not-editable">

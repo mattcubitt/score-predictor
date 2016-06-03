@@ -1,3 +1,21 @@
+.example-enter {
+	opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+	opacity: 1;
+}
+
+.example-leave.example-leave-active {
+	opacity: 0.01;
+	transition: opacity 300ms ease-in;
+}
+
 .fixtures {
 	list-style: none;
 	padding: 0;
@@ -47,9 +65,14 @@
 				width: 20%;
 				float: left;
 				text-align: center;
-				padding: 1em;
-				line-height: 2em;
+				line-height: 3.5em;
 			}
+
+			//@media screen and (min-device-width: 765px) {
+			//	.versus {
+			//		padding: 0;
+			//	}
+			//}
 		}
 
 		.wildcard-col {
@@ -83,6 +106,7 @@
 				border-radius: 5px;
 				width: 3em;
 				margin: auto;
+				height: 100%;
 
 				.wildcard-icon {
 					width: 100%;
@@ -185,12 +209,22 @@
 				line-height: 2.4em;
 			}
 		}
+
+		.note-text {
+			position: relative;
+			font-size: 12px;
+			text-align: right;
+			float: right;
+			color: #6D6C6C;
+			margin: -5px -10px -10px;
+		}
 	}
 
 	.points-total {
 		width: 15%;
 		text-align: center;
 		float: right;
+		margin-left: 1em;
 	}
 
 	.fixture-header {
@@ -206,4 +240,10 @@
 	@extend .text-muted, .text-xs-right;
 	font-size: 0.9em;
 	margin-bottom: 0.5em;
+}
+
+.result-note {
+	@extend .text-muted, .text-xs-right;
+	font-size: 0.9em;
+	margin: 0 0.5em 0.5em;
 }

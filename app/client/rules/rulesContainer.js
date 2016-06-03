@@ -13,7 +13,7 @@ class RulesContainer extends Component {
 
     render() {
         return (
-            <div style={{marginTop: '50px'}}>
+            <div className="rules" style={{marginTop: '50px'}}>
                 <h4 className="text-xs-center">MI Euro Score Predictor Rules</h4>
                 <br/>
 
@@ -22,6 +22,7 @@ class RulesContainer extends Component {
                     <li>Each player must submit their score predictions for each game before kick-off for that game.</li>
                     <li>A correct score line is worth THREE points.</li>
                     <li>A correct result is worth ONE point.</li>
+                    <li>Result includes score after 90 minutes and extra time if applicable.</li>
                 </ul>
                 <br/>
 
@@ -44,15 +45,15 @@ class RulesContainer extends Component {
                     <li><strong>Round 4:</strong> consists of the round of 16 knockout games (8 games)</li>
                     <li><strong>Round 5:</strong> consists of the quarter-final, semi-final and the final (7 games)</li>
                 </ul>
+                <p>In the event of a tie on points. Position will determined first by number of correct scores then by number of correct results. Finally if the position is still tied, a game of table football will be used to decide the position.</p>
                 <br/>
 
                 <h5>Prizes</h5>
                 <p>Overall league table prizes:</p>
                 <ul>
-                    <li><strong>1st place:</strong> iPad Mini</li>
-                    <li><strong>2nd place:</strong> Dre Beats headphones</li>
+                    <li><strong>1st place:</strong> iPad Mini (or equivalent in amazon or john lewis vouchers)</li>
+                    <li><strong>2nd place:</strong> Beats headphones (or equivalent in amazon or john lewis vouchers)</li>
                     <li><strong>3rd place:</strong> Additional day holiday</li>
-                    <li><strong>Last place:</strong> Windows Surface</li>
                 </ul>
 
                 <p>Round leaderboard prizes (for all 5 rounds):</p>

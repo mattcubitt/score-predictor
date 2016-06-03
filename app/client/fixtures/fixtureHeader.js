@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export default class FixtureHeader extends Component {
     render() {
         return (
-            <li className="fixture fixture-header">
+            <li className="fixture fixture-header hidden-xs-down">
                 <div className="teams-col">
                     Fixtures
                 </div>

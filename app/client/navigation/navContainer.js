@@ -4,10 +4,21 @@ import TopBar from './topBar';
 import NavBar from './navBar';
 import UserStates from '../user/userStates';
 import { hashHistory } from 'react-router';
+import request from 'axios';
 
 class NavContainer extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        const { dispatch, user } = this.props;
+
+        request(`/users/${user._id}/points`)
+            .then(response => dispatch({
+                type: 'UPDATE_USER_POINTS',
+                points: response.data
+            }));
     }
 
     onLogout() {
