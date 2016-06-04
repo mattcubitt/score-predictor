@@ -5,6 +5,10 @@ export default class RoundSelector extends Component {
         const { rounds, onPreviousRoundClick, onNextRoundClick } = this.props;
         const name = rounds.current ? rounds.current.name : '';
 
+        if(name === '') {
+            return <div></div>
+        }
+
         return (
             <div>
                 <div className="round-selector">

@@ -41,7 +41,7 @@ class AboutContainer extends Component {
                                 <img className="card-img-top" src="/assets/images/tech/react.jpg" alt="React"/>
                                 <div className="card-block">
                                     <h4 className="card-title">React</h4>
-                                    <p className="card-text">Facebook's UI framework used to create dynamic web applications</p>
+                                    <p className="card-text">Facebook's UI framework used to create dynamic web applications.</p>
                                 </div>
                             </a>
                         </div>
@@ -63,7 +63,7 @@ class AboutContainer extends Component {
                                 <img className="card-img-top image-fix" src="/assets/images/tech/nodejs.jpg" alt="Node"/>
                                 <div className="card-block">
                                     <h4 className="card-title">Node</h4>
-                                    <p className="card-text">Server side javascript framework run on top of google's V8 engine which powers chrome.</p>
+                                    <p className="card-text">Server side javascript framework run on top of Google's V8 engine.</p>
                                 </div>
                         </a>
                         </div>
@@ -74,7 +74,7 @@ class AboutContainer extends Component {
                                 <img className="card-img-top" src="/assets/images/tech/koa.jpg" alt="koa"/>
                                 <div className="card-block">
                                     <h4 className="card-title">Koa</h4>
-                                    <p className="card-text">Nodejs web framework utilising generator functions. Made by the express team.</p>
+                                    <p className="card-text">Nodejs web framework utilising generator functions.</p>
                                 </div>
                             </a>
                         </div>
