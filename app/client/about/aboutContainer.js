@@ -20,17 +20,14 @@ class AboutContainer extends Component {
                     <div className="col-md-4 text-xs-center">
                         <img className="team-member" src="/assets/images/team/wing.jpg" alt="Wing"/>
                         <h4>Wing</h4>
-                        <p>Chairman, CFO and chief button presser</p>
                     </div>
                     <div className="col-md-4 text-xs-center">
                         <img className="team-member" src="/assets/images/team/matt.jpg" alt="Matt"/>
                         <h4>Matt</h4>
-                        <p>Chief architect and table foosball champion</p>
                     </div>
                     <div className="col-md-4 text-xs-center">
                         <img className="team-member" src="/assets/images/team/aloke.jpg" alt="Aloke"/>
                         <h4>Aloke</h4>
-                        <p>UX artist and feng shui master</p>
                     </div>
                 </div>
                 <h2>Technologies Used</h2>
