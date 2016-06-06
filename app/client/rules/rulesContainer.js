@@ -26,8 +26,8 @@ class RulesContainer extends Component {
                 </ul>
                 <br/>
 
-                <h5>Wild Cards</h5>
-                <p>Each player will also receive game cards to play on games of their choosing. These can add additional points.</p>
+                <h5>Wildcards</h5>
+                <p>Each player will also receive wildcards to play on games of their choosing. These can add additional points.</p>
                 <ul>
                     <li><strong>Clean sheets = Points:</strong> every clean sheet adds THREE points on game played</li>
                     <li><strong>Goals = Points:</strong> every goal adds ONE point on game played</li>
@@ -45,7 +45,7 @@ class RulesContainer extends Component {
                     <li><strong>Round 4:</strong> consists of the round of 16 knockout games (8 games)</li>
                     <li><strong>Round 5:</strong> consists of the quarter-final, semi-final and the final (7 games)</li>
                 </ul>
-                <p>In the event of a tie on points. Position will determined first by number of correct scores then by number of correct results. Finally if the position is still tied, a game of table football will be used to decide the position.</p>
+                <p>In the event of a tie on points, position will determined first by number of correct scores then by the number of correct results. Finally if the position is still tied, a game of table football will be used to decide the position.</p>
                 <br/>
 
                 <h5>Prizes</h5>

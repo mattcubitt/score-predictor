@@ -22,7 +22,7 @@ export default class Prediction extends Component {
             return (
                 <div className="wildcard-col">
                     <div className="wildcard-selector">
-                        <Spinner spinnerName='pulse'/>
+                        <img src="./assets/images/ripple.gif" alt="loading wildcards"/>
                     </div>
                 </div>
             )

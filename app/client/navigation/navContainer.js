@@ -14,11 +14,13 @@ class NavContainer extends Component {
     componentDidMount() {
         const { dispatch, user } = this.props;
 
-        request(`/users/${user._id}/points`)
-            .then(response => dispatch({
-                type: 'UPDATE_USER_POINTS',
-                points: response.data
-            }));
+        if(user._id !== undefined) {
+            request(`/users/${user._id}/points`)
+                .then(response => dispatch({
+                    type: 'UPDATE_USER_POINTS',
+                    points: response.data
+                }));
+        }
     }
 
     onLogout() {
