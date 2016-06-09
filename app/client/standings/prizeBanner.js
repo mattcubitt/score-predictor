@@ -32,7 +32,7 @@ export default class PrizeBanner extends Component {
                         </div>
                     </div>
                 </div>
-                <p className="note-prize">*or equivalent in Amazon or John Lewis vouchers</p>
+                <p className="note-prize">*Or equivalent in Amazon or John Lewis vouchers. Prizes are for MarketInvoice employees only sorry.</p>
             </div>
         )
     }

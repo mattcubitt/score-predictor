@@ -309,7 +309,7 @@ class AdminContainer extends Component {
                 </div>
                 <div className="row">
                     <div className="col-xs-2">
-                        <button className="btn btn-danger"
+                        <button className="btn btn-danger" style={{'display': 'none'}}
                                 onClick={() => this.onCalculatePoints()}>
                             Calculate Points
                         </button>

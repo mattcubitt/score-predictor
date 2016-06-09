@@ -39,11 +39,11 @@ export default class DummyPrizeLeaderTable extends Component {
     }
 
     render() {
-        const { leaderTable, roundName } = this.props;
+        const { roundName } = this.props;
 
         return (
             <div className="leader-table-wrapper">
-                <h6>{roundName} standings</h6>
+                <h6>{roundName} standings (MarketInvoice only)</h6>
                 <ul className="leader-table">
                     <li className="table-header">
                         <div className="table-column-small">Pos.</div>

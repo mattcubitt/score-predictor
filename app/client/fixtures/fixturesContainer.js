@@ -196,8 +196,17 @@ class FixturesContainer extends Component {
         })
     }
 
+    onToggleTableCollapse(leaderTableId) {
+        const { dispatch } = this.props;
+
+        dispatch({
+            type: 'TOGGLE_TABLE_COLLAPSE',
+            leaderTableId
+        })
+    }
+
     render() {
-        const { predictions, autoSaving, rounds, leaderTables, wildcardSelector } = this.props;
+        const { predictions, autoSaving, rounds, leaderTables, wildcardSelector, user } = this.props;
 
         const currentRoundId = rounds.current ? rounds.current._id : null;
         const currentRoundName = rounds.current ? rounds.current.name : '';
@@ -236,7 +245,11 @@ class FixturesContainer extends Component {
                         <FixtureGrid {...gridProps} key={currentRoundName} />
                     </div>
                     <div className="col-xs-12 col-md-4">
-                        <RoundLeaderTable leaderTable={currentLeaderTable} roundName={currentRoundName} key={currentRoundName}/>
+                        <RoundLeaderTable leaderTable={currentLeaderTable}
+                                          user={user}
+                                          roundName={currentRoundName}
+                                          key={currentRoundName}
+                                          onToggleTableCollapse={() => this.onToggleTableCollapse(currentLeaderTable._id)} />
                     </div>
                 </div>
             </div>
@@ -263,7 +276,8 @@ function mapStateToProps(state) {
         autoSaving: state.autoSaving,
         rounds: state.rounds,
         leaderTables: state.leaderTables,
-        wildcardSelector: state.wildcardSelector
+        wildcardSelector: state.wildcardSelector,
+        user: state.user
     }
 }
 

@@ -20,6 +20,7 @@ module.exports = (predictions, users, roundId, previousSnapshots) => {
 
             return {
                 userId: user._id,
+                external: user.external,
                 name: user.name,
                 points: points
             }

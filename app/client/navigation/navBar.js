@@ -14,6 +14,7 @@ export default class NavBar extends Component {
                             <li className="nav-bar-link"><Link to="/fixtures" className={ activeRoute === 'FIXTURES' ? 'nav-link active' : 'nav-link' }>My Predictions</Link></li>
                             <li className="nav-bar-link"><Link to="/standings" className={ activeRoute === 'STANDINGS' ? 'nav-link active' : 'nav-link' }>MI League Table</Link></li>
                             <li className="nav-bar-link"><Link to="/rules" className={ activeRoute === 'RULES' ? 'nav-link active' : 'nav-link' }>Rules</Link></li>
+                            <li className="nav-bar-link"><Link to="/about" className={ activeRoute === 'ABOUT' ? 'nav-link active' : 'nav-link' }>About</Link></li>
                             <li className="nav-bar-link" style={adminLinkStyle}><Link to="/admin" className={ activeRoute === 'ADMIN' ? 'nav-link active' : 'nav-link' }>Admin</Link></li>
                         </ul>
                     </div>

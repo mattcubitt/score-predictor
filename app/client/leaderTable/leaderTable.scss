@@ -35,16 +35,6 @@
 			border-bottom: 7px solid #43CA43;
 		}
 
-		//.leader-table-up-arrow:after {
-		//	content: " ";
-		//	position: absolute;
-		//	pointer-events: none;
-		//	border: 7px solid rgba(11, 213, 11, 0);
-		//	border-bottom-color: #43CA43;
-		//	margin-left: -7px;
-		//	margin-top: -5px;
-		//}
-
 		.leader-table-down-arrow {
 			width: 0px;
 			height: 0px;
@@ -67,10 +57,19 @@
 			line-height: 2.5em;
 			text-align: center;
 			border-bottom: 0.1em solid #E5E4E6;
-		}
 
-		li:nth-child(4) {
-			border-bottom: dashed 0.1em #2b2d2f;
+			&.table-row-highlighted {
+				background-color: rgba(251, 255, 0, 0.09);
+			}
+
+			&.table-row-footer {
+				height: 2em;
+				line-height: 2em;
+				font-weight: bold;
+				cursor: pointer;
+				color: #237dcc;
+				border-top: 1px solid #eae8e8;
+			}
 		}
 
 		.table-column-small {

@@ -17,36 +17,53 @@ class AdminLeaderTableController {
     }
 
     *createNewSnapshot() {
-        var predictions = yield this.predictionRepository.find({});
+        try {
+            console.log('creating new snapshot');
 
-        for(var prediction of predictions) {
-            let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
-            let wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
+            var predictions = yield this.predictionRepository.find({});
 
-            prediction.points = predictionPointsCalculator(prediction, fixture, wildcard);
+            for(var prediction of predictions) {
+                let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
+                let wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
 
-            yield this.predictionRepository.replaceOne(prediction._id, prediction);
+                prediction.points = predictionPointsCalculator(prediction, fixture, wildcard);
+
+                yield this.predictionRepository.replaceOne(prediction._id, prediction);
+            }
+
+            console.log('Finished calculating points');
+
+            console.log('Populating predictions');
+            for(var prediction of predictions) {
+                let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
+                prediction.fixture = fixture;
+                prediction.wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
+            }
+            console.log('Finished Populating predictions');
+
+            console.log('Creating snapshots');
+            //create snapshots
+            var users = yield this.userService.find({});
+            var previousSnapshots = yield this.leaderTableService.find({});
+
+            console.log('For rounds');
+            var leaderTableSnapshots = rounds
+                .map(round => leaderTableSnapshotFactory(predictions, users, round._id, previousSnapshots));
+
+            console.log('For overall');
+            var overallSnapshot = leaderTableSnapshotFactory(predictions, users);
+
+            leaderTableSnapshots.push(overallSnapshot);
+
+            console.log('Inserting snapshots');
+            yield this.leaderTableService.insertMany(leaderTableSnapshots);
+            this.context.status = 200;
+
+            console.log('Finished creating new snapshots');
+        } catch(ex) {
+            console.error('Error creating snapshot ' + ex.stack);
+            throw ex;
         }
-
-        for(var prediction of predictions) {
-            let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
-            prediction.fixture = fixture;
-            prediction.wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
-        }
-
-        //create snapshots
-        var users = yield this.userService.find({});
-        var previousSnapshots = yield this.leaderTableService.find({});
-
-        var leaderTableSnapshots = rounds
-            .map(round => leaderTableSnapshotFactory(predictions, users, round._id, previousSnapshots));
-
-        var overallSnapshot = leaderTableSnapshotFactory(predictions, users);
-
-        leaderTableSnapshots.push(overallSnapshot);
-
-        yield this.leaderTableService.insertMany(leaderTableSnapshots);
-        this.context.status = 200;
     }
 }
 
