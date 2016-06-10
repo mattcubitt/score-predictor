@@ -41,6 +41,7 @@ export default class RoundLeaderTable extends Component {
                                               position={t.position}
                                               name={t.name}
                                               points={t.points}
+                                              external={t.external}
                                               collapsed={leaderTable.collapsed}
                                               lastPosition={lastPosition}/>
                                 )
@@ -48,6 +49,7 @@ export default class RoundLeaderTable extends Component {
                     }
                     <CollapseFooter {...this.props} />
                 </ul>
+                <p className="text-muted">* Non-MarketInvoice employee</p>
             </div>
         )
     }
