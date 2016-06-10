@@ -58,6 +58,10 @@ class OverallStandingsContainer extends Component {
                     <div className="col-xs-12 col-md-5" style={{marginTop: '20px'}}>
                         {
                             rounds.list.map(round => {
+                                if(round.name === 'Finals') {
+                                    return <div></div>
+                                }
+
                                 const leaderTable = leaderTables.filter(t => t.roundId === round._id)[0];
 
                                 return(
