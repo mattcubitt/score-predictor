@@ -26,7 +26,11 @@ class AdminLeaderTableController {
                 let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
                 let wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
 
-                prediction.points = predictionPointsCalculator(prediction, fixture, wildcard);
+                var pointsResult = predictionPointsCalculator(prediction, fixture, wildcard);
+
+                prediction.points = pointsResult.points;
+                prediction.correctScore = pointsResult.correctScore;
+                prediction.correctResult = pointsResult.correctResult;
 
                 yield this.predictionRepository.replaceOne(prediction._id, prediction);
             }

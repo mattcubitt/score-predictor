@@ -19,7 +19,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture);
 
-        expect(points).to.be.equal(3);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: true,
+            points: 3
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 9 points for a correct score and result with x3 wildcard', function *() {
@@ -39,7 +45,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(9);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: true,
+            points: 9
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 3 points for a correct result with x3 wildcard', function *() {
@@ -59,7 +71,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(3);
+        var expectedPoints = {
+            correctResult: true,
+            correctScore: false,
+            points: 3
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 9 points for a correct 0 - 0 draw with clean sheet wildcard', function *() {
@@ -79,7 +97,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(9);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: true,
+            points: 9
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 3 points for a incorrect 0 - 0 draw with clean sheet wildcard', function *() {
@@ -99,10 +123,16 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(3);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: false,
+            points: 3
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
-    it('calculates 9 points for a correct result plus 6 goals with goals points wildcard', function *() {
+    it('calculates 9 points for a correct score plus 6 goals with goals points wildcard', function *() {
         var wildcard = {
             type: 'goals-points'
         };
@@ -119,7 +149,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(9);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: true,
+            points: 9
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 1 points for a correct result and no goals with goals points wildcard', function *() {
@@ -139,7 +175,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(1);
+        var expectedPoints = {
+            correctResult: true,
+            correctScore: false,
+            points: 1
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 1 points for a correct result', function *() {
@@ -155,7 +197,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture);
 
-        expect(points).to.be.equal(1);
+        var expectedPoints = {
+            correctResult: true,
+            correctScore: false,
+            points: 1
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 0 points for a incorrect score and result', function *() {
@@ -171,7 +219,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture);
 
-        expect(points).to.be.equal(0);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: false,
+            points: 0
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 0 points when there are no results', function *() {
@@ -184,7 +238,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture);
 
-        expect(points).to.be.equal(0);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: false,
+            points: 0
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 0 points when there is no prediction', function *() {
@@ -197,7 +257,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture);
 
-        expect(points).to.be.equal(0);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: false,
+            points: 0
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 0 points when predictions are null', function *() {
@@ -213,7 +279,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture);
 
-        expect(points).to.be.equal(0);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: false,
+            points: 0
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 0 points when home prediction is correct but the other is undefined', function *() {
@@ -228,7 +300,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture);
 
-        expect(points).to.be.equal(0);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: false,
+            points: 0
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 6 points when home prediction is correct but the other is undefined and clean sheet wildcard is selected', function *() {
@@ -247,7 +325,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(6);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: false,
+            points: 6
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 8 points for a correct result and 7 penalties with the penalty points wildcard', function *() {
@@ -269,7 +353,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(8);
+        var expectedPoints = {
+            correctResult: true,
+            correctScore: false,
+            points: 8
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('calculates 1 points for a correct result and no penalties with the penalty points wildcard', function *() {
@@ -289,7 +379,13 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(1);
+        var expectedPoints = {
+            correctResult: true,
+            correctScore: false,
+            points: 1
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 
     it('when fixture scores are undefined should return zero points', function *() {
@@ -309,6 +405,12 @@ describe('predictionPointsCalculator', function() {
 
         var points = pointsCalculator(prediction, fixture, wildcard);
 
-        expect(points).to.be.equal(0);
+        var expectedPoints = {
+            correctResult: false,
+            correctScore: false,
+            points: 0
+        };
+
+        expect(points).to.deep.equal(expectedPoints);
     });
 });

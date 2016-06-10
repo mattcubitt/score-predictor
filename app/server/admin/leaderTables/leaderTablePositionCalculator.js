@@ -1,8 +1,12 @@
 var leaderTableMovementCalculator = require('./leaderTableMovementCalculator');
+var _ = require('lodash');
 
 module.exports = function(userPoints, previousSnapshot) {
-    var userPointsWithPositions = userPoints
-        .sort((a, b) => a.points < b.points ? 1 : -1)
+    var userPointsSorted = _.orderBy(userPoints,
+        ['points', 'correctScores', 'correctResults'],
+        ['desc', 'desc', 'desc']);
+
+    var userPointsWithPositions = userPointsSorted
         .map((p, i) => {
             p.position = i + 1;
             return p;
@@ -12,7 +16,9 @@ module.exports = function(userPoints, previousSnapshot) {
     var positionCount = 1;
     for(var userPoint of userPointsWithPositions) {
         if(previousUserPoint) {
-            if(previousUserPoint.points === userPoint.points) {
+            if(previousUserPoint.points === userPoint.points &&
+               previousUserPoint.correctScores === userPoint.correctScores &&
+               previousUserPoint.correctResults === userPoint.correctResults) {
                 userPoint.position = previousUserPoint.position;
                 positionCount++
             } else {

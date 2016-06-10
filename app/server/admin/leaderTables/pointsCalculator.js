@@ -16,6 +16,8 @@ var pointsCalculator = function(prediction, fixture, wildcard) {
     fixture.awayPenalties = fixture.awayPenalties || 0;
 
     var points = 0;
+    var correctScore = false;
+    var correctResult = false;
 
     if(prediction.homeScore == null || prediction.awayScore == null) {
         points = 0;
@@ -24,12 +26,18 @@ var pointsCalculator = function(prediction, fixture, wildcard) {
     } else if(prediction.homeScore === fixture.homeScore &&
         prediction.awayScore === fixture.awayScore) {
         points = 3;
+        correctScore = true;
     } else if(resultTypeCalculator(prediction) === resultTypeCalculator(fixture)) {
         points = 1;
+        correctResult = true;
     }
 
     if(!wildcard) {
-        return points;
+        return {
+            correctScore: correctScore,
+            correctResult: correctResult,
+            points: points
+        };
     }
 
     switch(wildcard.type) {
@@ -54,10 +62,18 @@ var pointsCalculator = function(prediction, fixture, wildcard) {
     }
 
     if(isNaN(points)) {
-        return 0;
+        return {
+            points: 0,
+            correctScore: false,
+            correctResult: false
+        };
     }
 
-    return points;
+    return {
+        correctScore: correctScore,
+        correctResult: correctResult,
+        points: points
+    };
 };
 
 module.exports = pointsCalculator;

@@ -18,11 +18,21 @@ module.exports = (predictions, users, roundId, previousSnapshots) => {
                 .map(p => p.points)
                 .reduce((p1, p2) => p1 + p2, 0);
 
+            var correctScores = userPredictions
+                .filter(p => p.correctScore === true)
+                .length;
+
+            var correctResults = userPredictions
+                .filter(p => p.correctResult === true)
+                .length;
+
             return {
                 userId: user._id,
                 external: user.external,
                 name: user.name,
-                points: points
+                points: points,
+                correctScores: correctScores,
+                correctResults: correctResults
             }
         });
 

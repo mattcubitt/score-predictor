@@ -130,10 +130,10 @@ describe('leaderTablePositionCalculator', () => {
                 "userId": "573f108324c6fd03005e09e4"
             },
             {
-                "name": "Anthony",
+                "name": "Mason",
                 "points": 0,
                 "position": 7,
-                "userId": "573f109724c6fd03005e0adc"
+                "userId": "573f102924c6fd03005e08e3"
             },
             {
                 "name": "Ady",
@@ -142,10 +142,10 @@ describe('leaderTablePositionCalculator', () => {
                 "userId": "573f103f24c6fd03005e097d"
             },
             {
-                "name": "Mason",
+                "name": "Anthony",
                 "points": 0,
                 "position": 7,
-                "userId": "573f102924c6fd03005e08e3"
+                "userId": "573f109724c6fd03005e0adc"
             },
             {
                 "name": "Jason",
@@ -228,6 +228,172 @@ describe('leaderTablePositionCalculator', () => {
             name: 'ant',
             position: 5,
             points: 1
+        }];
+
+        expect(actualUserPoints).to.deep.equal(exceptedUserPoints)
+    });
+
+    it('calculates correct leader table position with correct score', function *() {
+        var userPoints = [{
+            name: 'matt',
+            points: 50,
+            correctScores: 0
+        }, {
+            name: 'aloke',
+            points: 50,
+            correctScores: 1
+        }];
+
+        var actualUserPoints = leaderTablePositionCalculator(userPoints);
+
+        var exceptedUserPoints = [{
+            name: 'aloke',
+            position: 1,
+            points: 50,
+            correctScores: 1
+        }, {
+            name: 'matt',
+            position: 2,
+            points: 50,
+            correctScores: 0
+        }];
+
+        expect(actualUserPoints).to.deep.equal(exceptedUserPoints)
+    });
+
+    it('calculates correct leader table position with correct score and correct result second', function *() {
+        var userPoints = [{
+            name: 'matt',
+            points: 50,
+            correctScores: 0,
+            correctResults: 1
+        }, {
+            name: 'aloke',
+            points: 50,
+            correctScores: 1
+        }];
+
+        var actualUserPoints = leaderTablePositionCalculator(userPoints);
+
+        var exceptedUserPoints = [{
+            name: 'aloke',
+            position: 1,
+            points: 50,
+            correctScores: 1
+        }, {
+            name: 'matt',
+            position: 2,
+            points: 50,
+            correctScores: 0,
+            correctResults: 1
+        }];
+
+        expect(actualUserPoints).to.deep.equal(exceptedUserPoints)
+    });
+
+    it('calculates correct leader table position with correct score and correct result second multiple times', function *() {
+        var userPoints = [{
+            name: 'a',
+            points: 10,
+            correctScores: 0,
+            correctResults: 1
+        }, {
+            name: 'b',
+            points: 20,
+            correctScores: 3,
+            correctResults: 10
+        }, {
+            name: 'c',
+            points: 20,
+            correctScores: 5,
+            correctResults: 2
+        }, {
+            name: 'd',
+            points: 10,
+            correctScores: 10,
+            correctResults: 2
+        }];
+
+        var actualUserPoints = leaderTablePositionCalculator(userPoints);
+
+        var exceptedUserPoints = [{
+            name: 'c',
+            position: 1,
+            points: 20,
+            correctScores: 5,
+            correctResults: 2
+        }, {
+            name: 'b',
+            position: 2,
+            points: 20,
+            correctScores: 3,
+            correctResults: 10
+        }, {
+            name: 'd',
+            position: 3,
+            points: 10,
+            correctScores: 10,
+            correctResults: 2
+        }, {
+            name: 'a',
+            position: 4,
+            points: 10,
+            correctScores: 0,
+            correctResults: 1
+        }];
+
+        expect(actualUserPoints).to.deep.equal(exceptedUserPoints)
+    });
+
+    it('calculates correct leader table position when correct score and result is equal', function *() {
+        var userPoints = [{
+            name: 'a',
+            points: 10,
+            correctScores: 0,
+            correctResults: 1
+        }, {
+            name: 'b',
+            points: 20,
+            correctScores: 5,
+            correctResults: 2
+        }, {
+            name: 'c',
+            points: 20,
+            correctScores: 5,
+            correctResults: 2
+        }, {
+            name: 'd',
+            points: 10,
+            correctScores: 10,
+            correctResults: 2
+        }];
+
+        var actualUserPoints = leaderTablePositionCalculator(userPoints);
+
+        var exceptedUserPoints = [{
+            name: 'b',
+            position: 1,
+            points: 20,
+            correctScores: 5,
+            correctResults: 2
+        }, {
+            name: 'c',
+            position: 1,
+            points: 20,
+            correctScores: 5,
+            correctResults: 2
+        }, {
+            name: 'd',
+            position: 3,
+            points: 10,
+            correctScores: 10,
+            correctResults: 2
+        }, {
+            name: 'a',
+            position: 4,
+            points: 10,
+            correctScores: 0,
+            correctResults: 1
         }];
 
         expect(actualUserPoints).to.deep.equal(exceptedUserPoints)
