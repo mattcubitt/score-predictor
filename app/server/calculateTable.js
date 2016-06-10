@@ -25,12 +25,21 @@ co(function*() {
         console.log('creating new snapshot');
 
         var predictions = yield predictionRepository.find({});
+        var fixtures = yield fixtureRepository.find({});
+        var wildcards = yield wildcardService.find({});
 
         for(let prediction of predictions) {
-            let fixture = yield fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
-            let wildcard = yield wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
+            let fixture = fixtures.filter(f => f._id.toString() === prediction.fixtureId.toString())[0];
 
-            prediction.points = predictionPointsCalculator(prediction, fixture, wildcard);
+            let wildcard;
+            if(prediction.wildcardId != undefined) {
+                wildcard = wildcards.filter(w => w._id.toString() === prediction.wildcardId.toString())[0];
+            }
+
+            var pointsResult = predictionPointsCalculator(prediction, fixture, wildcard);
+            prediction.points = pointsResult.points;
+            prediction.correctScore = pointsResult.correctScore;
+            prediction.correctResult = pointsResult.correctResult;
 
             yield predictionRepository.replaceOne(prediction._id, prediction);
         }
@@ -39,9 +48,15 @@ co(function*() {
 
         console.log('Populating predictions');
         for(let prediction of predictions) {
-            let fixture = yield fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
+            let fixture = fixtures.filter(f => f._id.toString() === prediction.fixtureId.toString())[0];
+
+            let wildcard;
+            if(prediction.wildcardId != undefined) {
+                wildcard = wildcards.filter(w => w._id.toString() === prediction.wildcardId.toString())[0];
+            }
+
+            prediction.wildcard = wildcard;
             prediction.fixture = fixture;
-            prediction.wildcard = yield wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
         }
         console.log('Finished Populating predictions');
 
