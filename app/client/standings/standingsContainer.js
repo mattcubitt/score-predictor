@@ -35,7 +35,7 @@ class OverallStandingsContainer extends Component {
     }
 
     render() {
-        const { leaderTables, rounds } = this.props;
+        const { leaderTables, rounds, user } = this.props;
 
         const overallLeaderTable = leaderTables.filter(t => t.isOverall)[0];
         const overallRoundName = 'Overall';
@@ -52,9 +52,10 @@ class OverallStandingsContainer extends Component {
                     <div className="col-md-offset-1 col-xs-12 col-md-5">
                         <MainLeaderTable
                             leaderTable={overallLeaderTable}
-                            roundName={overallRoundName} />
+                            roundName={overallRoundName}
+                            user={user}/>
                     </div>
-                    <div className="col-xs-12 col-md-5">
+                    <div className="col-xs-12 col-md-5" style={{marginTop: '20px'}}>
                         {
                             rounds.list.map(round => {
                                 const leaderTable = leaderTables.filter(t => t.roundId === round._id)[0];
@@ -87,7 +88,8 @@ OverallStandingsContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         rounds: state.rounds,
-        leaderTables: state.leaderTables
+        leaderTables: state.leaderTables,
+        user: state.user
     }
 }
 
