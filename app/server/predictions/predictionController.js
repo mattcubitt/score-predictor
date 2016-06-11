@@ -2,6 +2,7 @@
 
 var predictionPointsCalculator = require('../admin/leaderTables/pointsCalculator');
 var ObjectID = require('mongodb').ObjectID;
+var isFixtureEditable = require('../fixtures/isFixtureEditable');
 
 class PredictionController {
     constructor(context, fixtureService, predictionService, wildcardService) {
@@ -43,7 +44,7 @@ class PredictionController {
             prediction.wildcard = yield this.wildcardService.getWildcard(prediction.wildcardId);
             //prediction.points = predictionPointsCalculator(prediction, fixture);
             prediction.fixture = fixture;
-            prediction.editable = this.fixtureService.isEditable(fixture);
+            prediction.editable = isFixtureEditable(fixture);
 
             predictions.push(prediction);
         }
@@ -61,7 +62,7 @@ class PredictionController {
             var fixtures = yield this.fixtureService.find(prediction.fixtureId);
             var fixture = fixtures[0];
 
-            if(fixture !== undefined && this.fixtureService.isEditable(fixtures[0])) {
+            if(fixture !== undefined && isFixtureEditable(fixtures[0])) {
                 editablePredictions.push(prediction);
             }
         }
@@ -75,7 +76,7 @@ class PredictionController {
         var prediction = yield this.predictionService.findOne({ _id: new ObjectID(predictionId), userId: this.currentUser._id });
         var fixture = yield this.fixtureService.findOne({ _id: new ObjectID(prediction.fixtureId) });
 
-        if(fixture !== undefined && this.fixtureService.isEditable(fixture)) {
+        if(fixture !== undefined && isFixtureEditable(fixture)) {
             prediction.wildcardId = undefined;
 
             yield this.predictionService.replaceOne(prediction);
@@ -93,7 +94,7 @@ class PredictionController {
 
         var remindingWildcards = yield this.wildcardService.getReminding(this.currentUser._id, wildcard.type);
 
-        if(fixture !== undefined && this.fixtureService.isEditable(fixture) && remindingWildcards > 0) {
+        if(fixture !== undefined && isFixtureEditable(fixture) && remindingWildcards > 0) {
             prediction.wildcardId = wildcard._id;
 
             yield this.predictionService.replaceOne(prediction);

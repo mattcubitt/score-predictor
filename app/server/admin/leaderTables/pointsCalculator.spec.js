@@ -22,7 +22,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: true,
-            points: 3
+            points: 3,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -48,7 +49,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: true,
-            points: 9
+            points: 9,
+            bonusPoints: 6
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -74,7 +76,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: true,
             correctScore: false,
-            points: 3
+            points: 3,
+            bonusPoints: 2
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -100,7 +103,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: true,
-            points: 9
+            points: 9,
+            bonusPoints: 6
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -126,7 +130,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: false,
-            points: 3
+            points: 3,
+            bonusPoints: 3
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -152,7 +157,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: true,
-            points: 9
+            points: 9,
+            bonusPoints: 6
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -178,7 +184,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: true,
             correctScore: false,
-            points: 1
+            points: 1,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -200,7 +207,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: true,
             correctScore: false,
-            points: 1
+            points: 1,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -222,7 +230,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: false,
-            points: 0
+            points: 0,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -241,7 +250,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: false,
-            points: 0
+            points: 0,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -260,7 +270,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: false,
-            points: 0
+            points: 0,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -282,7 +293,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: false,
-            points: 0
+            points: 0,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -303,7 +315,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: false,
-            points: 0
+            points: 0,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -328,7 +341,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: false,
-            points: 6
+            points: 6,
+            bonusPoints: 6
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -356,7 +370,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: true,
             correctScore: false,
-            points: 8
+            points: 8,
+            bonusPoints: 7
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -382,7 +397,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: true,
             correctScore: false,
-            points: 1
+            points: 1,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);
@@ -408,7 +424,8 @@ describe('predictionPointsCalculator', function() {
         var expectedPoints = {
             correctResult: false,
             correctScore: false,
-            points: 0
+            points: 0,
+            bonusPoints: 0
         };
 
         expect(points).to.deep.equal(expectedPoints);

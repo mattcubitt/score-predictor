@@ -17,18 +17,25 @@ class AdminLeaderTableController {
     }
 
     *createNewSnapshot() {
+        //TODO: remove
         try {
             console.log('creating new snapshot');
 
             var predictions = yield this.predictionRepository.find({});
+            var fixtures = yield this.fixtureRepository.find({});
+            var wildcards = yield this.wildcardService.find({});
 
-            for(var prediction of predictions) {
-                let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
-                let wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
+            for(let prediction of predictions) {
+                let fixture = fixtures.filter(f => f._id.toString() === prediction.fixtureId.toString())[0];
+
+                let wildcard;
+                if(prediction.wildcardId != undefined) {
+                    wildcard = wildcards.filter(w => w._id.toString() === prediction.wildcardId.toString())[0];
+                }
 
                 var pointsResult = predictionPointsCalculator(prediction, fixture, wildcard);
-
                 prediction.points = pointsResult.points;
+                prediction.bonusPoints = pointsResult.bonusPoints;
                 prediction.correctScore = pointsResult.correctScore;
                 prediction.correctResult = pointsResult.correctResult;
 
@@ -38,10 +45,16 @@ class AdminLeaderTableController {
             console.log('Finished calculating points');
 
             console.log('Populating predictions');
-            for(var prediction of predictions) {
-                let fixture = yield this.fixtureRepository.findOne({ _id: new ObjectID(prediction.fixtureId) });
+            for(let prediction of predictions) {
+                let fixture = fixtures.filter(f => f._id.toString() === prediction.fixtureId.toString())[0];
+
+                let wildcard;
+                if(prediction.wildcardId != undefined) {
+                    wildcard = wildcards.filter(w => w._id.toString() === prediction.wildcardId.toString())[0];
+                }
+
+                prediction.wildcard = wildcard;
                 prediction.fixture = fixture;
-                prediction.wildcard = yield this.wildcardService.findOne({ _id : new ObjectID(prediction.wildcardId) });
             }
             console.log('Finished Populating predictions');
 
@@ -61,6 +74,8 @@ class AdminLeaderTableController {
 
             console.log('Inserting snapshots');
             yield this.leaderTableService.insertMany(leaderTableSnapshots);
+
+            console.log('Finished creating new snapshots');
             this.context.status = 200;
 
             console.log('Finished creating new snapshots');

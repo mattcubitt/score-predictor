@@ -19,7 +19,7 @@ export default class Calender extends Component {
         if(prediction.fixture.homeScore === undefined && prediction.fixture.awayScore === undefined) {
             return (
                 <div className="calender-col">
-                    <div className="game-in-progress"><span className="hidden-xs-down">Game in progress </span><img src="./assets/images/ripple.gif" alt="game in process"/></div>
+                    <div className="game-in-progress"><span className="hidden-xs-down">Waiting for result </span><img src="./assets/images/ripple.gif" alt="game in process"/></div>
                 </div>
             )
         }

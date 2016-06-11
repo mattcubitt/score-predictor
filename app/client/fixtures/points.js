@@ -4,8 +4,11 @@ export default class Points extends Component {
     getPredictionPoints(prediction) {
         if(prediction.editable) {
             return '–';
-        } else {
-            return prediction.points == null ? 0 : prediction.points;
+        } else if(prediction.fixture.homeScore === undefined && prediction.fixture.awayScore === undefined) {
+            return '';
+        }
+        else {
+            return prediction.points
         }
     }
 

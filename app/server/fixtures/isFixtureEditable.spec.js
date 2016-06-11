@@ -3,7 +3,7 @@
 require('co-mocha');
 var chai = require('chai');
 var expect = chai.expect;
-var FixtureService = new require('./fixtureService');
+var isFixtureEditable = require('./isFixtureEditable');
 var moment = require('moment');
 
 describe('fixtureService', () => {
@@ -12,8 +12,7 @@ describe('fixtureService', () => {
             startsOn: moment().add(1, 'days').toDate()
         };
 
-        var fixtureService = new FixtureService({ collection: () => {}});
-        var isEditable = fixtureService.isEditable(fixture);
+        var isEditable = isFixtureEditable(fixture);
 
         expect(isEditable).to.be.true;
     });
@@ -23,8 +22,7 @@ describe('fixtureService', () => {
             startsOn: moment().add(-1, 'days').toDate()
         };
 
-        var fixtureService = new FixtureService({ collection: () => {}});
-        var isEditable = fixtureService.isEditable(fixture);
+        var isEditable = isFixtureEditable(fixture);
 
         expect(isEditable).to.be.false;
     });
