@@ -15,14 +15,22 @@ export default class ChangeIndicator extends Component {
         if(change > 0) {
             return (
                 <div className="arrow-placeholder">
-                    <div className="leader-table-up-arrow"></div>
+                    <div className="leader-table-up-arrow"
+                         data-toggle="tooltip"
+                         data-placement="bottom"
+                         title={`Up ${change} position(s).`}>
+                    </div>
                 </div>
             )
         }
 
         return (
             <div className="arrow-placeholder">
-                <div className="leader-table-down-arrow"></div>
+                <div className="leader-table-down-arrow"
+                     data-toggle="tooltip"
+                     data-placement="bottom"
+                     title={`Down ${Math.abs(change)} position(s).`}>
+                </div>
             </div>
         )
     }

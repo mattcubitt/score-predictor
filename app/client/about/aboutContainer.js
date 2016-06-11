@@ -118,7 +118,7 @@ class AboutContainer extends Component {
                                 <img className="card-img-top" src="/assets/images/tech/babel.jpg" alt="Babel"/>
                                 <div className="card-block">
                                     <h4 className="card-title">Babel</h4>
-                                    <p className="card-text">Javascript compiler supporting future versions ecmascript.</p>
+                                    <p className="card-text">Javascript compiler supporting future versions of Ecmascript.</p>
                                 </div>
                             </a>
                         </div>
