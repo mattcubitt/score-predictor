@@ -30,6 +30,7 @@ export default class WildcardSelector extends Component {
                                 )
                         }
                     </ul>
+                    <div className="text-xs-center text-muted">Wildcard allowance is for entire tournament. So use them wisely!</div>
                 </Modal.Body>
                 <Modal.Footer className="text-xs-center">
                     <Button className="btn btn-primary btn-lg" onClick={() => onSaveWildcardSelector()}>Save</Button>
