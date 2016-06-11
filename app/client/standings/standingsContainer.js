@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import request from 'axios';
 import { connect } from 'react-redux';
-import MainLeaderTable from '../leaderTable/mainLeaderTable';
+import CollapsibleLeaderTable from '../leaderTable/collapsibleLeaderTable';
 import PrizeBanner from './prizeBanner';
 import DummyPrizeLeaderTable from '../leaderTable/dummyPrizeLeaderTable'
 
@@ -50,10 +50,12 @@ class OverallStandingsContainer extends Component {
                 </div>
                 <div className="row">
                     <div className="col-md-offset-1 col-xs-12 col-md-5">
-                        <MainLeaderTable
+                        <CollapsibleLeaderTable
                             leaderTable={overallLeaderTable}
                             roundName={overallRoundName}
-                            user={user}/>
+                            user={user}
+                            collapsible={false}
+                        />
                     </div>
                     <div className="col-xs-12 col-md-5" style={{marginTop: '20px'}}>
                         {
@@ -61,10 +63,9 @@ class OverallStandingsContainer extends Component {
                                 const leaderTable = leaderTables.filter(t => t.roundId === round._id)[0];
 
                                 return(
-                                    <div className="row">
+                                    <div className="row" key={round._id}>
                                         <div className="col-xs-12">
                                             <DummyPrizeLeaderTable
-                                                key={round._id}
                                                 leaderTable={leaderTable}
                                                 roundName={round.name}
                                                 options={roundTableOptions}/>

@@ -27,7 +27,3 @@ export default class ChangeIndicator extends Component {
         )
     }
 }
-
-ChangeIndicator.propTypes = {
-    change: PropTypes.number.isRequired
-};

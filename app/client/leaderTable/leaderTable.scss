@@ -32,7 +32,7 @@
 			height: 0px;
 			border-left: 7px solid transparent;
 			border-right: 7px solid transparent;
-			border-bottom: 7px solid #43CA43;
+			border-bottom: 7px solid rgba(67, 202, 67, 0.46);
 		}
 
 		.leader-table-down-arrow {
@@ -40,7 +40,7 @@
 			height: 0px;
 			border-left: 7px solid transparent;
 			border-right: 7px solid transparent;
-			border-top: 7px solid #f00;
+			border-top: 7px solid rgba(255, 0, 0, 0.52);
 			margin: auto;
 		}
 
@@ -63,17 +63,22 @@
 			}
 
 			&.table-row-footer {
-				height: 2em;
-				line-height: 2em;
+				height: 2.5em;
+				line-height: 2.5em;
 				font-weight: bold;
 				cursor: pointer;
 				color: #237dcc;
 				border-top: 1px solid #eae8e8;
 			}
+
+			.table-row-points {
+				color: #FEA24B;
+				font-weight: 600;
+			}
 		}
 
 		.table-column-small {
-			width: 15%;
+			width: 10%;
 			float: left;
 		}
 
@@ -83,8 +88,9 @@
 		}
 
 		.table-column-large {
-			width: 60%;
+			width: 50%;
 			float: left;
+			white-space: nowrap;
 		}
 	}
 }

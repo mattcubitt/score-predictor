@@ -3,13 +3,10 @@ import request from 'axios';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import RoundSelector from '../roundSelector/roundSelector';
-import RoundLeaderTable from '../leaderTable/roundLeaderTable';
+import CollapsibleLeaderTable from '../leaderTable/collapsibleLeaderTable';
 import WildcardSelector from './wildcardSelector';
 import FixtureGrid from './fixtureGrid';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Transition } from 'react-motion-ui-pack';
-import { spring } from 'react-motion';
-import { Bounce } from 'react-motion-pack';
 
 class FixturesContainer extends Component {
     constructor(props) {
@@ -248,11 +245,13 @@ class FixturesContainer extends Component {
                         {
                             currentRoundName === 'Group stage 1'
                                 ?
-                                <RoundLeaderTable leaderTable={currentLeaderTable}
+                                <CollapsibleLeaderTable leaderTable={currentLeaderTable}
                                                   user={user}
                                                   roundName={currentRoundName}
                                                   key={currentRoundName}
-                                                  onToggleTableCollapse={() => this.onToggleTableCollapse(currentLeaderTable._id)} />
+                                                  collapsible={true}
+                                                  onToggleTableCollapse={() => this.onToggleTableCollapse(currentLeaderTable._id)}
+                                />
                                 :
                                 <div></div>
                         }
@@ -267,7 +266,6 @@ class FixturesContainer extends Component {
 FixturesContainer.defaultProps = {
     wildcardSelector: { wildcards: [] }
 };
-
 
 FixturesContainer.propTypes = {
     predictions: PropTypes.array.isRequired,

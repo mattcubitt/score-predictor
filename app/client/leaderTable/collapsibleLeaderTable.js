@@ -2,12 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import CollapseFooter from './collapseFooter';
 import TableRow from './tableRow';
-import _ from 'lodash';
 import LeaderTableHeader from './leaderTableHeader';
 
-export default class RoundLeaderTable extends Component {
+export default class CollapsibleLeaderTable extends Component {
     render() {
-        const { leaderTable, roundName, user } = this.props;
+        const { leaderTable, roundName, user, collapsible } = this.props;
         const updatedOn = leaderTable == null ? 'n/a' : moment(leaderTable.createdOn).format('DD/MM HH:mm.ss');
 
         if(leaderTable === undefined) {
@@ -23,31 +22,28 @@ export default class RoundLeaderTable extends Component {
             )
         }
 
-        const lastPosition = _.maxBy(leaderTable.userPoints, p => p.position);
-
         return (
             <div className="leader-table-wrapper">
                 <h6>{roundName} standings</h6>
                 <div className="text-muted">Updated on: {updatedOn}</div>
                 <ul className="leader-table">
-                    <LeaderTableHeader/>
+                    <LeaderTableHeader key="header"/>
                     {
                         leaderTable.userPoints
-                            .map(t => {
+                            .map(userPoint => {
+                                var collapsed = collapsible ? leaderTable.collapsed : false;
+
                                 return (
-                                    <TableRow user={user}
-                                              userId={t.userId}
-                                              change={t.change}
-                                              position={t.position}
-                                              name={t.name}
-                                              points={t.points}
-                                              external={t.external}
-                                              collapsed={leaderTable.collapsed}
-                                              lastPosition={lastPosition}/>
+                                    <TableRow key={userPoint.userId}
+                                              userPoint={userPoint}
+                                              user={user}
+                                              collapsed={collapsed}/>
                                 )
                             })
                     }
-                    <CollapseFooter {...this.props} />
+                    {
+                        collapsible ? <CollapseFooter key="footer" {...this.props} /> : <div key="footer"></div>
+                    }
                 </ul>
                 <p className="text-muted">* Non-MarketInvoice employee</p>
             </div>
@@ -55,7 +51,8 @@ export default class RoundLeaderTable extends Component {
     }
 }
 
-RoundLeaderTable.propTypes = {
+CollapsibleLeaderTable.propTypes = {
+    user: PropTypes.object.isRequired,
     roundName: PropTypes.string.isRequired,
-    currentUserId: PropTypes.string.isRequired
+    collapsible: PropTypes.bool.isRequired
 };

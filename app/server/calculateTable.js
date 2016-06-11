@@ -6,9 +6,7 @@ var bcrypt = require('bcrypt-nodejs');
 var data = require('./dataImport.data');
 var moment = require('moment');
 var config = require('./config');
-var leaderTablePositionCalculator = require('./admin/leaderTables/leaderTablePositionCalculator');
 var leaderTableSnapshotFactory = require('./admin/leaderTables/leaderTableSnapshotFactory');
-var ObjectID = require('mongodb').ObjectID;
 var rounds = require('./rounds/roundsConfig');
 var predictionPointsCalculator = require('./admin/leaderTables/pointsCalculator');
 
