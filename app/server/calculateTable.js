@@ -69,7 +69,7 @@ co(function*() {
             .map(round => leaderTableSnapshotFactory(predictions, users, round._id, previousSnapshots));
 
         console.log('For overall');
-        var overallSnapshot = leaderTableSnapshotFactory(predictions, users);
+        var overallSnapshot = leaderTableSnapshotFactory(predictions, users, undefined, previousSnapshots);
 
         leaderTableSnapshots.push(overallSnapshot);
 
