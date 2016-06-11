@@ -23,7 +23,7 @@ export default class TableRow extends Component {
                 <div className="table-column-large text-xs-left">{nameFormatted}</div>
                 <div className="table-column-small hidden-xs-down" data-toggle="tooltip" data-placement="bottom" title="Correct scores">{userPoint.correctScores}</div>
                 <div className="table-column-small hidden-xs-down" data-toggle="tooltip" data-placement="bottom" title="Correct results">{userPoint.correctResults}</div>
-                <div className="table-column-small table-row-points" data-toggle="tooltip" data-placement="bottom" title="Points">{userPoint.points}</div>
+                <div className="table-column-small table-row-points pull-xs-right" data-toggle="tooltip" data-placement="bottom" title="Points">{userPoint.points}</div>
             </li>
         )
     }
