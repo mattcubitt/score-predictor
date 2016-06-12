@@ -238,10 +238,10 @@ class FixturesContainer extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-xs-12 col-md-8">
+                    <div className="col-md-12 col-lg-8">
                         <FixtureGrid {...gridProps} key={currentRoundName} />
                     </div>
-                    <div className="col-xs-12 col-md-4">
+                    <div className="col-md-12 col-lg-4">
                         {
                             currentRoundName === 'Group stage 1'
                                 ?

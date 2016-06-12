@@ -21,9 +21,30 @@ export default class TableRow extends Component {
                 <ChangeIndicator change={userPoint.change} />
                 <div className="table-column-small">{userPoint.position}</div>
                 <div className="table-column-large text-xs-left">{nameFormatted}</div>
-                <div className="table-column-small hidden-xs-down" data-toggle="tooltip" data-placement="bottom" title="Correct scores">{userPoint.correctScores}</div>
-                <div className="table-column-small hidden-xs-down" data-toggle="tooltip" data-placement="bottom" title="Correct results">{userPoint.correctResults}</div>
-                <div className="table-column-small table-row-points pull-xs-right" data-toggle="tooltip" data-placement="bottom" title="Points">{userPoint.points}</div>
+                <div className="table-column-small hidden-xs-down"
+                     data-toggle="tooltip"
+                     data-placement="bottom"
+                     title="Correct scores">
+                    {userPoint.correctScores}
+                </div>
+                <div className="table-column-small hidden-xs-down"
+                     data-toggle="tooltip"
+                     data-placement="bottom"
+                     title="Correct results">
+                    {userPoint.correctResults}
+                </div>
+                <div className="table-column-small hidden-xs-down"
+                     data-toggle="tooltip"
+                     data-placement="bottom"
+                     title="Bonus Points">
+                    {userPoint.bonusPoints}
+                </div>
+                <div className="table-column-small table-row-points pull-xs-right"
+                     data-toggle="tooltip"
+                     data-placement="bottom"
+                     title="Total points">
+                    {userPoint.points}
+                </div>
             </li>
         )
     }

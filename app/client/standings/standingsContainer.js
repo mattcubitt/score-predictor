@@ -49,7 +49,7 @@ class OverallStandingsContainer extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-offset-1 col-xs-12 col-md-5">
+                    <div className="col-md-offset-1 col-md-10 col-lg-5">
                         <CollapsibleLeaderTable
                             leaderTable={overallLeaderTable}
                             roundName={overallRoundName}
@@ -57,7 +57,7 @@ class OverallStandingsContainer extends Component {
                             collapsible={false}
                         />
                     </div>
-                    <div className="col-xs-12 col-md-5" style={{marginTop: '20px'}}>
+                    <div className="col-md-offset-1 col-md-10 col-lg-offset-0 col-lg-5" style={{marginTop: '20px'}}>
                         {
                             rounds.list.map(round => {
                                 const leaderTable = leaderTables.filter(t => t.roundId === round._id)[0];
