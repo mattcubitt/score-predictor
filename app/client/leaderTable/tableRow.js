@@ -5,6 +5,13 @@ import nameFormatter from './nameFormatter';
 import isCollapsed from './isCollapsed';
 
 export default class TableRow extends Component {
+    bonusPointsText(userPoint) {
+        return `Wildcard usage. Clean sheet: ${userPoint.cleanSheetsWildcardCount}, ` +
+            `Goal points: ${userPoint.goalsPointsWildcardCount}, ` +
+            `Penalty points: ${userPoint.penaltyPointsWildcardCount}, ` +
+            `Triple points: ${userPoint.triplePointsWildcardCount}.`;
+    }
+
     render() {
         const { userPoint, user, collapsed } = this.props;
         const currentUserId = user._id;
@@ -36,7 +43,7 @@ export default class TableRow extends Component {
                 <div className="table-column-small hidden-xs-down"
                      data-toggle="tooltip"
                      data-placement="bottom"
-                     title="Bonus Points">
+                     title={this.bonusPointsText(userPoint)}>
                     {userPoint.bonusPoints}
                 </div>
                 <div className="table-column-small table-row-points pull-xs-right"
