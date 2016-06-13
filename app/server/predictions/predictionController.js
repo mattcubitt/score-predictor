@@ -1,6 +1,5 @@
 'use strict';
 
-var predictionPointsCalculator = require('../admin/leaderTables/pointsCalculator');
 var ObjectID = require('mongodb').ObjectID;
 var isFixtureEditable = require('../fixtures/isFixtureEditable');
 
@@ -42,7 +41,6 @@ class PredictionController {
             }
 
             prediction.wildcard = yield this.wildcardService.getWildcard(prediction.wildcardId);
-            //prediction.points = predictionPointsCalculator(prediction, fixture);
             prediction.fixture = fixture;
             prediction.editable = isFixtureEditable(fixture);
 
