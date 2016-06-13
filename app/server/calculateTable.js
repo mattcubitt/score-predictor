@@ -12,7 +12,7 @@ var predictionPointsCalculator = require('./admin/leaderTables/pointsCalculator'
 
 co(function*() {
     try {
-        yield mongo.connect(process.env.MONGODB_URI_LIVEx);
+        yield mongo.connect(process.env.MONGODB_URI_TEST);
 
         var predictionRepository = require('./repository').Create('predictions');
         var fixtureRepository = require('./repository').Create('fixtures');

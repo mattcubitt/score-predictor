@@ -62,10 +62,17 @@ module.exports = (predictions, users, roundId, previousSnapshots) => {
         });
 
     previousSnapshots = previousSnapshots || [];
+    var previousSnapshot;
 
-    var previousSnapshot = previousSnapshots
-        .filter(s => s.roundId === roundId)
-        .sort((a, b) => a.createdOn < b.createdOn ? 1 : -1)[0];
+    if(roundId === undefined) {
+        previousSnapshot = previousSnapshots
+            .filter(s => s.isOverall)
+            .sort((a, b) => a.createdOn < b.createdOn ? 1 : -1)[0];
+    } else {
+        previousSnapshot = previousSnapshots
+            .filter(s => s.roundId === roundId)
+            .sort((a, b) => a.createdOn < b.createdOn ? 1 : -1)[0];
+    }
 
     return {
         createdOn: getLocalMoment().toDate(),
