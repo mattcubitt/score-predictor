@@ -242,20 +242,13 @@ class FixturesContainer extends Component {
                         <FixtureGrid {...gridProps} key={currentRoundName} />
                     </div>
                     <div className="col-md-12 col-lg-4">
-                        {
-                            currentRoundName === 'Group stage 1'
-                                ?
-                                <CollapsibleLeaderTable leaderTable={currentLeaderTable}
-                                                  user={user}
-                                                  roundName={currentRoundName}
-                                                  key={currentRoundName}
-                                                  collapsible={true}
-                                                  onToggleTableCollapse={() => this.onToggleTableCollapse(currentLeaderTable._id)}
-                                />
-                                :
-                                <div></div>
-                        }
-
+                        <CollapsibleLeaderTable leaderTable={currentLeaderTable}
+                                                user={user}
+                                                roundName={currentRoundName}
+                                                key={currentRoundName}
+                                                collapsible={true}
+                                                onToggleTableCollapse={() => this.onToggleTableCollapse(currentLeaderTable._id)}
+                        />
                     </div>
                 </div>
             </div>
