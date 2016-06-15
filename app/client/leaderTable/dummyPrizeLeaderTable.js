@@ -47,26 +47,26 @@ export default class DummyPrizeLeaderTable extends Component {
                 <ul className="leader-table">
                     <li className="table-header">
                         <div className="table-column-small">Pos.</div>
-                        <div className="table-column-medium text-xs-left">Prize</div>
-                        <div className="table-column-small text-xs-left">Name</div>
+                        <div className="table-column-large text-xs-left">Prize</div>
+                        <div className="table-column-large text-xs-left">Name</div>
                         <div className="table-column-small">Points</div>
                     </li>
                     <li className="table-row">
                         <div className="table-column-small">{this.getPositionName(1, false)}</div>
-                        <div className="table-column-medium text-xs-left">{this.getPrize(1, false)}</div>
-                        <div className="table-column-small text-xs-left"></div>
+                        <div className="table-column-large text-xs-left">{this.getPrize(1, false)}</div>
+                        <div className="table-column-large text-xs-left"></div>
                         <div className="table-column-small"></div>
                     </li>
                     <li className="table-row">
                         <div className="table-column-small">{this.getPositionName(2, false)}</div>
-                        <div className="table-column-medium text-xs-left">{this.getPrize(2, false)}</div>
-                        <div className="table-column-small text-xs-left"></div>
+                        <div className="table-column-large text-xs-left">{this.getPrize(2, false)}</div>
+                        <div className="table-column-large text-xs-left"></div>
                         <div className="table-column-small"></div>
                     </li>
                     <li className="table-row">
                         <div className="table-column-small">{this.getPositionName(3, false)}</div>
-                        <div className="table-column-medium text-xs-left">{this.getPrize(3, false)}</div>
-                        <div className="table-column-small text-xs-left"></div>
+                        <div className="table-column-large text-xs-left">{this.getPrize(3, false)}</div>
+                        <div className="table-column-large text-xs-left"></div>
                         <div className="table-column-small"></div>
                     </li>
                 </ul>
