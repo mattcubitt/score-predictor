@@ -41,6 +41,7 @@ class OverallStandingsContainer extends Component {
         const overallLeaderTable = leaderTables.filter(t => t.isOverall)[0];
         const overallRoundName = 'Overall';
         const roundTableOptions = { collapsed: true, altLabels: true };
+        const sortedRounds = rounds.list.sort((r1, r2) => r1._id > r2._id ? 1 : -1);
 
         return (
             <div>
@@ -60,7 +61,7 @@ class OverallStandingsContainer extends Component {
                     </div>
                     <div className="col-md-offset-1 col-md-10 col-lg-offset-0 col-lg-5" style={{marginTop: '20px'}}>
                         {
-                            rounds.list.map(round => {
+                            sortedRounds.map(round => {
                                 const leaderTable = leaderTables.filter(t => t.roundId === round._id)[0];
 
                                 if(round._id !== 1) {
