@@ -5,7 +5,7 @@ var mongo = require('./mongo');
 var config = require('./config');
 
 co(function*() {
-    yield mongo.connect(process.env.MONGODB_URI_LIVEx);
+    yield mongo.connect(process.env.MONGODB_URI_LIVE);
 
     var predictionRepository = require('./repository').Create('predictions');
     var fixtureRepository = require('./repository').Create('fixtures');

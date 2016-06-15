@@ -18,7 +18,7 @@ export default class RoundPrizeLeaderTable extends Component {
     getRowStyle(position, isLast) {
         var rowStyle = {};
 
-        if((position !== 1 && position !== 2 && position !== 3 && !isLast))
+        if((position !== 1 && position !== 2 && position !== 3))
             rowStyle = {display: 'none'};
 
         return rowStyle;
@@ -43,12 +43,12 @@ export default class RoundPrizeLeaderTable extends Component {
 
         return (
             <div className="leader-table-wrapper">
-                <h6>{roundName} standings</h6>
+                <h6>{roundName} standings (MarketInvoice only)</h6>
                 <ul className="leader-table">
                     <li className="table-header">
                         <div className="table-column-small">Pos.</div>
-                        <div className="table-column-medium text-xs-left">Prize</div>
-                        <div className="table-column-small text-xs-left">Name</div>
+                        <div className="table-column-large text-xs-left">Prize</div>
+                        <div className="table-column-large text-xs-left">Name</div>
                         <div className="table-column-small">Points</div>
                     </li>
                     {
@@ -59,9 +59,9 @@ export default class RoundPrizeLeaderTable extends Component {
                                 return (
                                     <li className="table-row" style={this.getRowStyle(t.position, isLast)}>
                                         <div className="table-column-small">{this.getPositionName(t.position, isLast)}</div>
-                                        <div className="table-column-medium text-xs-left">{this.getPrize(t.position, isLast)}</div>
-                                        <div className="table-column-small text-xs-left">{t.name}</div>
-                                        <div className="table-column-small">{t.points}</div>
+                                        <div className="table-column-large text-xs-left">{this.getPrize(t.position, isLast)}</div>
+                                        <div className="table-column-large text-xs-left">{t.name}</div>
+                                        <div className="table-column-small table-row-points">{t.points}</div>
                                     </li>
                                 )
                             }) :

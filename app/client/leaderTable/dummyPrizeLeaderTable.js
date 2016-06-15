@@ -18,7 +18,7 @@ export default class DummyPrizeLeaderTable extends Component {
     getRowStyle(position, isLast) {
         var rowStyle = {};
 
-        if((position !== 1 && position !== 2 && position !== 3 && !isLast))
+        if((position !== 1 && position !== 2 && position !== 3))
             rowStyle = {display: 'none'};
 
         return rowStyle;
@@ -66,12 +66,6 @@ export default class DummyPrizeLeaderTable extends Component {
                     <li className="table-row">
                         <div className="table-column-small">{this.getPositionName(3, false)}</div>
                         <div className="table-column-medium text-xs-left">{this.getPrize(3, false)}</div>
-                        <div className="table-column-small text-xs-left"></div>
-                        <div className="table-column-small"></div>
-                    </li>
-                    <li className="table-row">
-                        <div className="table-column-small">{this.getPositionName(4, true)}</div>
-                        <div className="table-column-medium text-xs-left">{this.getPrize(4, true)}</div>
                         <div className="table-column-small text-xs-left"></div>
                         <div className="table-column-small"></div>
                     </li>

@@ -3,7 +3,8 @@ import request from 'axios';
 import { connect } from 'react-redux';
 import CollapsibleLeaderTable from '../leaderTable/collapsibleLeaderTable';
 import PrizeBanner from './prizeBanner';
-import DummyPrizeLeaderTable from '../leaderTable/dummyPrizeLeaderTable'
+import DummyPrizeLeaderTable from '../leaderTable/dummyPrizeLeaderTable';
+import RoundPrizeLeaderTable from '../leaderTable/roundPrizeLeaderTable';
 
 class OverallStandingsContainer extends Component {
     componentDidMount() {
@@ -62,13 +63,25 @@ class OverallStandingsContainer extends Component {
                             rounds.list.map(round => {
                                 const leaderTable = leaderTables.filter(t => t.roundId === round._id)[0];
 
+                                if(round._id !== 1) {
+                                    return(
+                                        <div className="row" key={round._id}>
+                                            <div className="col-xs-12">
+                                                <DummyPrizeLeaderTable
+                                                    leaderTable={leaderTable}
+                                                    roundName={round.name}
+                                                    options={roundTableOptions}/>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+
                                 return(
                                     <div className="row" key={round._id}>
                                         <div className="col-xs-12">
-                                            <DummyPrizeLeaderTable
+                                            <RoundPrizeLeaderTable
                                                 leaderTable={leaderTable}
-                                                roundName={round.name}
-                                                options={roundTableOptions}/>
+                                                roundName={round.name}/>
                                         </div>
                                     </div>
                                 )
