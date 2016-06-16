@@ -5,7 +5,7 @@ var mongo = require('./mongo');
 var config = require('./config');
 
 co(function*() {
-    yield mongo.connect(process.env.MONGODB_URI_TESTx);
+    yield mongo.connect(process.env.MONGO_URI_LIVE);
 
     var predictionRepository = require('./repository').Create('predictions');
     var fixtureRepository = require('./repository').Create('fixtures');
@@ -28,10 +28,18 @@ co(function*() {
         for(let fixturePrediction of sortedFixturePredictions) {
             var user = users.filter(u => u._id.toString() === fixturePrediction.userId.toString())[0];
 
+            if(user === undefined) {
+                continue;
+            }
+
             var wildcard = null;
 
             if(fixturePrediction.wildcardId) {
                 wildcard = wildcards.filter(w => w._id.toString() === fixturePrediction.wildcardId.toString())[0].type;
+            }
+
+            if(wildcard !== 'penalty-points') {
+                continue;
             }
 
             console.log(`User ${user.email} predicted ${fixturePrediction.homeScore} - ${fixturePrediction.awayScore} points = ${fixturePrediction.points} wildcard = ${wildcard}`);

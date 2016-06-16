@@ -12,7 +12,9 @@ var predictionPointsCalculator = require('./admin/leaderTables/pointsCalculator'
 
 co(function*() {
     try {
-        yield mongo.connect(process.env.MONGODB_URI_LIVEx);
+        var roundId = 2;
+
+        yield mongo.connect(process.env.MONGODB_URI_LIVE);
 
         var predictionRepository = require('./repository').Create('predictions');
         var fixtureRepository = require('./repository').Create('fixtures');
@@ -28,6 +30,10 @@ co(function*() {
 
         for(let prediction of predictions) {
             let fixture = fixtures.filter(f => f._id.toString() === prediction.fixtureId.toString())[0];
+
+            if(fixture.roundId !== roundId) {
+                continue;
+            }
 
             let wildcard;
             if(prediction.wildcardId != undefined) {
@@ -49,6 +55,10 @@ co(function*() {
         for(let prediction of predictions) {
             let fixture = fixtures.filter(f => f._id.toString() === prediction.fixtureId.toString())[0];
 
+            if(fixture.roundId !== roundId) {
+                continue;
+            }
+
             let wildcard;
             if(prediction.wildcardId != undefined) {
                 wildcard = wildcards.filter(w => w._id.toString() === prediction.wildcardId.toString())[0];
@@ -64,9 +74,11 @@ co(function*() {
         var users = yield userService.find({});
         var previousSnapshots = yield leaderTableService.find({});
 
-        console.log('For rounds');
-        var leaderTableSnapshots = rounds
-            .map(round => leaderTableSnapshotFactory(predictions, users, round._id, previousSnapshots));
+        console.log('For round ' + roundId);
+        var leaderTableSnapshots = [leaderTableSnapshotFactory(predictions, users, roundId, previousSnapshots)];
+
+        // var leaderTableSnapshots = rounds
+        //     .map(round => leaderTableSnapshotFactory(predictions, users, roundId, previousSnapshots));
 
         console.log('For overall');
         var overallSnapshot = leaderTableSnapshotFactory(predictions, users, undefined, previousSnapshots);

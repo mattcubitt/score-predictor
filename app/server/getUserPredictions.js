@@ -23,7 +23,7 @@ co(function*() {
         var sortedFixtures = fixtures.sort((a, b) => a.startsOn > b.startsOn ? 1 : -1);
 
         for(let fixture of sortedFixtures) {
-            if(fixture.homeScore == undefined && fixture.awayScore == undefined) {
+            if((fixture.homeScore == undefined && fixture.awayScore == undefined) || fixture.roundId === 1) {
                 continue;
             }
 
