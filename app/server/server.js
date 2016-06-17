@@ -1,8 +1,8 @@
 var config = require('./config');
 
-if(config.NODE_ENV === 'production') {
-    require('newrelic');
-}
+// if(config.NODE_ENV === 'production') {
+//     require('newrelic');
+// }
 
 var co = require('co');
 var mongo = require('./mongo');
