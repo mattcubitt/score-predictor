@@ -36,6 +36,10 @@ co(function*() {
                 continue;
             }
 
+            if(userPrediction.updatedOn.getTime() > fixture.startsOn.getTime()) {
+                console.log('xxx')
+            }
+
             var wildcard = null;
 
             if(userPrediction.wildcardId != null) {
