@@ -38,9 +38,9 @@ co(function*() {
                 wildcard = wildcards.filter(w => w._id.toString() === fixturePrediction.wildcardId.toString())[0].type;
             }
 
-            // if(wildcard !== 'penalty-points') {
-            //     continue;
-            // }
+            if(wildcard !== 'penalty-points') {
+                continue;
+            }
 
             console.log(`User ${user.email} predicted ${fixturePrediction.homeScore} - ${fixturePrediction.awayScore} points = ${fixturePrediction.points} wildcard = ${wildcard}`);
         }

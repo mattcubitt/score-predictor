@@ -1,7 +1,4 @@
 module.exports = [{
-    _id: 2,
-    name: 'Group stage 2'
-}, {
     _id: 3,
     name: 'Group stage 3'
 }, {
@@ -13,4 +10,7 @@ module.exports = [{
 }, {
     _id: 1,
     name: 'Group stage 1'
+}, {
+    _id: 2,
+    name: 'Group stage 2'
 }];
