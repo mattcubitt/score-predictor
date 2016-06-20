@@ -3,6 +3,7 @@ var path = require('path');
 
 module.exports = {
     entry: [
+        'babel-polyfill',
         './app/client/app.js'
     ],
     output: {

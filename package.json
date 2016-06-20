@@ -59,6 +59,7 @@
     "webpack": "^1.12.13"
   },
   "devDependencies": {
+    "babel-polyfill": "^6.9.1",
     "co-mocha": "^1.1.2",
     "sinon": "^1.17.3",
     "sinon-as-promised": "^4.0.0",
