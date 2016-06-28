@@ -11,10 +11,10 @@ module.exports = Router({ prefix: '/auth' })
         var controller = new AuthController(this, new UserService(mongo.db), new PredictionService(mongo.db));
         yield controller.login(this.request.body);
     })
-    // .post('/register', function *() {
-    //     var controller = new AuthController(this, new UserService(mongo.db), new PredictionService(mongo.db));
-    //     yield controller.register(this.request.body);
-    // })
+    .post('/register', function *() {
+        var controller = new AuthController(this, new UserService(mongo.db), new PredictionService(mongo.db));
+        yield controller.register(this.request.body);
+    })
     .get('/validate/email/:email', function *() {
         var controller = new AuthController(this, new UserService(mongo.db), new PredictionService(mongo.db));
         yield controller.emailExists(this.params);
