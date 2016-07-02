@@ -4,7 +4,6 @@ import Wildcard from './wildcard';
 import Calender from './calender';
 import Team from './team';
 import Points from './points';
-import PenaltyNote from './penaltyNote';
 
 export default class FixtureRow extends Component {
     render() {
@@ -15,7 +14,6 @@ export default class FixtureRow extends Component {
                 <Wildcard {...this.props}/>
                 <Calender {...this.props}/>
                 <Points {...this.props}/>
-                <PenaltyNote {...this.props}/>
             </li>
         )
     }
