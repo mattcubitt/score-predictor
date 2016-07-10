@@ -67,13 +67,12 @@ class OverallStandingsContainer extends Component {
                                 return (
                                     <div className="row" key={round._id}>
                                         <div className="col-xs-12">
-                                            <DummyPrizeLeaderTable
+                                            <RoundPrizeLeaderTable
                                                 leaderTable={leaderTable}
-                                                roundName={round.name}
-                                                options={roundTableOptions}/>
+                                                roundName={round.name}/>
                                         </div>
                                     </div>
-                                );
+                                )
                             })
                         }
                     </div>
