@@ -64,28 +64,16 @@ class OverallStandingsContainer extends Component {
                             sortedRounds.map(round => {
                                 const leaderTable = leaderTables.filter(t => t.roundId === round._id)[0];
 
-                                if(round._id !== 1 && round._id !== 2 && round._id !== 3 && round._id !== 4) {
-                                    return(
-                                        <div className="row" key={round._id}>
-                                            <div className="col-xs-12">
-                                                <DummyPrizeLeaderTable
-                                                    leaderTable={leaderTable}
-                                                    roundName={round.name}
-                                                    options={roundTableOptions}/>
-                                            </div>
-                                        </div>
-                                    )
-                                }
-
-                                return(
+                                return (
                                     <div className="row" key={round._id}>
                                         <div className="col-xs-12">
-                                            <RoundPrizeLeaderTable
+                                            <DummyPrizeLeaderTable
                                                 leaderTable={leaderTable}
-                                                roundName={round.name}/>
+                                                roundName={round.name}
+                                                options={roundTableOptions}/>
                                         </div>
                                     </div>
-                                )
+                                );
                             })
                         }
                     </div>
